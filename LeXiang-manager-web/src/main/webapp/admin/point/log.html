@@ -1,0 +1,350 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>积分记录 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="../..//admin/js/bootstrap3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../admin/js/jquery-2.2.3.min.js"></script>
+
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+    <script type="text/javascript" src="../../admin/js/echarts.js"></script>
+    <script type="text/javascript" src="../../admin/js/bootstrap3/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+
+
+
+        });
+    </script>
+
+</head>
+<body>
+<form id="myForm">
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index.html">首页</a> &raquo; 积分记录 <span>(共0条记录)</span>
+</div>
+</form>
+<div id="logDiv">
+<form id="listForm">
+    <div class="bar">
+        <div class="buttonGroup">
+            <a href="adjust.html" class="button">
+                积分调整
+            </a>
+            <a href="javascript:;" onclick="refreshPage()" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <a href="javascript:;" onclick="echartsPoint()"  class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>查看报表
+            </a>
+            <a href="javascript:;" onclick="exportContentList()"  class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>导出
+            </a>
+
+
+
+
+
+
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchName" name="searchValue"  maxlength="200" />
+                <button type="button" @click="search(vm.pageNum,vm.pageSize)">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="member.username">会员</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <thead>
+        <tr>
+
+            <th>
+                <a href="javascript:;" class="sort" name="credit">获取积分</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="debit">扣除积分</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="balance">当前积分</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="member">会员</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="memo">备注</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="aa">操作</a>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-for="entity in cashList">
+
+            <td>{{entity.pointlog.credit}}</td>
+            <td>{{entity.pointlog.debit}}</td>
+            <td>{{entity.pointlog.balance}}</td>
+
+            <td>{{entity.member.username}}</td>
+            <td>{{entity.pointlog.createddate}}</td>
+            <td><a href="#" @click="deleteCash(entity.pointlog.id)">删除</a></td>
+
+
+
+
+
+        </tr>
+    </table>
+
+   <ul class="pagination pagination-sm">
+
+        <li><a href="javascript:void(0);" @click="toPage(1)">首页</a></li>
+        <li><a href="javascript:void(0);" @click="toFirst()">上一页</a></li>
+        <template v-for="n in totalPage">
+            <li><a href="javascript:void(0);"  @click="toPage(n)">{{n}}</a></li>
+        </template>
+        <li><a href="javascript:void(0);" @click="toEnd()">下一页</a></li>
+        <li><a href="javascript:void(0);" @click="toPage(vm.totalPage)">尾页</a></li>
+    </ul>
+
+</form>
+</div>
+<!--<div id="show_file1"></div>-->
+<div id="main" style="width:600px;height: 400px;"></div>
+<script type="text/javascript">
+    $(function () {
+        queryList();
+
+
+    })
+  var  vm= new Vue({
+        el: '#logDiv',
+        data: {
+            cashList:"",
+            totalPage: "",
+            pageSize:"",
+            pageNum:"",
+            total: ""
+
+        }
+    })
+    function queryList() {
+        $.ajax({
+            url:"../../pointlog/queryPoint.do",
+            type:"post",
+            async:false,
+            success:function (result) {
+
+                vm.cashList = result.rows;
+                vm.totalPage = result.totalPage;
+                 vm.pageSize = result.pageSize;
+                 vm.pageNum = result.pageNum;
+                 vm.total = result.total;
+
+
+
+
+            }
+        })
+    }
+
+    function search(page,rows) {
+
+        $.ajax({
+            type: "post",
+            url:"../../pointlog/queryPoint.do",
+            data: {  username: $("#searchName").val(), page:page, rows:rows},
+            dataType: "json",
+            success: function (result) {
+
+
+
+                vm.cashList = result.rows;
+
+                vm.totalPage = result.totalPage;
+
+                vm.pageSize = result.pageSize;
+
+                vm.pageNum = result.pageNum;
+
+                vm.total = result.total;
+
+
+            }
+        })
+    }
+
+
+    function toPage(n) {
+
+        search(n,vm.pageSize);
+    }
+    function toFirst() {
+
+        if(vm.pageNum==1){
+            alert("当前已经是首页了")
+        }else{
+            search(vm.pageNum-1,vm.pageSize)
+        }
+    }function toEnd() {
+
+        if(vm.pageNum==vm.totalPage){
+            alert("当前已经是尾页了")
+        }else{
+            search(vm.pageNum+1,vm.pageSize)
+        }
+    }
+
+    function deleteCash(id){
+        $.ajax({
+            url:"../../pointlog/deletePointLog.do",
+            data:{id:id},
+            success:function (data) {
+                alert(data.message);
+                search(vm.pageNum,vm.pageSize)
+            }
+        })
+
+    }
+    function refreshPage() {
+        location.href=location;
+    }
+
+
+
+
+</script>
+<script type="text/javascript">
+    function echartsPoint() {
+        $.ajax({
+            url:"../../pointlog/queryEcharts.do",
+            success:function (data) {
+                var myChart=echarts.init(document.getElementById("main"));
+                var option = {
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data:data.createddate
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: data.balance,
+                        type: 'line',
+                        smooth: true,
+                        areaStyle: {}
+                    }]
+                };
+                myChart.setOption(option)
+            }
+        })
+    }
+
+function exportContentList() {
+    window.location.href="../../pointlog/exportContentList.do"
+}
+/*
+function importCotentList() {
+  /!*  window.location.href="../../pointlog/importCotentList.do"*!/
+    $.ajaxFileUpload({
+      /!*  async: true,*!/
+        url: "../../pointlog/importCotentList.do",
+        type: 'post',
+        dataType: 'JSON',
+        fileElementId: 'importData',
+        success: function () {
+                alert("成功")
+        }
+    })
+}
+*/
+
+
+   /* $("#uploadImg1").uploadify({
+        //插件自带  不可忽略的参数flash插件
+        'swf': '../../admin/js/uploadify/uploadify.swf',
+        //前台请求后台的url 不可忽略的参数 ******
+        'uploader': '../../pointlog/upFile.do',
+        //给div的进度条加背景 不可忽略******
+        'queueID': 'show_file1',
+        //上传文件文件名 跟file标签 name值 保持一致******
+        'fileObjName' : 'upFile',
+        //给上传按钮设置文字
+        'buttonText': '上传',
+        //设置文件是否自动上传
+        'auto': true,
+        //可以同时选择多个文件 默认为true  不可忽略
+        'multi': true,
+        //上传后队列是否消失
+        'removeCompleted': true,
+        //队列消失时间
+        'removeTimeout' : 1,
+        //上传文件的个数，项目中一共可以上传文件的个数
+        'uploadLimit':  1,
+        //上传文件的类型
+        'fileTypeExts': '*.*',
+        //成功回调函数 file：文件对象。data后台输出数据img/
+        'onUploadSuccess':function(file,data,response){
+            //data = eval("("+data+")");
+            //alert(file.name+" 路径："+data.imagePath)
+            //图片回显， 预览
+            //alert(data)
+
+            // 文本框 回填
+            $("#uploadImg1").val(data);
+        }
+
+    });*/
+/*
+    function doUpload() {
+        var formData = new FormData($("#myForm")[0]);
+        $.ajax({
+            url: '../../pointlog/fileupload.do' ,
+            type: 'post',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+               alert("成功")
+                //  $("#im").attr("name",data);
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        });
+    }*/
+
+</script>
+
+</body>
+</html>

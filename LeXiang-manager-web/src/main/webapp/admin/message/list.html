@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>消息列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../admin/js/common.js"></script>
+    <script type="text/javascript" src="../../admin/js/list.js"></script>
+    <script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index.html">首页</a> &raquo; 消息列表 <span>(共0条记录)</span>
+</div>
+<div id="logDiv">
+<form id="listForm"  >
+    <div class="bar">
+        <a href="send.html" class="iconButton">
+            <span class="addIcon">&nbsp;</span>发送消息
+        </a>
+        <div class="buttonGroup">
+            <a href="javascript:;" id="deleteButton" @click="deleteCash()" class="iconButton disabled">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" @click="refreshPage()" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="content" name="searchValue" value="" maxlength="200" />
+                <button type="button">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="title">标题</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <thead>
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="title">标题</a>
+            </th>
+            <th>
+                <span>对方</span>
+            </th>
+            <th>
+                <span>新消息</span>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="entity in cashList">
+            <td><input type="checkbox" :value="entity.message.id"/></td>
+            <td>{{entity.message.title}}</td>
+            <td>{{entity.member.username}}</td>
+            <td>{{entity.message.content}}</td>
+            <td>{{entity.message.createddate}}</td>
+
+            <td><a href="#" @click="deleteCash(entity.message.id)">删除</a></td>
+
+
+
+
+
+        </tr>
+
+
+
+
+        </tbody>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+</form>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        queryList();
+    })
+    var vm;
+    function queryList() {
+        $.ajax({
+            url:"../../message/queryMessage.do",
+            type:"post",
+            success:function (result) {
+
+                vm = new Vue({
+                    el: '#logDiv',
+                    data: {
+                        cashList: result.rows,
+                        totalPage: result.totalPage,
+                        pageSize: result.pageSize,
+                        pageNum: result.pageNum,
+                        total: result.total
+
+                    }
+                })
+            }
+        })
+    }
+
+    function search(page, rows) {
+        $.ajax({
+            type: "post",
+            url:"../../message/queryMessage.do",
+            data: {  title: $("#content").val(), page:page, rows:rows},
+            dataType: "json",
+            success: function (result) {
+                vm.cashList = result.rows;
+                vm.totalPage = result.totalPage;
+                vm.pageSize = result.pageSize;
+                vm.pageNum = result.pageNum;
+                vm.total = result.total;
+
+            },
+            error: function () {
+                alert("系统错误，请联系管理员！");
+            }
+        })
+    }
+
+
+    function toPage(n) {
+
+        search(n,vm.pageSize);
+    }
+    function toFirst() {
+        if(vm.pageNum==1){
+            alert("当前已经是首页了")
+        }else{
+            search(vm.pageNum-1,vm.pageSize)
+        }
+    }function toEnd() {
+
+        if(vm.pageNum==vm.totalPage){
+            alert("当前已经是尾页了")
+        }else{
+            search(vm.pageNum+1,vm.pageSize)
+        }
+    }
+
+    function deleteCash(id){
+        $.ajax({
+            url:"../../review/deleteReview.do",
+            data:{id:id},
+            success:function (data) {
+                alert(data.message);
+                search(vm.pageNum,vm.pageSize)
+            }
+        })
+
+    }
+    function refreshPage() {
+        location.href=location;
+    }
+
+
+
+
+</script>
+</body>
+</html>

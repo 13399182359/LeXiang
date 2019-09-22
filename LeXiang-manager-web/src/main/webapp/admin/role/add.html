@@ -1,0 +1,327 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>添加角色 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <style type="text/css">
+        .permissions label {
+            min-width: 120px;
+            _width: 120px;
+            display: block;
+            float: left;
+            padding-right: 4px;
+            _white-space: nowrap;
+        }
+    </style>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $selectAll = $("#inputForm .selectAll");
+
+
+            $selectAll.click(function() {
+                var $this = $(this);
+                var $thisCheckbox = $this.closest("tr").find("input:checkbox");
+                if ($thisCheckbox.filter(":checked").size() > 0) {
+                    $thisCheckbox.prop("checked", false);
+                } else {
+                    $thisCheckbox.prop("checked", true);
+                }
+                return false;
+            });
+
+            // 表单验证
+            $inputForm.validate({
+                rules: {
+                    name: "required",
+                    permissions: "required"
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    添加角色
+</div>
+<form id="inputForm" action="save" method="post">
+    <table class="input">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>名称:
+            </th>
+            <td>
+                <input type="text" name="name" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                描述:
+            </th>
+            <td>
+                <input type="text" name="description" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">店铺管理</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:business" />商家管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:store" />店铺管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:storeCategory" />店铺分类
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:storeRank" />店铺等级
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:businessAttribute" />商家注册管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:cash" />提现管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:categoryApplication" />经营分类申请
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:businessDeposit" />商家预存款
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">商品管理</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:product" />商品管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:stock" />库存管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:productCategory" />商品分类管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:productTag" />商品标签管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:parameter" />商品参数管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:attribute" />商品属性管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:specification" />规格管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:brand" />品牌管理
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">订单管理</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:order" />订单管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:print" />打印管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:orderPayment" />订单支付
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:orderRefunds" />订单退款
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:orderShipping" />订单发货
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:orderReturns" />订单退货
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:deliveryCenter" />发货点管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:deliveryTemplate" />快递单模板管理
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">会员管理</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:member" />会员管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:memberRank" />会员等级管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:memberAttribute" />会员注册项管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:point" />积分管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:memberDeposit" />会员预存款
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:review" />评论管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:consultation" />咨询管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:messageConfig" />消息配置
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">内容管理</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:navigation" />导航管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:article" />文章管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:articleCategory" />文章分类管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:articleTag" />文章标签管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:friendLink" />友情链接管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:adPosition" />广告位管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:ad" />广告管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:template" />模板管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:cache" />缓存管理
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">营销管理</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:promotion" />促销管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:coupon" />优惠券管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:seo" />SEO设置
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr class="permissions">
+            <th>
+                <a href="javascript:;" class="selectAll" title="全选此组权限">系统设置</a>
+            </th>
+            <td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="permissions" value="admin:setting" />系统设置
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:area" />地区管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:paymentMethod" />支付方式管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:shippingMethod" />配送方式管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:deliveryCorp" />物流公司管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:paymentPlugin" />支付插件
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:storagePlugin" />存储插件
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:loginPlugin" />登录插件
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:promotionPlugin" />促销插件
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:admin" />管理员管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:role" />角色管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:message" />消息管理
+						</label>
+						<label>
+							<input type="checkbox" name="permissions" value="admin:auditLog" />审计日志
+						</label>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,409 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>导航列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 导航列表
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <a href="add" class="iconButton">
+            <span class="addIcon">&nbsp;</span>添加
+        </a>
+        <div class="buttonGroup">
+            <a href="javascript:;" id="deleteButton" class="iconButton disabled">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <span>名称</span>
+            </th>
+            <th>
+                <span>位置</span>
+            </th>
+            <th>
+                <span>是否新窗口打开</span>
+            </th>
+            <th>
+                <span>排序</span>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="1" />
+            </td>
+            <td>
+                会员中心
+            </td>
+            <td>
+                顶部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                <a href="edit?id=1">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="2" />
+            </td>
+            <td>
+                商家中心
+            </td>
+            <td>
+                顶部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                2
+            </td>
+            <td>
+                <a href="edit?id=2">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="3" />
+            </td>
+            <td>
+                帮助中心
+            </td>
+            <td>
+                顶部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                3
+            </td>
+            <td>
+                <a href="edit?id=3">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="4" />
+            </td>
+            <td>
+                首页
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                4
+            </td>
+            <td>
+                <a href="edit?id=4">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="5" />
+            </td>
+            <td>
+                手机数码
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                5
+            </td>
+            <td>
+                <a href="edit?id=5">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="6" />
+            </td>
+            <td>
+                电脑办公
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                6
+            </td>
+            <td>
+                <a href="edit?id=6">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="7" />
+            </td>
+            <td>
+                家用电器
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                7
+            </td>
+            <td>
+                <a href="edit?id=7">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="8" />
+            </td>
+            <td>
+                服装鞋靴
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                8
+            </td>
+            <td>
+                <a href="edit?id=8">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="9" />
+            </td>
+            <td>
+                化妆护理
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                9
+            </td>
+            <td>
+                <a href="edit?id=9">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="10" />
+            </td>
+            <td>
+                积分商城
+            </td>
+            <td>
+                中间
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                10
+            </td>
+            <td>
+                <a href="edit?id=10">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="11" />
+            </td>
+            <td>
+                关于我们
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                11
+            </td>
+            <td>
+                <a href="edit?id=11">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="12" />
+            </td>
+            <td>
+                联系我们
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                12
+            </td>
+            <td>
+                <a href="edit?id=12">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="13" />
+            </td>
+            <td>
+                诚聘英才
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                13
+            </td>
+            <td>
+                <a href="edit?id=13">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="14" />
+            </td>
+            <td>
+                隐私政策
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                14
+            </td>
+            <td>
+                <a href="edit?id=14">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="15" />
+            </td>
+            <td>
+                法律声明
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                15
+            </td>
+            <td>
+                <a href="edit?id=15">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="16" />
+            </td>
+            <td>
+                客户服务
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                16
+            </td>
+            <td>
+                <a href="edit?id=16">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="17" />
+            </td>
+            <td>
+                友情链接
+            </td>
+            <td>
+                底部
+            </td>
+            <td>
+                否
+            </td>
+            <td>
+                17
+            </td>
+            <td>
+                <a href="edit?id=17">[编辑]</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

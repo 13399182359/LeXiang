@@ -1,0 +1,259 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>商品列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script src="../../resources/admin/js/vue.min.js"></script>
+    <style type="text/css">
+        .moreTable th {
+            width: 80px;
+            line-height: 25px;
+            padding: 5px 10px 5px 0px;
+            text-align: right;
+            font-weight: normal;
+            color: #333333;
+            background-color: #f8fbff;
+        }
+
+        .moreTable td {
+            line-height: 25px;
+            padding: 5px;
+            color: #666666;
+        }
+
+        .promotion {
+            color: #cccccc;
+        }
+
+        .stockAlert {
+            color: orange;
+        }
+
+        .outOfStock {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript">
+    $(function () {
+            findProduct();
+        })
+        function findProduct() {
+            $.ajax({
+                type:"post",
+                url:"../../product/findProductAll.do",
+                data:"",
+                dataType:"json",
+                success:function (data) {
+                    vm = new Vue({
+                        el: '#listTable',
+                        data:{
+                            Product:data
+                        }
+                    })
+                },
+                error:function () {
+                    alert("系统错误！请联系管理员！！");
+                }
+            })
+        }
+
+    // 删除
+    delCategory = function () {
+        alert(1);
+        var arr = $("[name = 'ids']:checked")
+        if (arr.length > 0) {
+            var ids = "";
+            for (var i = 0; i &lt; arr.length ; i++) {
+                ids += ids== ""?arr[i].value:","+arr[i].value;
+            }
+            $.post("../../product/delIds.do",{ids:ids},function (data) {
+                alert(data.message)
+                location.href=location;
+            })
+        }else {
+            bootbox.alert({
+                title:'提示',
+                message:'请选择要删除的参数！！'
+            })
+        }
+    }
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 商品列表 <span>(共47条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <input type="hidden" id="type" name="type" value="" />
+    <input type="hidden" id="productCategoryId" name="productCategoryId" value="" />
+    <input type="hidden" id="brandId" name="brandId" value="" />
+    <input type="hidden" id="productTagId" name="productTagId" value="" />
+    <input type="hidden" id="isActive" name="isActive" value="" />
+    <input type="hidden" id="isMarketable" name="isMarketable" value="" />
+    <input type="hidden" id="isList" name="isList" value="" />
+    <input type="hidden" id="isTop" name="isTop" value="" />
+    <input type="hidden" id="isOutOfStock" name="isOutOfStock" value="" />
+    <input type="hidden" id="isStockAlert" name="isStockAlert" value="" />
+    <div class="bar">
+        <div class="buttonGroup">
+            <a href="javascript:;" id="deleteButton" onclick="delCategory()" class="iconButton ">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <a href="javascript:;" id="shelvesButton" class="iconButton">
+                <span>&nbsp;</span>上架
+            </a>
+            <a href="javascript:;" id="shelfButton" class="iconButton">
+                <span>&nbsp;</span>下架
+            </a>
+            <div id="filterMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    商品筛选<span class="arrow">&nbsp;</span>
+                </a>
+                <ul class="check">
+                    <li name="isActive" val="true">有效</li>
+                    <li name="isActive" val="false">无效</li>
+                    <li class="divider">&nbsp;</li>
+                    <li name="isMarketable" val="true">已上架</li>
+                    <li name="isMarketable" val="false">未上架</li>
+                    <li class="divider">&nbsp;</li>
+                    <li name="isList" val="true">已列出</li>
+                    <li name="isList" val="false">未列出</li>
+                    <li class="divider">&nbsp;</li>
+                    <li name="isTop" val="true">已置顶</li>
+                    <li name="isTop" val="false">未置顶</li>
+                    <li class="divider">&nbsp;</li>
+                    <li name="isOutOfStock" val="false">有货</li>
+                    <li name="isOutOfStock" val="true">缺货</li>
+                    <li class="divider">&nbsp;</li>
+                    <li name="isStockAlert" val="false">库存正常</li>
+                    <li name="isStockAlert" val="true">库存警告</li>
+                </ul>
+            </div>
+            <a href="javascript:;" id="moreButton" class="button">更多选项</a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" value="" maxlength="200" />
+                <button type="submit">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="sn">编号</li>
+                <li val="name">名称</li>
+                <li val="store.name">店铺</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="sn">编号</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="name">名称</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="productCategory">商品分类</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="price">销售价</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="isMarketable">是否上架</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="isActive">是否有效</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="store.name">店铺</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr  v-for="entity in Product">
+            <td>
+                <input type="checkbox" name="ids"  :value="entity.id"/>
+            </td>
+            <td>
+                {{entity.sn}}
+            </td>
+            <td>
+                {{entity.name}}
+            </td>
+            <td>
+                {{entity.productcategoryId}}
+            </td>
+            <td>
+                {{entity.price}}
+            </td>
+            <td>
+                {{entity.ismarketable==true? "已上架":"未上架"}}
+            </td>
+            <td>
+                {{entity.isactive==true? "有效":"未生效"}}
+            </td>
+            <td>
+                {{entity.storeId}}
+            </td>
+            <td>
+                {{entity.createddate}}
+            </td>
+            <td>
+                <a href="../../product/detail/40" target="_blank">[查看]</a>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+    <div class="pagination">
+        <span class="firstPage">&nbsp;</span>
+        <span class="previousPage">&nbsp;</span>
+        <span class="currentPage">1</span>
+        <a href="javascript: $.pageSkip(2);">2</a>
+        <a href="javascript: $.pageSkip(3);">3</a>
+        <a href="javascript: $.pageSkip(2);" class="nextPage">&nbsp;</a>
+        <a href="javascript: $.pageSkip(3);" class="lastPage">&nbsp;</a>
+        <span class="pageSkip">
+			共3页
+			<input id="pageNumber" name="pageNumber" value="1" maxlength="9" onpaste="return false;" />
+			<button type="submit">&nbsp;</button>
+		</span>
+    </div>
+</form>
+<script type="text/javascript">
+
+</script>
+</body>
+
+</html>

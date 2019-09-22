@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="SHOP++ Team">
+    <meta name="copyright" content="SHOP++">
+    <title>库存记录 - Powered By SHOP++</title>
+    <link href="../../favicon.ico" rel="icon">
+    <link href="../../resources/business/css/bootstrap.css" rel="stylesheet">
+    <link href="../../resources/business/css/font-awesome.css" rel="stylesheet">
+    <link href="../../resources/business/css/animate.css" rel="stylesheet">
+    <link href="../../resources/business/css/adminLTE.css" rel="stylesheet">
+    <link href="../../resources/business/css/common.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../../resources/business/js/html5shiv.js"></script>
+    <script src="../../resources/business/js/respond.js"></script>
+    <![endif]-->
+    <script src="../../resources/business/js/jquery.js"></script>
+    <script src="../../resources/business/js/bootstrap.js"></script>
+    <script src="../../resources/business/js/jquery.validate.js"></script>
+    <script src="../../resources/business/js/adminLTE.js"></script>
+    <script src="../../resources/business/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a class="logo" href="../../business/index.html">
+		<span class="logo-mini">
+			<img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/78a32dfa-53d1-4bda-a5bb-422122d2f2eb.jpg" alt="中彩旗舰店">
+		</span>
+            <span class="logo-lg">中彩旗舰店</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="offcanvas"></a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/78a32dfa-53d1-4bda-a5bb-422122d2f2eb.jpg" alt="中彩旗舰店">
+                                <span class="hidden-xs">shopxx_zc</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu">
+                            <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                                <span class="fa fa-bell-o"></span>
+                                <div class="label">
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <span class="fa fa-warning text-orange"></span>
+                                    <strong>提醒信息</strong>
+                                </li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingPayment&hasExpired=false">
+                                                <span class="fa fa-credit-card text-aqua"></span>
+                                                0个待付款订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingReview&hasExpired=false">
+                                                <span class="fa fa-user-o text-red"></span>
+                                                0个待审核订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingShipment">
+                                                <span class="fa fa-truck text-green"></span>
+                                                0个待发货订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?isPendingRefunds=true">
+                                                <span class="fa fa-rmb text-yellow"></span>
+                                                0个待退款订单
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="../../business/order/list">查看所有订单</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="logout" href="../../business/logout">
+                                <span class="fa fa-sign-out"></span>
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <form id="includeForm" class="sidebar-form"  method="post">
+                <input name="searchProperty" type="hidden" value="name">
+                <div class="active input-group">
+                    <input  name="searchValue" class="form-control" type="text" placeholder="商品搜索">
+                    <span class="input-group-btn">
+					<button class="btn btn-flat" >
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+                </div>
+            </form>
+            <ul class="sidebar-menu">
+                <li class="treeview active">
+                    <a href="javascript:;">
+                        <i class="fa fa-clone"></i>
+                        <span>商品管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/product/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-red" title="缺货">0</span>
+									<span class="label pull-right bg-orange" title="库存警告">0</span>
+							</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="../../business/stock/log.html">
+                                <i class="fa fa-circle-o"></i>
+                                库存记录
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/product_notify/list">
+                                <i class="fa fa-circle-o"></i>
+                                到货通知
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/consultation/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品咨询
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/review/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品评论
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-list-ul"></i>
+                        <span>订单管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/order/list">
+                                <i class="fa fa-circle-o"></i>
+                                订单列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-orange" title="待处理订单">0</span>
+								</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_template/list">
+                                <i class="fa fa-circle-o"></i>
+                                快递单模板
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_center/list">
+                                <i class="fa fa-circle-o"></i>
+                                发货点管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-tags"></i>
+                        <span>店铺管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <i class="fa fa-circle-o"></i>
+                                店铺设置
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_category/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品分类
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_tag/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品标签
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/category_application/list">
+                                <i class="fa fa-circle-o"></i>
+                                经营分类申请
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store/payment">
+                                <i class="fa fa-circle-o"></i>
+                                店铺缴费
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/shipping_method/list">
+                                <i class="fa fa-circle-o"></i>
+                                配送方式
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_ad_image/list">
+                                <i class="fa fa-circle-o"></i>
+                                <span>店铺广告图片</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-heart-o"></i>
+                        <span>促销管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/discount_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                折扣促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/full_reduction_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                满减促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/coupon/list">
+                                <i class="fa fa-circle-o"></i>
+                                优惠券
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>预存款管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/deposit/recharge">
+                                <i class="fa fa-circle-o"></i>
+                                预存款充值
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/cash/list">
+                                <i class="fa fa-circle-o"></i>
+                                预存款提现
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/deposit/log">
+                                <i class="fa fa-circle-o"></i>
+                                预存款记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span>个人资料</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/profile/edit">
+                                <i class="fa fa-circle-o"></i>
+                                个人资料
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/password/edit">
+                                <i class="fa fa-circle-o"></i>
+                                密码修改
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../../business/instant_message/list">
+                        <i class="fa fa-comment-o"></i>
+                        <span>客服设置</span>
+                    </a>
+                </li>
+                <li class="header">统计信息</li>
+                <li>
+                    <a href="../../business/order_statistic/list">
+                        <i class="fa fa-line-chart text-red"></i>
+                        <span>订单统计</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../business/product_ranking/list.html">
+                        <i class="fa fa-bar-chart text-yellow"></i>
+                        <span>商品排名</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>		<div class="content-wrapper">
+    <div class="container-fluid">
+        <section class="content-header">
+            <h1>库存记录</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="../../business/index.html">
+                        <i class="fa fa-home"></i>
+                        首页
+                    </a>
+                </li>
+                <li class="active">库存记录</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="inputForm" method="post">
+                        <input name="pageSize" type="hidden" value="20">
+                        <input name="pageNumber" type="hidden" value="1">
+                        <input name="searchProperty" type="hidden" value="">
+                        <input name="orderProperty" type="hidden" value="">
+                        <input name="orderDirection" type="hidden" value="">
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="btn-group">
+                                            <a class="btn btn-default" href="../../business/stock/stock_in.html">
+                                                <i class="fa fa-plus"></i>
+                                                入库
+                                            </a>
+                                            <a class="btn btn-default" @click="delProduct()">
+                                                <i class="fa fa-minus"></i>
+                                                出库
+                                            </a>
+                                            <button class="btn btn-default" type="button" data-toggle="refresh">
+                                                <i class="fa fa-refresh"></i>
+                                                刷新
+                                            </button>
+                                            <div class="btn-group">
+                                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    每页显示
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li data-page-size="5" onclick="searchProduct(vm.pageNum,5)">
+                                                        <a href="javascript:;" >5</a>
+                                                    </li>
+                                                    <li  data-page-size="10" onclick="searchProduct(vm.pageNum,10)">
+                                                        <a href="javascript:;" >10</a>
+                                                    </li>
+                                                    <li data-page-size="20"  onclick="searchProduct(vm.pageNum,20)">
+                                                        <a href="javascript:;">20</a>
+                                                    </li>
+                                                    <li data-page-size="50" onclick="searchProduct(vm.pageNum,50)">
+                                                        <a href="javascript:;" >50</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="box-tools">
+                                           <div id="search" class="input-group">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown">
+                                                        <span>商品</span>
+                                                        <i class="caret"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li data-search-property="sku.product.name">
+                                                            <a href="javascript:;">商品</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <input id="searchValue" name="name"  class="form-control" type="text"  placeholder="搜 索">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" @click="searchProduct(vm.pageNum,vm.pageSize)">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="sku.id">
+                                                请选择
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="sku.sn">
+                                                编号
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="sku">
+                                                商品
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="type">
+                                                类型
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="inQuantity">
+                                                入库数量
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="outQuantity">
+                                                出库数量
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="stock">
+                                                当前库存
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="memo">
+                                                备注
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="createdDate">
+                                                创建日期
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for = "p in productList">
+                                        <td>
+                                            <input type="checkbox" name="ids" v-model="ids" :value="p.product.id" />
+                                        </td>
+                                        <td>{{p.product.sn}}</td>
+                                        <td>
+                                            {{p.product.name}}
+                                        </td>
+                                        <td>{{p.stocklog.type}}</td>
+                                        <td>{{p.stocklog.inquantity}}</td>
+                                        <td>{{p.stocklog.outquantity}}</td>
+                                        <td>{{p.stocklog.stock}}</td>
+                                        <td>{{p.stocklog.memo}}
+                                        </td>
+                                        <td>
+                                            {{p.product.createddate}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <ul class="pagination no-margin pull-right">
+                                    <!--<li>
+                                        <a onclick="toPage(1)">首页</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="toPage(2)">上一页</a>
+                                    </li>
+                                    <li  class="active">
+                                        <a >当前第{{resultBean.page}}页</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="toPage(3)" >下一页</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="toPage(4)">尾页</a>
+                                    </li>
+                                    <li>
+                                        <a>共{{resultBean.sumPage}}页</a>
+                                    </li>
+                                    <li>
+                                        <a>共{{resultBean.total}}条</a>
+                                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 5.0
+        </div>
+        <strong>
+            COPYRIGHT © 2008-2017 <a href="http://www.shopxx.net">SHOPXX.NET</a> ALL RIGHTS RESERVED.
+        </strong>
+    </footer>	</div>
+
+<script type="text/javascript">
+
+
+
+    var vm;
+    $.post("../../wgrproduct/findProduct.do",{page:1,rows:50,storeId:1},function (data) {
+        vm = new Vue({
+            el:"#inputForm",
+            data:{
+                productList:data.rows,
+                ids:[],
+                pageNum:data.pageNum,
+                pageSize:data.pageSize
+            }
+        })
+    })
+
+    function searchProduct (page,rows) {
+        $.post("../../wgrproduct/findProduct.do",{page:page,rows:rows,name:$("#searchValue").val(),storeId:1},function (data) {
+            vm.productList=data.rows;
+            vm.pageNum=data.pageNum;
+            vm.pageSize=data.pageSize;
+        })
+    }
+
+
+    delProduct = function () {
+        var ids = vm.ids.join(",");
+        if ( ids!= null && ids!="") {
+            $.post("../../wgrproduct/delProduct.do",{ids:ids},function (data) {
+                alert(data.message)
+                location.href=location;
+            })
+        }else {
+            alert("请选择要删除的数据！！")
+        }
+    }
+
+</script>
+</body>
+</html>

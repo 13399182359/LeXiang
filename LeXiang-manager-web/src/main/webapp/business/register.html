@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="SHOP++ Team">
+    <meta name="copyright" content="SHOP++">
+    <title>商家注册 - Powered By SHOP++</title>
+    <link href="../favicon.ico" rel="icon">
+    <link href="..//business/css/bootstrap.css" rel="stylesheet">
+    <link href="..//business/css/font-awesome.css" rel="stylesheet">
+    <link href="../resources/business/css/bootstrap-select.css" rel="stylesheet">
+    <link href="../resources/business/css/bootstrap-fileinput.css" rel="stylesheet">
+    <link href="../resources/business/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="../resources/business/css/adminLTE.css" rel="stylesheet">
+    <link href="../resources/business/css/common.css" rel="stylesheet">
+    <link href="../resources/business/css/register.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../resources/business/js/html5shiv.js"></script>
+    <script src="../resources/business/js/respond.js"></script>
+    <![endif]-->
+    <script src="../business/js/jquery.js"></script>
+    <script src="../business/js/bootstrap.js"></script>
+    <script src="../business/js/bootstrap-select.js"></script>
+    <script src="../business/js/bootstrap-fileinput.js"></script>
+    <script src="../business/js/moment.js"></script>
+    <script src="../business/js/bootstrap-datetimepicker.js"></script>
+    <script src="../business/js/jquery.validate.js"></script>
+    <script src="../business/js/icheck.js"></script>
+    <script src="../business/js/adminLTE.js"></script>
+    <script src="../business/js/common.js"></script>
+
+</head>
+<body class="register">
+<header>
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">您好，欢迎来到SHOP++商城</div>
+                <div class="col-xs-8 text-right">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="login.html">商家登录</a>|
+                        </li>
+                        <li>
+                            <a href="register.html">商家注册</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-main navbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <a class="logo" href="../">
+                        <img src="../upload/image/logo.png" alt="SHOP++商城">
+                    </a>
+                </div>
+                <div class="col-xs-8">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">会员中心</a>
+                        </li>
+                        <li>
+                            <a href="login.html">商家中心</a>
+                        </li>
+                        <li>
+                            <a href="../article/list/3">帮助中心</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>	<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form id="registerForm" class="form-horizontal" action="../business/register/submit" method="post">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h1 class="blue">商家注册</h1>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="username">用户名:</label>
+                                <div class="col-xs-5">
+                                    <input id="username" onblur="register()" name="username" class="form-control" type="text" maxlength="20">
+                                    <span id="uname"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="password">密 码:</label>
+                                <div class="col-xs-5">
+                                    <input id="password" name="encodedpassword" class="form-control" type="password" maxlength="20" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="rePassword">确认密码:</label>
+                                <div class="col-xs-5">
+                                    <input id="rePassword" name="rePassword" class="form-control" type="password" maxlength="20" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="email">E-mail:</label>
+                                <div class="col-xs-5">
+                                    <input id="email" name="email" class="form-control" type="text" maxlength="200">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="mobile">手机:</label>
+                                <div class="col-xs-5">
+                                    <input id="mobile" name="mobile" class="form-control" type="text" maxlength="200">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="businessAttribute_1">名称:</label>
+                                <div class="col-xs-5">
+                                    <input id="businessAttribute_1" name="businessAttribute_1" class="form-control" type="text" maxlength="200">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="businessAttribute_2">营业执照:</label>
+                                <div class="col-xs-5">
+                                    <input id="businessAttribute_2" name="businessAttribute_2" class="form-control" type="text" maxlength="200">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" >营业执照图片:</label>
+                                <div class="col-xs-5">
+                                    <input name="businessAttribute_3" type="hidden" data-provide="fileinput" data-file-type="image">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="businessAttribute_4">法人姓名:</label>
+                                <div class="col-xs-5">
+                                    <input id="businessAttribute_4" name="businessAttribute_4" class="form-control" type="text" maxlength="200">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label item-required" for="captcha">验证码:</label>
+                                <div class="col-xs-5">
+                                    <div class="input-group">
+                                        <input id="captcha" name="captcha" class="captcha form-control" type="text" maxlength="4" autocomplete="off">
+                                        <div class="input-group-btn"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-group">
+                                <div class="col-xs-5 col-xs-offset-3">
+                                    <button class="btn btn-primary btn-block" type="submit">同意以下协议并注册</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-5 col-xs-offset-3">
+                                    <a href="../article/detail/1_1" target="_blank">《SHOP++商城注册协议》</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="service">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-1 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #5ec4f7">
+                                    <span class="fa fa-heart"></span>
+                                </div>
+                                <span class="pull-left">新手指南</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #fbb040">
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                </div>
+                                <span class="pull-left">特色服务</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #f2d549">
+                                    <span class="fa fa-rmb"></span>
+                                </div>
+                                <span class="pull-left">支付方式</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #72ce52">
+                                    <span class="fa fa-truck"></span>
+                                </div>
+                                <span class="pull-left">配送方式</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <img src="../resources/business/images/qr_code.jpg" alt="官方微信">
+                    <p>官方微信</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="info text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="#">关于我们</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">联系我们</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">诚聘英才</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">隐私政策</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">法律声明</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">客户服务</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="../friend_link">友情链接</a>
+
+                    </li>
+                </ul>
+                <p class="text-center">湘ICP备10000000号</p>
+                <p class="text-center">Copyright © 2005-2017 SHOP++商城 版权所有</p>
+                <ul class="list-inline">
+                    <li>
+                        <a href="http://www.shopxx.net" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/1c675feb-e488-4fd5-a186-b28bb6de445a.gif" alt="SHOP++">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.alipay.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ae13eddc-25ac-427a-875d-d1799d751076.gif" alt="支付宝">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.tenpay.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/adaa9ac5-9994-4aa3-a336-b65613c85d50.gif" alt="财付通">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.95516.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/41c18c8d-f69a-49fe-ace3-f16c2eb07983.gif" alt="中国银联">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.kuaidi100.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ea46ca0a-e8f0-4e2c-938a-5cb19a07cb9a.gif" alt="快递100">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.cnzz.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/e12f226b-07f9-4895-bcc2-78dbe551964b.gif" alt="站长统计">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://down.admin5.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/fd9d6268-e4e2-41f6-856d-4cb8a49eadd1.gif" alt="A5下载">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.ccb.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/6c57f398-0498-4044-80d8-20f6c40d5cef.gif" alt="中国建设银行">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</footer>
+<script type="text/javascript">
+    var s="";
+
+    function register() {
+
+        $.ajax({
+            url:"/memberuser/register.do",
+            type:"post",
+            data:$("#registerForm").serialize(),
+            success:function (data) {
+                s=data.message;
+                if(data.success==true){
+                    alert("注册成功");
+                }else{
+                    if(s=="账号已经被注册"){
+                        $("#uname").html(s)
+                    }else if(s=="该邮箱已经被注册"){
+                        $("#uemail").html(s)
+                    }else if(s=="该手机已经被注册"){
+                        $("#uphone").html(s)
+                    }else if(s=="注册信息不能为空"){
+
+
+                        $("#uname").html(s)
+                    }
+                }
+
+            }
+        })
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

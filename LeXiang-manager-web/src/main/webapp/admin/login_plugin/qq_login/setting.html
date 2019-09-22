@@ -1,0 +1,122 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>QQ登录设置 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/webuploader.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $filePicker = $("#filePicker");
+
+
+            $filePicker.uploader();
+
+            // 表单验证
+            $inputForm.validate({
+                errorClass: "fieldError",
+                ignoreTitle: true,
+                rules: {
+                    loginMethodName: "required",
+                    oauthKey: "required",
+                    oauthSecret: "required",
+                    logo: {
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    order: "digits"
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    QQ登录设置
+</div>
+<form id="inputForm" action="update" method="post">
+    <table class="input">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>登录方式名称:
+            </th>
+            <td>
+                <input type="text" name="loginMethodName" class="text" value="QQ" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>APP ID:
+            </th>
+            <td>
+                <input type="text" name="oauthKey" class="text" value="abc" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>APP KEY:
+            </th>
+            <td>
+                <input type="text" name="oauthSecret" class="text" value="abc" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                LOGO:
+            </th>
+            <td>
+					<span class="fieldSet">
+						<input type="text" name="logo" class="text" value="http://image.demo.shopxx.net/b2b2c/5.0/201601/a368106f-8831-45bd-a893-d8d1391ea0f0.png" maxlength="200" />
+						<a href="javascript:;" id="filePicker" class="button">选择文件</a>
+							<a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/a368106f-8831-45bd-a893-d8d1391ea0f0.png" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                描述:
+            </th>
+            <td>
+                <textarea name="description" class="text"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                排序:
+            </th>
+            <td>
+                <input type="text" name="order" class="text" value="2" maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否已启用:
+            </th>
+            <td>
+                <label>
+                    <input type="checkbox" name="isEnabled" value="true" checked />
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="location.href='../list'" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

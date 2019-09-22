@@ -1,0 +1,134 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>友情链接列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 友情链接列表 <span>(共8条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <a href="add.html" class="iconButton">
+            <span class="addIcon">&nbsp;</span>添加
+        </a>
+        <div class="buttonGroup">
+            <a onclick="delFriend()" class="iconButton">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+        </div>
+        <div  class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text"  id="searchValue" name="name" value="" maxlength="200" />
+                <button  onclick="searchFriend()" type="button">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="name">名称</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="name">名称</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="logo">logo</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="url">链接地址</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="order">排序</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr v-for="f in friendLink">
+            <td>
+                <input type="checkbox" name="ids" v-model="ids" :value="f.id" />
+            </td>
+            <td>
+                {{f.name}}
+            </td>
+            <td>
+                <a :href="f.logo"  target="_blank">查看</a>
+            </td>
+            <td>
+                {{f.url}}
+            </td>
+            <td>
+                {{f.orders}}
+            </td>
+            <td>
+                {{f.createddate}}
+            </td>
+            <td>
+                <a @click="edit(f.id)">[编辑]</a>
+            </td>
+        </tr>
+
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+</form>
+<script type="text/javascript">
+    var vm;
+    $.post("../../friendLink/findFriendLink.do",{page:1,rows:20},function (data) {
+        vm=new Vue({
+            el:"#listTable",
+            data:{
+                friendLink:data.rows,
+                ids:[]
+            }
+        })
+    })
+
+    searchFriend = function (page,rows) {
+        $.post("../../friendLink/findFriendLink.do",{page:1,rows:20,name:$("#searchValue").val()},function (data) {
+            vm.friendLink=data.rows;
+        })
+    }
+
+   delFriend = function () {
+        var ids = vm.ids.join(",");
+        if(ids!=null && ids!=""){
+            $.post("../../friendLink/delFriendLink.do",{ids:vm.ids.join(",")},function (data) {
+                location.href=location;
+                alert(data.message)
+            })
+        }else {
+            alert("请选择要删除的数据！！")
+        }
+    }
+
+
+    edit = function (id) {
+        location.href = "edit.html?id="+id;
+    }
+</script>
+</body>
+</html>

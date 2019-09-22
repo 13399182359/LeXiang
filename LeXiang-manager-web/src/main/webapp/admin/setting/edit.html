@@ -1,0 +1,1092 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>系统设置 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.tools.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/webuploader.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script src="../../resources/admin/js/vue.min.js"></script>
+    <script type="text/javascript">
+
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $filePicker = $("a.filePicker");
+            var $smtpHost = $("#smtpHost");
+            var $smtpPort = $("#smtpPort");
+            var $smtpUsername = $("#smtpUsername");
+            var $smtpPassword = $("#smtpPassword");
+            var $smtpSSLEnabled = $("#smtpSSLEnabled");
+            var $smtpFromMail = $("#smtpFromMail");
+            var $testSmtp = $("#testSmtp");
+            var $toMail = $("#toMail");
+            var $sendMail = $("#sendMail");
+            var $testSmtpStatus = $("#testSmtpStatus");
+            var $smsBalance = $("#smsBalance");
+
+
+            //$filePicker.uploader();
+
+            // 邮件测试
+            $testSmtp.click(function() {
+                $testSmtp.closest("tr").hide();
+                $toMail.closest("tr").show();
+            });
+
+            // 发送邮件
+            $sendMail.click(function() {
+                $toMail.removeClass("ignore");
+                var validator = $inputForm.validate();
+                var isValid = validator.element($smtpFromMail) & validator.element($smtpHost) & validator.element($smtpPort) & validator.element($smtpUsername) & validator.element($toMail);
+                $toMail.addClass("ignore");
+                $.ajax({
+                    url: "test_smtp",
+                    type: "POST",
+                    data: {smtpHost: $smtpHost.val(), smtpPort: $smtpPort.val(), smtpUsername: $smtpUsername.val(), smtpPassword: $smtpPassword.val(), smtpSSLEnabled: $smtpSSLEnabled.prop("checked"), smtpFromMail: $smtpFromMail.val(), toMail: $toMail.val()},
+                    dataType: "json",
+                    cache: false,
+                    beforeSend: function() {
+                        if (!isValid) {
+                            return false;
+                        }
+                        $testSmtpStatus.html('<span class="loadingIcon">&nbsp;<\/span>正在发送测试邮件，请稍后...');
+                        $sendMail.prop("disabled", true);
+                    },
+                    success: function(message) {
+                        $testSmtpStatus.empty();
+                        $sendMail.prop("disabled", false);
+                        $.message(message);
+                    }
+                });
+            });
+
+            // 短信余额查询
+            $smsBalance.click(function() {
+                var $this = $(this);
+                $.ajax({
+                    url: "sms_balance",
+                    type: "GET",
+                    dataType: "json",
+                    cache: false,
+                    beforeSend: function() {
+                        $this.prop("disabled", true).after('<span class="loadingIcon">&nbsp;<\/span>');
+                    },
+                    success: function(message) {
+                        $this.prop("disabled", false).nextAll("span").remove();
+                        if (message.type == "success") {
+                            $.dialog({
+                                type: "warn",
+                                content: message.content,
+                                modal: true,
+                                ok: null,
+                                cancel: null
+                            });
+                        } else {
+                            $.message(message);
+                        }
+                    }
+                });
+                return false;
+            });
+
+            $.validator.addMethod("compareLength",
+                function(value, element, param) {
+                    return this.optional(element) || $.trim(value) == "" || $.trim($(param).val()) == "" || parseFloat(value) >= parseFloat($(param).val());
+                },
+                "必须大于等于最小长度"
+            );
+
+            $.validator.addMethod("requiredTo",
+                function(value, element, param) {
+                    var parameterValue = $(param).val();
+                    if ($.trim(parameterValue) == "" || ($.trim(parameterValue) != "" && $.trim(value) != "")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                "必填"
+            );
+
+            $.validator.addMethod("comparePointScale",
+                function(value, element, param) {
+                    var parameterValue = $(param).val();
+                    if ($.trim(parameterValue) == "" || $.trim(value) == "") {
+                        return true;
+                    }
+                    try {
+                        return parseFloat(parameterValue) <= parseFloat(value);
+                    } catch(e) {
+                        return false;
+                    }
+                },
+                "必须大于等于默认积分换算比例"
+            );
+
+            // 表单验证
+            $inputForm.validate({
+                rules: {
+                    siteName: "required",
+                    siteUrl: {
+                        required: true,
+                        pattern: /^(http:\/\/|https:\/\/).*$/i
+                    },
+                    logo: {
+                        required: true,
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    email: "email",
+                    largeProductImageWidth: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    largeProductImageHeight: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    mediumProductImageWidth: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    mediumProductImageHeight: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    thumbnailProductImageWidth: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    thumbnailProductImageHeight: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    defaultLargeProductImage: {
+                        required: true,
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    defaultMediumProductImage: {
+                        required: true,
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    defaultThumbnailProductImage: {
+                        required: true,
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    watermarkAlpha: {
+                        required: true,
+                        digits: true,
+                        max: 100
+                    },
+                    watermarkImageFile: {
+                        extension: "jpg,jpeg,bmp,gif,png"
+                    },
+                    defaultMarketPriceScale: {
+                        required: true,
+                        min: 0,
+                        decimal: {
+                            integer: 3,
+                            fraction: 3
+                        }
+                    },
+                    registerPoint: {
+                        required: true,
+                        integer: true,
+                        min: 0
+                    },
+                    maxFailedLoginAttempts: {
+                        required: true,
+                        integer: true,
+                        min: 1
+                    },
+                    passwordLockTime: {
+                        required: true,
+                        digits: true
+                    },
+                    safeKeyExpiryTime: {
+                        required: true,
+                        digits: true
+                    },
+                    uploadMaxSize: {
+                        required: true,
+                        digits: true
+                    },
+                    imageUploadPath: "required",
+                    mediaUploadPath: "required",
+                    fileUploadPath: "required",
+                    smtpFromMail: {
+                        required: true,
+                        email: true
+                    },
+                    smtpHost: "required",
+                    smtpPort: {
+                        required: true,
+                        digits: true
+                    },
+                    smtpUsername: "required",
+                    toMail: {
+                        required: true,
+                        email: true
+                    },
+                    currencySign: "required",
+                    currencyUnit: "required",
+                    stockAlertCount: {
+                        required: true,
+                        digits: true
+                    },
+                    automaticReceiveTime: {
+                        required: true,
+                        digits: true
+                    },
+                    defaultPointScale: {
+                        required: true,
+                        min: 0,
+                        decimal: {
+                            integer: 3,
+                            fraction: 3
+                        }
+                    },
+                    maxPointScale: {
+                        required: true,
+                        min: 0,
+                        decimal: {
+                            integer: 3,
+                            fraction: 3
+                        },
+                        comparePointScale: "#defaultPointScale"
+                    },
+                    taxRate: {
+                        required: true,
+                        min: 0,
+                        decimal: {
+                            integer: 3,
+                            fraction: 3
+                        }
+                    },
+                    cookiePath: "required",
+                    smsKey: {
+                        requiredTo: "#smsSn"
+                    }
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index">首页</a> &raquo; 系统设置
+</div>
+<div id="set_add">
+<form id="smsForm"  method="post" enctype="multipart/form-data">
+    <input id="id" v-model="content.id" name="id" style="display: none"/>
+    <ul id="tab" class="tab">
+        <li>
+            <input type="button" value="基本设置" />
+        </li>
+        <li>
+            <input type="button" value="显示设置" />
+        </li>
+        <li>
+            <input type="button" value="注册与安全" />
+        </li>
+        <li>
+            <input type="button" value="邮件设置" />
+        </li>
+        <li>
+            <input type="button" value="其它设置" />
+        </li>
+    </ul>
+
+    <table class="input tabContent">
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>网站名称:
+            </th>
+            <td>
+                <input type="text" v-model="content.sitename" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>网站网址:
+            </th>
+            <td>
+                <input type="text" v-model="content.siteurl" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>logo:
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="text" v-model="content.logo" class="text"  maxlength="200" />
+						<a href="javascript:;" class="button filepicker">选择文件</a>
+						<a href="../../upload/image/logo.png" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                热门搜索:
+            </th>
+            <td>
+                <input type="text" v-model="content.hotsearch" class="text"  maxlength="200" title="多个关键字以(,)分隔" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                联系地址:
+            </th>
+            <td>
+                <input type="text" v-model="content.address" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                联系电话:
+            </th>
+            <td>
+                <input type="text" v-model="content.phone" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                邮政编码:
+            </th>
+            <td>
+                <input type="text" v-model="content.zipcode" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                e-mail:
+            </th>
+            <td>
+                <input type="text" v-model="content.email" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                备案编号:
+            </th>
+            <td>
+                <input type="text" v-model="content.certtext" class="text"  maxlength="200" />
+            </td>
+        </tr>
+    </table>
+    <table class="input tabContent">
+        <tr>
+            <th>
+                区域设置:
+            </th>
+            <td>
+                <select v-model="content.language">
+                    <option value="1" >中文(简体, 中国)</option>
+                    <option value="2">中文(繁体, 台湾)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>商品图片(大):
+            </th>
+            <td>
+                宽度:
+                <input type="text" v-model="content.largeproductimagewidth" class="text" maxlength="9" style="width: 50px;" title="单位：像素" />
+                高度:
+                <input type="text" v-model="content.largeproductimageheight" class="text"  maxlength="9" style="width: 50px;" title="单位：像素" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>商品图片(中):
+            </th>
+            <td>
+                宽度:
+                <input type="text" v-model="content.mediumproductimagewidth" class="text"  maxlength="9" style="width: 50px;" title="单位：像素" />
+                高度:
+                <input type="text" v-model="content.mediumproductimageheight" class="text"  maxlength="9" style="width: 50px;" title="单位：像素" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>商品图片(缩略):
+            </th>
+            <td>
+                宽度:
+                <input type="text" v-model="content.thumbnailproductimagewidth" class="text"  maxlength="9" style="width: 50px;" title="单位：像素" />
+                高度:
+                <input type="text" v-model="content.thumbnailproductimageheight" class="text" maxlength="9" style="width: 50px;" title="单位：像素" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>默认商品图片(大):
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="text" v-model="content.defaultlargeproductimage" class="text"  maxlength="200" />
+						<a href="javascript:;" class="button filepicker">选择文件</a>
+						<a href="../../upload/image/default_large.jpg" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>默认商品图片(中):
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="text" v-model="content.defaultmediumproductimage" class="text"  maxlength="200" />
+						<a href="javascript:;" class="button filepicker">选择文件</a>
+						<a href="../../upload/image/default_medium.jpg" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>默认商品图片(缩略):
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="text" v-model="content.defaultthumbnailproductimage" class="text"  maxlength="200" />
+						<a href="javascript:;" class="button filepicker">选择文件</a>
+						<a href="../../upload/image/default_thumbnail.jpg" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>默认店铺logo:
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="text" v-model="content.defaultstorelogo" class="text"  maxlength="200" />
+						<a href="javascript:;" class="button filepicker">选择文件</a>
+						<a href="../../upload/image/default_store_logo.jpg" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>水印透明度:
+            </th>
+            <td>
+                <input type="text" v-model="content.watermarkalpha" class="text"  maxlength="9" title="取值范围：0-100，0代表完全透明" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                水印图片:
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="file" v-model="content.watermarkimagefile" />
+						<a href="../../upload/image/watermark.png" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                水印位置:
+            </th>
+            <td>
+                <select v-model="content.watermarkposition">
+                    <option value="0" selected="selected">无</option>
+                    <option value="1">左上</option>
+                    <option value="2">右上</option>
+                    <option value="3">居中</option>
+                    <option value="4">左下</option>
+                    <option value="5">右下</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                价格精确位数:
+            </th>
+            <td>
+                <select v-model="content.pricescale">
+                    <option value="0">无小数位</option>
+                    <option value="1">1位小数</option>
+                    <option value="2" selected="selected">2位小数</option>
+                    <option value="3">3位小数</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                价格精确方式:
+            </th>
+            <td>
+                <select v-model="content.priceroundtype">
+                    <option value="1" selected="selected">四舍五入</option>
+                    <option value="2">向上取整</option>
+                    <option value="3">向下取整</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否前台显示市场价:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.isshowmarketprice" value="true" checked="checked" />
+                <input type="hidden" name="_isshowmarketprice" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>默认市场价换算比例:
+            </th>
+            <td>
+                <input type="text" v-model="content.defaultmarketpricescale" class="text" value="1.2" maxlength="7" title="系统将根据该比例与销售价自动计算市场价" />
+            </td>
+        </tr>
+    </table>
+    <table class="input tabContent">
+        <tr>
+            <th>
+                允许注册类型:
+            </th>
+            <td>
+                <label>
+                    <input type="checkbox" v-model="content.allowedregistertypes" value="1" />会员
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.allowedregistertypes" value="2" />商家
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>注册初始积分:
+            </th>
+            <td>
+                <input type="text" v-model="content.registerpoint" class="text"  maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                验证码类型:
+            </th>
+            <td>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="1"  />会员登录
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="2"/>会员注册
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="3" />商家注册
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="4" />商家登录
+                </label>
+                <label>
+                    <input type="checkbox"v-model="content.captchatypes" value="5"  />后台登录
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="6"  />商品评论
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="7" />商品咨询
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="8"/>忘记密码
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="9" />重置密码
+                </label>
+                <label>
+                    <input type="checkbox" v-model="content.captchatypes" value="10" />其它
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>最大登录失败尝试次数:
+            </th>
+            <td>
+                <input type="text" v-model="content.maxfailedloginattempts" class="text"  maxlength="9" title="留空则不限制登录失败尝试次数" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>密码锁定时间:
+            </th>
+            <td>
+                <input type="text" v-model="content.passwordlocktime" class="text"  maxlength="9" title="当达到最大登录失败尝试次数时账号锁定时长，单位：分钟，0表示永久锁定" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>安全密匙有效时间:
+            </th>
+            <td>
+                <input type="text" v-model="content.safekeyexpirytime" class="text"  maxlength="9" title="找回密码时，安全密匙的有效时间，单位：分钟，0表示永久有效" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>上传文件最大限制:
+            </th>
+            <td>
+                <input type="text" v-model="content.uploadmaxsize" class="text"  maxlength="9" title="单位：mb，0表示无限制" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                允许上传图片扩展名:
+            </th>
+            <td>
+                <input type="text" v-model="content.uploadimageextension" class="text"  maxlength="200" title="多个扩展名以(,)分隔，留空表示不允许上传" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                允许上传媒体扩展名:
+            </th>
+            <td>
+                <input type="text" v-model="content.uploadmediaextension" class="text" maxlength="200" title="多个扩展名以(,)分隔，留空表示不允许上传" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                允许上传文件扩展名:
+            </th>
+            <td>
+                <input type="text" v-model="content.uploadfileextension" class="text"  maxlength="200" title="多个扩展名以(,)分隔，留空表示不允许上传" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>图片上传路径:
+            </th>
+            <td>
+                <input type="text" v-model="content.imageuploadpath" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>媒体上传路径:
+            </th>
+            <td>
+                <input type="text" v-model="content.mediauploadpath" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>文件上传路径:
+            </th>
+            <td>
+                <input type="text" v-model="content.fileuploadpath" class="text" maxlength="200" />
+            </td>
+        </tr>
+    </table>
+    <table class="input tabContent">
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>smtp服务器地址:
+            </th>
+            <td>
+                <input type="text" id="smtphost" v-model="content.smtphost" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>smtp服务器端口:
+            </th>
+            <td>
+                <input type="text" id="smtpport" v-model="content.smtpport" class="text"  maxlength="9" title="默认端口：25" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>smtp用户名:
+            </th>
+            <td>
+                <input type="text" id="smtpusername" v-model="content.smtpusername" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                smtp密码:
+            </th>
+            <td>
+                <input type="password" id="smtppassword" v-model="content.smtppassword" class="text" maxlength="200" autocomplete="off" title="留空则不进行密码修改" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                smtp是否启用ssl:
+            </th>
+            <td>
+                <input type="checkbox" id="smtpsslenabled" v-model="content.smtpsslenabled"  />
+                <input type="hidden" name="_smtpsslenabled" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>发件人邮箱:
+            </th>
+            <td>
+                <input type="text" id="smtpfrommail" v-model="content.smtpfrommail" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <a href="javascript:;" id="testsmtp">[邮件测试]</a>
+            </td>
+        </tr>
+        <tr class="hidden">
+            <th>
+                收件人邮箱:
+            </th>
+            <td>
+					<span class="fieldset">
+						<input type="text" id="tomail" v-model="content.tomail" class="text ignore" maxlength="200" />
+						<input type="button" id="sendmail" class="button" value="发送邮件" />
+						<span id="testsmtpstatus">&nbsp;</span>
+					</span>
+            </td>
+        </tr>
+    </table>
+    <table class="input tabContent">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>货币符号:
+            </th>
+            <td>
+                <input type="text" v-mmodel="content.currencysign" class="text" value="￥" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>货币单位:
+            </th>
+            <td>
+                <input type="text" v-model="content.currencyunit" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>库存警告数:
+            </th>
+            <td>
+                <input type="text" v-model="content.stockalertcount" class="text"  maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>自动收货时间:
+            </th>
+            <td>
+                <input type="text" v-model="content.automaticreceivetime" class="text"  maxlength="9" title="单位：天" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                库存分配时间点:
+            </th>
+            <td>
+                <select v-model="content.stockallocationtime">
+                    <option value="1" >下订单</option>
+                    <option value="2">订单支付</option>
+                    <option value="3">订单发货</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>默认积分换算比例:
+            </th>
+            <td>
+                <input type="text" id="defaultpointscale" v-model="content.defaultpointscale" class="text" value="1" maxlength="7" title="系统将根据该比例与销售价自动计算赠送积分数" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>最大积分换算比例:
+            </th>
+            <td>
+                <input type="text" v-model="content.maxpointscale" class="text" maxlength="7" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否开启开发模式:
+            </th>
+            <td>
+                <label title="开启该模式将关闭部分系统缓存">
+                    <input type="checkbox" v-model="content.isdevelopmentenabled"   />
+                    <input type="hidden" name="_isdevelopmentenabled" value="false" />
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否开启评论:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.isreviewenabled"   checked="checked" />
+                <input type="hidden" name="_isreviewenabled" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否审核评论:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.isreviewcheck"   checked="checked" />
+                <input type="hidden" name="_isreviewcheck" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否开启咨询:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.isconsultationenabled" checked="checked" />
+                <input type="hidden" name="_isconsultationenabled" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否审核咨询:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.isconsultationcheck"  checked="checked" />
+                <input type="hidden" name="_isconsultationcheck" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否开启发票功能:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.isinvoiceenabled"  checked="checked" />
+                <input type="hidden" name="_isinvoiceenabled" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否开启含税价:
+            </th>
+            <td>
+                <input type="checkbox" v-model="content.istaxpriceenabled"  title="启用后顾客将承担订单发票税金" checked="checked" />
+                <input type="hidden" name="_istaxpriceenabled" value="false" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>税率:
+            </th>
+            <td>
+                <input type="text" v-model="content.taxrate" class="text" maxlength="7" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredfield">*</span>cookie路径:
+            </th>
+            <td>
+                <input type="text" v-model="content.cookiepath" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                cookie作用域:
+            </th>
+            <td>
+                <input type="text" v-model="content.cookiedomain" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                快递100授权key:
+            </th>
+            <td>
+                <input type="text" v-model="content.kuaidi100key" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                短信服务序列号:
+            </th>
+            <td>
+                <input type="text" id="smssn" v-model="content.smssn" class="text"  maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                短信服务密钥:
+            </th>
+            <td>
+                <input type="text" v-model="content.smskey" class="text"  maxlength="200" />
+            </td>
+        </tr>
+    </table>
+    <table class="input">
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="button" type="button" class="button" id="updateButton" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+</body>
+<script type="text/javascript">
+    var setVue = new Vue({
+        el: '#set_add',
+        data: {
+            content: {
+                id:"",
+                sitename:"",
+                siteurl:"",
+                logo: "",
+                file: "",
+                hotsearch: "",
+                address: "",
+                phone: "",
+                zipcode: "",
+                email: "",
+                certtext:"",
+                locale: "",
+                largeproductimagewidth:"",
+                largeproductimageheight:"",
+                mediumproductimagewidth: "",
+                mediumproductimageheight: "",
+                thumbnailproductimagewidth:"",
+                thumbnailproductimageheight: "",
+                defaultlargeproductimage: "",
+                defaultmediumproductimage: "",
+                defaultthumbnailproductimage: "",
+                defaultstorelogo: "",
+                watermarkalpha: "",
+                watermarkimagefile: "",
+                watermarkposition: "",
+                pricescale:"",
+                priceroundtype: "",
+                isshowmarketprice: true,
+                _isshowmarketprice: false,
+                defaultmarketpricescale: 1.2,
+                allowedregistertypes:"",
+                allowedregistertypes: "",
+                registerpoint:"",
+                captchatypes:"",
+                maxfailedloginattempts: "",
+                passwordlocktime:"",
+                safekeyexpirytime: "",
+                uploadmaxsize: "",
+                uploadimageextension: "",
+                uploadmediaextension: "",
+                uploadfileextension: "",
+                imageuploadpath: "",
+                mediauploadpath: "",
+                fileuploadpath: "",
+                smtphost: "",
+                smtpport: "",
+                smtpusername: "",
+                smtppassword:"",
+                smtpsslenabled: false,
+                smtpfrommail:"",
+                tomail:"",
+                currencysign: "￥",
+                currencyunit: "元",
+                stockalertcount: 7,
+                automaticreceivetime: 14,
+                stockallocationtime: "order",
+                defaultpointscale: 1,
+                maxpointscale: 1,
+                _isdevelopmentenabled: false,
+                isreviewenabled: true,
+                _isreviewenabled: false,
+                isreviewcheck: true,
+                _isreviewcheck: false,
+                isconsultationenabled: true,
+                _isconsultationenabled: false,
+                isconsultationcheck: true,
+                _isconsultationcheck: false,
+                isinvoiceenabled: true,
+                _isinvoiceenabled: false,
+                istaxpriceenabled: true,
+                _istaxpriceenabled: false,
+                taxrate: 0.06,
+                cookiepath: "",
+                cookiedomain:"",
+                kuaidi100key:"",
+                smssn:"",
+                smskey:"",
+                csrftoken: ""
+
+
+            }
+        }
+    })
+
+
+
+
+
+    function  querySms() {
+        $.ajax({
+            url:"../../managerSms/findSms.do",
+            type:"post",
+            async:false,
+            success:function (data) {
+
+
+                setVue.content=data
+
+
+            }
+        })
+    }
+
+    querySms();
+
+
+    $("#updateButton").click(function () {
+        $.ajax({
+            url:"../../managerSms/smsUpdate.do",
+            type:"post",
+            data:setVue.content,
+            success:function (data) {
+                alert(data.message)
+            }
+
+        })
+
+    })
+
+</script>
+
+
+</body>
+
+</html>

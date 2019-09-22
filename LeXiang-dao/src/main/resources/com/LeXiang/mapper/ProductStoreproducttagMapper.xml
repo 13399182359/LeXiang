@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.ProductStoreproducttagMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.pojo.ProductStoreproducttagKey" >
+    <id column="products_id" property="productsId" jdbcType="BIGINT" />
+    <id column="storeProductTags_id" property="storeproducttagsId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    products_id, storeProductTags_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.pojo.ProductStoreproducttagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_storeproducttag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.LeXiang.pojo.ProductStoreproducttagKey" >
+    delete from product_storeproducttag
+    where products_id = #{productsId,jdbcType=BIGINT}
+      and storeProductTags_id = #{storeproducttagsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.pojo.ProductStoreproducttagExample" >
+    delete from product_storeproducttag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.pojo.ProductStoreproducttagKey" >
+    insert into product_storeproducttag (products_id, storeProductTags_id)
+    values (#{productsId,jdbcType=BIGINT}, #{storeproducttagsId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.pojo.ProductStoreproducttagKey" >
+    insert into product_storeproducttag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productsId != null" >
+        products_id,
+      </if>
+      <if test="storeproducttagsId != null" >
+        storeProductTags_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productsId != null" >
+        #{productsId,jdbcType=BIGINT},
+      </if>
+      <if test="storeproducttagsId != null" >
+        #{storeproducttagsId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.pojo.ProductStoreproducttagExample" resultType="java.lang.Integer" >
+    select count(*) from product_storeproducttag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_storeproducttag
+    <set >
+      <if test="record.productsId != null" >
+        products_id = #{record.productsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.storeproducttagsId != null" >
+        storeProductTags_id = #{record.storeproducttagsId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_storeproducttag
+    set products_id = #{record.productsId,jdbcType=BIGINT},
+      storeProductTags_id = #{record.storeproducttagsId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

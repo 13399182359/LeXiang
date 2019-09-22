@@ -1,0 +1,152 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>查看商家 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.tools.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 查看商家
+</div>
+<ul id="tab" class="tab">
+    <li>
+        <input type="button" value="基本信息" />
+    </li>
+   <!-- <li>
+        <input type="button" value="商家信息" />
+    </li>-->
+</ul>
+<div id="findOneBusiness">
+<table id="" class="input tabContent">
+    <tr>
+        <th>
+            用户名:
+        </th>
+        <td>
+            {{list[0].username}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            E-mail:
+        </th>
+        <td>
+            {{list[0].email}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            手机:
+        </th>
+        <td>
+            {{list[0].mobile}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            余额:
+        </th>
+        <td>
+            ￥{{list[0].balance}}
+            <a @click="checkOne(list[0].id)">[查看]</a>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            状态:
+        </th>
+        <td>
+            <span class="green">{{list[0].frozenfund==0?'正常':''}}</span>
+            <span class="red">{{list[0].frozenfund==0?'':'异常'}}</span>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            创建日期:
+        </th>
+        <td>
+            {{list[1].createddate}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            最后登录IP:
+        </th>
+        <td>
+            0:0:0:0:0:0:0:1
+        </td>
+    </tr>
+    <tr>
+        <th>
+            最后登录日期:
+        </th>
+        <td>
+            {{list[1].lastmodifieddate}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            名称:
+        </th>
+        <td>
+            {{list[0].name}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            法人姓名:
+        </th>
+        <td>
+            {{list[0].legalperson}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            法人身份证:
+        </th>
+        <td>
+            {{list[0].organizationimage}}
+        </td>
+    </tr>
+</table>
+</div>
+
+<table class="input">
+    <tr>
+        <th>
+            &nbsp;
+        </th>
+        <td>
+            <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+        </td>
+    </tr>
+</table>
+
+</body>
+<script type="application/javascript">
+    var url = decodeURI(window.location.href);
+    var argsIndex = url .split("?id=");
+    var arg = argsIndex[1];
+    var vm;
+    $.post("../../business/findOne.do",{id:arg},function (data) {
+        vm = new Vue({
+            el:'#findOneBusiness',
+            data:{
+                list:data
+            }
+        })
+    })
+    checkOne = function (id) {
+        location.href="../business_deposit/log.html?businessId="+id;
+    }
+</script>
+</html>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.ReviewMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.pojo.Review" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="createdDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="lastModifiedDate" property="lastmodifieddate" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="isShow" property="isshow" jdbcType="BIT" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="forReview_id" property="forreviewId" jdbcType="BIGINT" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createdDate, lastModifiedDate, version, content, ip, isShow, score, forReview_id, 
+    member_id, product_id, store_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.pojo.ReviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from review
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from review
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from review
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.pojo.ReviewExample" >
+    delete from review
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.pojo.Review" >
+    insert into review (id, createdDate, lastModifiedDate, 
+      version, content, ip, 
+      isShow, score, forReview_id, 
+      member_id, product_id, store_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastmodifieddate,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{isshow,jdbcType=BIT}, #{score,jdbcType=INTEGER}, #{forreviewId,jdbcType=BIGINT}, 
+      #{memberId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{storeId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.pojo.Review" >
+    insert into review
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createddate != null" >
+        createdDate,
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="isshow != null" >
+        isShow,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="forreviewId != null" >
+        forReview_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=BIT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="forreviewId != null" >
+        #{forreviewId,jdbcType=BIGINT},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.pojo.ReviewExample" resultType="java.lang.Integer" >
+    select count(*) from review
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update review
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createddate != null" >
+        createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifieddate != null" >
+        lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isshow != null" >
+        isShow = #{record.isshow,jdbcType=BIT},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.forreviewId != null" >
+        forReview_id = #{record.forreviewId,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=BIGINT},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=BIGINT},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update review
+    set id = #{record.id,jdbcType=BIGINT},
+      createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      isShow = #{record.isshow,jdbcType=BIT},
+      score = #{record.score,jdbcType=INTEGER},
+      forReview_id = #{record.forreviewId,jdbcType=BIGINT},
+      member_id = #{record.memberId,jdbcType=BIGINT},
+      product_id = #{record.productId,jdbcType=BIGINT},
+      store_id = #{record.storeId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.pojo.Review" >
+    update review
+    <set >
+      <if test="createddate != null" >
+        createdDate = #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        isShow = #{isshow,jdbcType=BIT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="forreviewId != null" >
+        forReview_id = #{forreviewId,jdbcType=BIGINT},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.pojo.Review" >
+    update review
+    set createdDate = #{createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      isShow = #{isshow,jdbcType=BIT},
+      score = #{score,jdbcType=INTEGER},
+      forReview_id = #{forreviewId,jdbcType=BIGINT},
+      member_id = #{memberId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      store_id = #{storeId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resources/admin/js/echarts.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+
+
+
+</head>
+<body>
+    <div id="listForm">
+        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+        <div id="main" style="width: 600px;height:400px;" ></div>
+    </div>
+    <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+<script type="text/javascript">
+
+
+
+    var vm;
+    $.post("../../member/findMemberRank.do",{page:1,rows:20},function (data) {
+        var a=[]
+        var name="";
+        for (var i = 0; i < data.rows.length; i++) {
+            name+=data.rows[i].name+",";
+        }
+        if (name.length > 0) {
+            name = name.substr(0, name.length - 1);
+        }
+        name2=name.split(',');
+        for (var i = 0; i < data.rows.length; i++) {
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '会员消费额度情况'
+                },
+                legend: {
+                    data:['会员额度','消费金额','消费时间']
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: name2
+                },
+                yAxis: {
+                    type: data.rows[i].amount
+                },
+                series: [
+                    {
+                    data: [820, 932, 901, 934, 1290, 1330, 1320],
+                    type: 'line',
+                    areaStyle: {},
+                    smooth: true, //曲线
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+    })
+</script>
+
+</body>
+</html>

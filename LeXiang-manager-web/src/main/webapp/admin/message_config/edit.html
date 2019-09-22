@@ -1,0 +1,136 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>编辑消息配置 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 编辑消息配置
+</div>
+<form id="inputForm"  method="post">
+    <input type="hidden" name="id"  id="id"  value="14"/>
+    <table class="input">
+        <tr>
+            <th>
+                类型:
+            </th>
+            <td>
+              <span id="productname"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否启用邮件:
+            </th>
+            <td>
+                <label>
+                    <input type="checkbox" name="isMailEnabled" value="true" />
+                    <input type="hidden" name="_isMailEnabled" value="false" />
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否启用短信:
+            </th>
+            <td>
+                <label>
+                    <input type="checkbox" name="isSmsEnabled" value="true" />
+                    <input type="hidden" name="_isSmsEnabled" value="false" />
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="button" class="button" onclick="update()" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        sHref = window.location.href;
+        var name= decodeURI(GetQueryString("name"));
+
+
+        var args = sHref.split("?");
+
+        var  arr= args[1].split("=")
+       arr1=arr[1].split("&")
+
+        $("#id").val(arr1[0]);
+        $("#productname").html(name)
+
+
+
+         query()
+    })
+    function GetQueryString(str){
+        var rs=new RegExp("(^|)"+str+"=([^&]*)(&|$)","gi").exec(sHref),tmp;
+        if(tmp=rs)return tmp[2];
+        return "没有这个参数";
+    }
+
+
+   function query() {
+       $.ajax({
+           url:"../../messagerconfig/queryMessagerConfig.do",
+          data:{id:$("#id").val()},
+           success:function (data) {
+
+              if(data.ismailenabled==true){
+
+                  $("[name='isMailEnabled']").prop("checked",true)
+
+              }else{
+
+                  $("[name='isMailEnabled']").prop("checked",false)
+              }
+              if(data.issmsenabled==true){
+
+                  $("[name='isSmsEnabled']").prop("checked",true)
+              }else{
+                  $("[name='isSmsEnabled']").prop("checked",false)
+              }
+           }
+       })
+   }
+
+    function  update() {
+        $.ajax({
+            url:"../../messagerconfig/updateMessagerConfig.do",
+            data:$("#inputForm").serialize(),
+            success:function (data) {
+                alert(data.message);
+            }
+        })
+    }
+
+
+
+</script>
+
+
+
+</body>
+</html>

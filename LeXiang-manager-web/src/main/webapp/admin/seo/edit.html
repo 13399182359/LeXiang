@@ -1,0 +1,97 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>编辑SEO设置 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.tools.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 编辑SEO设置
+</div>
+<form id="inputForm" action="update" method="post">
+    <table class="input">
+        <tr>
+            <th>
+                类型:
+            </th>
+            <td>
+                <input style="display: none"  v-model="e.seo.id"/>
+                <input style="display: none"  v-model="e.seo.type"/>
+                {{e.tTree.text}}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                页面标题:
+            </th>
+            <td>
+               <input class="search" v-model="e.seo.title"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                页面关键词:
+            </th>
+            <td>
+               <input class="search" v-model=e.seo.keywords>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                页面描述:
+            </th>
+            <td>
+               <input class="search" v-model="e.seo.description"/>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="button" onclick="addOrUpdate()" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+<script type="text/javascript">
+    var url = decodeURI(window.location.href);
+    var argsIndex = url .split("?id=");
+    var arg = argsIndex[1];
+    var vm = new Vue({
+        el:'#inputForm',
+        data:{
+            e:''
+        }
+    })
+    $.post("../../seo/findOne.do",{id:arg},function (data) {
+        vm.e = data;
+    })
+    addOrUpdate = function () {
+        alert(vm.e.seo.description)
+        $.ajax({
+            url:'../../seo/addOrUpdate.do',
+            data:vm.e.seo,
+            dataType:'json',
+            type:'post',
+            success:function (data) {
+                alert(data.message);
+                location.href = "list.html";
+            }
+        })
+    }
+</script>
+</html>

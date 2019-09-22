@@ -1,0 +1,518 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>参数列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 参数列表 <span>(共18条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <a href="add" class="iconButton">
+            <span class="addIcon">&nbsp;</span>添加
+        </a>
+        <div class="buttonGroup">
+            <a href="javascript:;" id="deleteButton" class="iconButton disabled">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" value="" maxlength="200" />
+                <button type="submit">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="group">参数组</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="group">参数组</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="productCategory">绑定分类</a>
+            </th>
+            <th>
+                <span>参数名称</span>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="order">排序</a>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="1" />
+            </td>
+            <td>
+                基本参数
+            </td>
+            <td>
+                手机
+            </td>
+            <td>
+                操作系统
+                CPU频率
+                核心数
+                电池类型
+                电池容量
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                <a href="edit?id=1">[编辑]</a>
+                <a href="add?sampleId=1">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="2" />
+            </td>
+            <td>
+                显示
+            </td>
+            <td>
+                手机
+            </td>
+            <td>
+                屏幕尺寸
+                触摸屏类型
+                分辨率
+            </td>
+            <td>
+                2
+            </td>
+            <td>
+                <a href="edit?id=2">[编辑]</a>
+                <a href="add?sampleId=2">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="3" />
+            </td>
+            <td>
+                存储
+            </td>
+            <td>
+                手机
+            </td>
+            <td>
+                运行内存
+                机身内存
+            </td>
+            <td>
+                3
+            </td>
+            <td>
+                <a href="edit?id=3">[编辑]</a>
+                <a href="add?sampleId=3">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="4" />
+            </td>
+            <td>
+                基本参数
+            </td>
+            <td>
+                数码相机
+            </td>
+            <td>
+                有效像素
+                显示屏尺寸
+                储存介质
+                电池类型
+                电池容量
+            </td>
+            <td>
+                4
+            </td>
+            <td>
+                <a href="edit?id=4">[编辑]</a>
+                <a href="add?sampleId=4">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="5" />
+            </td>
+            <td>
+                镜头
+            </td>
+            <td>
+                数码相机
+            </td>
+            <td>
+                镜头类型
+                变焦方式
+                对焦方式
+                焦距
+                微距
+            </td>
+            <td>
+                5
+            </td>
+            <td>
+                <a href="edit?id=5">[编辑]</a>
+                <a href="add?sampleId=5">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="6" />
+            </td>
+            <td>
+                曝光
+            </td>
+            <td>
+                数码相机
+            </td>
+            <td>
+                曝光模式
+                ISO感光度
+                白平衡模式
+                场景模式
+            </td>
+            <td>
+                6
+            </td>
+            <td>
+                <a href="edit?id=6">[编辑]</a>
+                <a href="add?sampleId=6">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="7" />
+            </td>
+            <td>
+                显示
+            </td>
+            <td>
+                笔记本
+            </td>
+            <td>
+                屏幕尺寸
+                显示比例
+                屏幕类型
+                分辨率
+            </td>
+            <td>
+                7
+            </td>
+            <td>
+                <a href="edit?id=7">[编辑]</a>
+                <a href="add?sampleId=7">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="8" />
+            </td>
+            <td>
+                CPU
+            </td>
+            <td>
+                笔记本
+            </td>
+            <td>
+                CPU类型
+                CPU频率
+                CPU缓存
+            </td>
+            <td>
+                8
+            </td>
+            <td>
+                <a href="edit?id=8">[编辑]</a>
+                <a href="add?sampleId=8">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="9" />
+            </td>
+            <td>
+                内存
+            </td>
+            <td>
+                笔记本
+            </td>
+            <td>
+                内存容量
+                内存类型
+                最大支持容量
+            </td>
+            <td>
+                9
+            </td>
+            <td>
+                <a href="edit?id=9">[编辑]</a>
+                <a href="add?sampleId=9">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="10" />
+            </td>
+            <td>
+                显示
+            </td>
+            <td>
+                平板电脑
+            </td>
+            <td>
+                屏幕尺寸
+                显示比例
+                屏幕类型
+                分辨率
+            </td>
+            <td>
+                10
+            </td>
+            <td>
+                <a href="edit?id=10">[编辑]</a>
+                <a href="add?sampleId=10">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="11" />
+            </td>
+            <td>
+                连接
+            </td>
+            <td>
+                平板电脑
+            </td>
+            <td>
+                WiFi
+                3G
+                蓝牙
+            </td>
+            <td>
+                11
+            </td>
+            <td>
+                <a href="edit?id=11">[编辑]</a>
+                <a href="add?sampleId=11">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="12" />
+            </td>
+            <td>
+                电池
+            </td>
+            <td>
+                平板电脑
+            </td>
+            <td>
+                电池类型
+                电池容量
+                续航时间
+            </td>
+            <td>
+                12
+            </td>
+            <td>
+                <a href="edit?id=12">[编辑]</a>
+                <a href="add?sampleId=12">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="13" />
+            </td>
+            <td>
+                显示
+            </td>
+            <td>
+                平板电视
+            </td>
+            <td>
+                屏幕尺寸
+                显示比例
+                屏幕类型
+                分辨率
+                响应时间
+            </td>
+            <td>
+                13
+            </td>
+            <td>
+                <a href="edit?id=13">[编辑]</a>
+                <a href="add?sampleId=13">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="14" />
+            </td>
+            <td>
+                端口
+            </td>
+            <td>
+                平板电视
+            </td>
+            <td>
+                USB
+                HDMI
+                光纤
+            </td>
+            <td>
+                14
+            </td>
+            <td>
+                <a href="edit?id=14">[编辑]</a>
+                <a href="add?sampleId=14">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="15" />
+            </td>
+            <td>
+                功耗
+            </td>
+            <td>
+                平板电视
+            </td>
+            <td>
+                电源功率
+                待机功率
+                工作电压
+            </td>
+            <td>
+                15
+            </td>
+            <td>
+                <a href="edit?id=15">[编辑]</a>
+                <a href="add?sampleId=15">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="16" />
+            </td>
+            <td>
+                基本参数
+            </td>
+            <td>
+                空调
+            </td>
+            <td>
+                制冷类型
+                工作方式
+                空调功率
+                能效等级
+                制冷量
+                制冷功率
+                制热量
+                ...					</td>
+            <td>
+                16
+            </td>
+            <td>
+                <a href="edit?id=16">[编辑]</a>
+                <a href="add?sampleId=16">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="17" />
+            </td>
+            <td>
+                功能
+            </td>
+            <td>
+                空调
+            </td>
+            <td>
+                静音设计
+                自动清洁
+                独立除湿
+                除甲醛
+            </td>
+            <td>
+                17
+            </td>
+            <td>
+                <a href="edit?id=17">[编辑]</a>
+                <a href="add?sampleId=17">[复制]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="18" />
+            </td>
+            <td>
+                规格
+            </td>
+            <td>
+                空调
+            </td>
+            <td>
+                内机尺寸
+                外机尺寸
+                内机重量
+                外机重量
+            </td>
+            <td>
+                18
+            </td>
+            <td>
+                <a href="edit?id=18">[编辑]</a>
+                <a href="add?sampleId=18">[复制]</a>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+</form>
+</body>
+</html>

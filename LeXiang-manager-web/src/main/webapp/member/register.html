@@ -1,0 +1,466 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>会员注册 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="/resources/member/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/member/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/member/css/register.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/resources/admin/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="/resources/member/js/jquery.lSelect.js"></script>
+    <script type="text/javascript" src="/resources/member/js/jquery.validate.js"></script>
+   <!-- <script type="text/javascript" src="/business/js/common.js"></script>-->
+
+</head>
+<body>
+
+<div class="header">
+    <div class="top">
+        <div class="topNav">
+            <ul class="left">
+                <li>
+                    <span>您好，欢迎来到SHOP++商城</span>
+                    <span id="headerName" class="headerName">&nbsp;</span>
+                </li>
+                <li id="headerLogin" class="headerLogin">
+                    <a href="/member/login.html">登录</a>|
+                </li>
+                <li id="headerRegister" class="headerRegister">
+                    <a href="/member/register.hml">注册</a>
+                </li>
+                <li id="headerLogout" class="headerLogout">
+                    <a href="//member/logout">[退出]</a>
+                </li>
+            </ul>
+            <ul class="right">
+                <li>
+                    <a href="/shopxxb2b2c/member/index">会员中心</a>
+                    |
+                </li>
+                <li>
+                    <a href="/shopxxb2b2c/business/index">商家中心</a>
+                    |
+                </li>
+                <li>
+                    <a href="/shopxxb2b2c/article/list/3">帮助中心</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <a href="/shopxxb2b2c/">
+                    <img src="/shopxxb2b2c/upload/image/logo.png" alt="SHOP++商城" />
+                </a>
+            </div>
+            <div class="span6">
+                <div class="search">
+                    <form id="productSearchForm" action="/shopxxb2b2c/product/search" method="get">
+                        <input name="keyword" class="keyword" value="搜索 商品/店铺" autocomplete="off" x-webkit-speech="x-webkit-speech" x-webkit-grammar="builtin:search" maxlength="30" />
+                        <button type="submit">&nbsp;</button>
+                    </form>
+                </div>
+                <div class="hotSearch">
+                    热门搜索:
+                    <a href="/shopxxb2b2c/product/search?keyword=%E8%8B%B9%E6%9E%9C">苹果</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E4%B8%89%E6%98%9F">三星</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E7%B4%A2%E5%B0%BC">索尼</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E5%8D%8E%E4%B8%BA">华为</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E9%AD%85%E6%97%8F">魅族</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E4%BD%B3%E8%83%BD">佳能</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E5%8D%8E%E7%A1%95">华硕</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E7%BE%8E%E7%9A%84">美的</a>
+                    <a href="/shopxxb2b2c/product/search?keyword=%E6%A0%BC%E5%8A%9B">格力</a>
+                </div>
+            </div>
+            <div id="headerCart" class="headerCart">
+                <a class="cartButton" href="/shopxxb2b2c/cart/list"><span>购物车(<em></em>)</span></a>
+                <div class="detail">
+                    <div class="title">购物车商品</div>
+                    <div class="items"></div>
+                    <div class="summary"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <dl class="mainNav">
+                    <dt>
+                        <a href="/shopxxb2b2c/product_category">所有商品分类</a>
+                    </dt>
+                    <dd>
+                        <a href="/shopxxb2b2c/">首页</a>
+                    </dd>
+                    <dd>
+                        <a href="/shopxxb2b2c/product/list/1">手机数码</a>
+                    </dd>
+                    <dd>
+                        <a href="/shopxxb2b2c/product/list/2">电脑办公</a>
+                    </dd>
+                    <dd>
+                        <a href="/shopxxb2b2c/product/list/3">家用电器</a>
+                    </dd>
+                    <dd>
+                        <a href="/shopxxb2b2c/product/list/4">服装鞋靴</a>
+                    </dd>
+                    <dd>
+                        <a href="/shopxxb2b2c/product/list/5">化妆护理</a>
+                    </dd>
+                    <dd>
+                        <a href="/shopxxb2b2c/product/list?type=exchange">积分商城</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div id="broadsideNav" class="broadsideNav">
+            <ul>
+                <li class="shoppingCart">
+                    <a href="/shopxxb2b2c/cart/list"><em>购物车</em></a>
+                </li>
+                <li class="memberCenter">
+                    <a href="/shopxxb2b2c/member/index"><em>会员中心</em></a>
+                </li>
+                <li class="myCoupons">
+                    <a href="/shopxxb2b2c/member/coupon_code/exchange"><em>我的优惠券</em></a>
+                </li>
+                <li class="collectCenter">
+                    <a href="/shopxxb2b2c/member/product_favorite/list"><em>我的收藏</em></a>
+                </li>
+            </ul>
+            <div id="goTop" class="goTop"></div>
+        </div>
+    </div>
+</div>	<div class="container register">
+    <div class="row">
+        <div class="span12">
+            <div class="wrap">
+                <div class="main clearfix">
+                    <div class="title">
+                        <strong>会员注册</strong>USER REGISTER
+                    </div>
+                    <form id="registerForm" action="/shopxxb2b2c/member/register/submit" method="post">
+                        <input name="socialUserId" type="hidden" value="" />
+                        <input name="uniqueId" type="hidden" value="" />
+                        <table>
+                            <tr>
+                                <th>
+                                    <span class="requiredField">*</span>用户名:
+                                </th>
+                                <td>
+                                    <input type="text" onblur="register()" name="username" class="text" maxlength="20" />
+                                    <span id="uname"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span class="requiredField">*</span>密 码:
+                                </th>
+                                <td>
+                                    <input type="password" id="password" name="encodedpassword" class="text" maxlength="20" autocomplete="off" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span class="requiredField">*</span>确认密码:
+                                </th>
+                                <td>
+                                    <input type="password" name="rePassword" class="text" maxlength="20" autocomplete="off" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span class="requiredField">*</span>E-mail:
+                                </th>
+                                <td>
+                                    <input type="text" onblur="register()" name="email" class="text" maxlength="200" />
+                                    <span id="uemail"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    手机:
+                                </th>
+                                <td>
+                                    <input type="text" onblur="register()" name="mobile" class="text" maxlength="200" />
+                                    <span id="uphone"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    姓名:
+                                </th>
+                                <td>
+                                    <input type="text" name="memberAttribute_1" class="text" maxlength="200" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    性别:
+                                </th>
+                                <td>
+													<span class="fieldSet">
+															<label>
+																<input type="radio" name="memberAttribute_2" value="male" />男
+															</label>
+															<label>
+																<input type="radio" name="memberAttribute_2" value="female" />女
+															</label>
+													</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    电话:
+                                </th>
+                                <td>
+                                    <input type="text" name="memberAttribute_7" class="text" maxlength="200" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span class="requiredField">*</span>验证码:
+                                </th>
+                                <td>
+											<span class="fieldSet">
+												<input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off" />
+											</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    &nbsp;
+                                </th>
+                                <td>
+                                    <input type="button" class="submit" onclick="register()" value="同意以下协议并注册" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    &nbsp;
+                                </th>
+                                <td>
+                                    <a href="/shopxxb2b2c/article/detail/1_1" target="_blank">注册协议</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="login">
+                            <dl>
+                                <dt>已经拥有账号了？</dt>
+                                <dd>
+                                    立即登录即可体验在线购物！
+                                    <a href="/shopxxb2b2c/member/login">立即登录</a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="service clearfix">
+        <dl>
+            <dt class="icon1">新手指南</dt>
+            <dd>
+                <a href="#">购物流程</a>
+            </dd>
+            <dd>
+                <a href="#">会员注册</a>
+            </dd>
+            <dd>
+                <a href="#">购买宝贝</a>
+            </dd>
+            <dd>
+                <a href="#">支付货款</a>
+            </dd>
+            <dd>
+                <a href="#">用户协议</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="icon2">特色服务</dt>
+            <dd>
+                <a href="#">购物流程</a>
+            </dd>
+            <dd>
+                <a href="#">会员注册</a>
+            </dd>
+            <dd>
+                <a href="#">购买宝贝</a>
+            </dd>
+            <dd>
+                <a href="#">支付货款</a>
+            </dd>
+            <dd>
+                <a href="#">用户协议</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="icon3">支付方式</dt>
+            <dd>
+                <a href="#">购物流程</a>
+            </dd>
+            <dd>
+                <a href="#">会员注册</a>
+            </dd>
+            <dd>
+                <a href="#">购买宝贝</a>
+            </dd>
+            <dd>
+                <a href="#">支付货款</a>
+            </dd>
+            <dd>
+                <a href="#">用户协议</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="icon4">配送方式</dt>
+            <dd>
+                <a href="#">购物流程</a>
+            </dd>
+            <dd>
+                <a href="#">会员注册</a>
+            </dd>
+            <dd>
+                <a href="#">购买宝贝</a>
+            </dd>
+            <dd>
+                <a href="#">支付货款</a>
+            </dd>
+            <dd>
+                <a href="#">用户协议</a>
+            </dd>
+        </dl>
+        <div class="qrCode">
+            <img src="/shopxxb2b2c/resources/shop/images/qr_code.jpg" alt="官方微信" />
+            官方微信
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottomNav">
+            <ul>
+                <li>
+                    <a href="#">关于我们</a>
+                    |
+                </li>
+                <li>
+                    <a href="#">联系我们</a>
+                    |
+                </li>
+                <li>
+                    <a href="#">诚聘英才</a>
+                    |
+                </li>
+                <li>
+                    <a href="#">隐私政策</a>
+                    |
+                </li>
+                <li>
+                    <a href="#">法律声明</a>
+                    |
+                </li>
+                <li>
+                    <a href="#">客户服务</a>
+                    |
+                </li>
+                <li>
+                    <a href="/shopxxb2b2c/friend_link">友情链接</a>
+
+                </li>
+            </ul>
+        </div>
+        <div class="info">
+            <p>湘ICP备10000000号</p>
+            <p>Copyright © 2005-2017 SHOP++商城 版权所有</p>
+            <ul>
+                <li>
+                    <a href="http://www.shopxx.net" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/1c675feb-e488-4fd5-a186-b28bb6de445a.gif" alt="SHOP++" />
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.alipay.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ae13eddc-25ac-427a-875d-d1799d751076.gif" alt="支付宝" />
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.tenpay.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/adaa9ac5-9994-4aa3-a336-b65613c85d50.gif" alt="财付通" />
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.95516.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/41c18c8d-f69a-49fe-ace3-f16c2eb07983.gif" alt="中国银联" />
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.kuaidi100.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ea46ca0a-e8f0-4e2c-938a-5cb19a07cb9a.gif" alt="快递100" />
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.cnzz.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/e12f226b-07f9-4895-bcc2-78dbe551964b.gif" alt="站长统计" />
+                    </a>
+                </li>
+                <li>
+                    <a href="http://down.admin5.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/fd9d6268-e4e2-41f6-856d-4cb8a49eadd1.gif" alt="A5下载" />
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.ccb.com" target="_blank">
+                        <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/6c57f398-0498-4044-80d8-20f6c40d5cef.gif" alt="中国建设银行" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var s="";
+
+    function register() {
+
+        $.ajax({
+            url:"/memberuser/register.do",
+            type:"post",
+            data:$("#registerForm").serialize(),
+            success:function (data) {
+                s=data.message;
+                if(data.success==true){
+                    alert("注册成功");
+                }else{
+                   if(s=="账号已经被注册"){
+                        $("#uname").html(s)
+                    }else if(s=="该邮箱已经被注册"){
+                       $("#uemail").html(s)
+                   }else if(s=="该手机已经被注册"){
+                       $("#uphone").html(s)
+                   }else if(s=="注册信息不能为空"){
+
+
+                       $("#uname").html(s)
+                   }
+                }
+
+            }
+        })
+    }
+
+
+
+</script>
+
+
+
+</body>
+</html>

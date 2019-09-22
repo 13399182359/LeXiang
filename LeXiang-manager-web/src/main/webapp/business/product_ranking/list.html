@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="SHOP++ Team">
+    <meta name="copyright" content="SHOP++">
+    <title>商品排名 - Powered By SHOP++</title>
+    <link href="../../favicon.ico" rel="icon">
+    <link href="../../resources/business/css/bootstrap.css" rel="stylesheet">
+    <link href="../../resources/business/css/font-awesome.css" rel="stylesheet">
+    <link href="../../resources/business/css/animate.css" rel="stylesheet">
+    <link href="../../resources/business/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="../../resources/business/css/adminLTE.css" rel="stylesheet">
+    <link href="../../resources/business/css/common.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../../resources/business/js/html5shiv.js"></script>
+    <script src="../../resources/business/js/respond.js"></script>
+    <![endif]-->
+    <script src="../../resources/business/js/jquery.js"></script>
+    <script src="../../resources/business/js/bootstrap.js"></script>
+    <script src="../../resources/business/js/velocity.js"></script>
+    <script src="../../resources/business/js/velocity.ui.js"></script>
+    <script src="../../resources/business/js/moment.js"></script>
+    <script src="../../resources/business/js/bootstrap-datetimepicker.js"></script>
+    <script src="../../resources/business/js/g2.js"></script>
+    <script src="../../resources/business/js/adminLTE.js"></script>
+
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+    <script type="text/javascript" src="../../admin/js/echarts.js"></script>
+
+    <!--<script type="text/javascript">
+        $().ready(function() {
+
+            var $productRankingForm = $("#productRankingForm");
+            var $rankingType = $("[name='rankingType']");
+            var $size = $("[name='size']");
+            var $export = $("#export");
+            var $rankingTypeItem = $("[data-ranking-type]");
+            var $sizeItem = $("[data-size]");
+
+            // 排名类型
+            $rankingTypeItem.click(function() {
+                var $element = $(this);
+                var rankingType = $element.data("ranking-type");
+
+                $element.addClass("active").siblings().removeClass("active");
+                $rankingType.val(rankingType);
+
+                loadData();
+            });
+
+            // 数量
+            $sizeItem.click(function() {
+                var $element = $(this);
+                var size = $element.data("size");
+
+                $element.addClass("active").siblings().removeClass("active");
+                $size.val(size);
+
+                loadData();
+            });
+
+            // 图表
+            var Frame = G2.Frame;
+            var chart = new G2.Chart({
+                id: "chart",
+                height: 500,
+                forceFit: true,
+                plotCfg: {
+                    margin: [20, 50, 80, 150]
+                }
+            });
+
+            chart.source([], {
+                name: {
+                    type: "cat",
+                    alias: "名称"
+                },
+                value: {}
+            });
+
+            chart.axis("name", {
+                title: null
+            });
+            chart.coord("rect").transpose();
+            chart.interval().position("name*value").color("#ffab66");
+            chart.render();
+
+            // 加载数据
+            function loadData() {
+                $.ajax({
+                    url: $productRankingForm.attr("action"),
+                    type: $productRankingForm.attr("method"),
+                    data: $productRankingForm.serialize(),
+                    dataType: "json",
+                    success: function(data) {
+                        chart.col("value", {
+                            alias: $rankingTypeItem.filter(".active").data("ranking-type-name")
+                        });
+                        var frame = new Frame(data);
+                        frame = Frame.sort(frame, "value");
+                        chart.changeData(frame);
+                    }
+                });
+            };
+
+            loadData();
+
+            // 导出
+            $export.click(function() {
+                setTimeout(function() {
+                    chart.downloadImage();
+                }, 1000);
+            });
+
+        });
+    </script>-->
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a class="logo" href="../../business/index">
+		<span class="logo-mini">
+			<img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/78a32dfa-53d1-4bda-a5bb-422122d2f2eb.jpg" alt="中彩旗舰店">
+		</span>
+            <span class="logo-lg">中彩旗舰店</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="offcanvas"></a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/78a32dfa-53d1-4bda-a5bb-422122d2f2eb.jpg" alt="中彩旗舰店">
+                                <span class="hidden-xs">shopxx_zc</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu">
+                            <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                                <span class="fa fa-bell-o"></span>
+                                <div class="label">
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <span class="fa fa-warning text-orange"></span>
+                                    <strong>提醒信息</strong>
+                                </li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingPayment&hasExpired=false">
+                                                <span class="fa fa-credit-card text-aqua"></span>
+                                                0个待付款订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingReview&hasExpired=false">
+                                                <span class="fa fa-user-o text-red"></span>
+                                                0个待审核订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingShipment">
+                                                <span class="fa fa-truck text-green"></span>
+                                                0个待发货订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?isPendingRefunds=true">
+                                                <span class="fa fa-rmb text-yellow"></span>
+                                                0个待退款订单
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="../../business/order/list">查看所有订单</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="logout" href="../../business/logout">
+                                <span class="fa fa-sign-out"></span>
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header><script type="text/javascript">
+
+    $().ready(function() {
+        var $includeForm = $("#includeForm");
+        var $searchValue = $("input[name='searchValue']");
+
+        $includeForm.submit(function() {
+            if($.trim($searchValue.val()) == "") {
+                return false;
+            }
+        })
+    });
+
+</script>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <form id="includeForm" class="sidebar-form" action="../../wgrproduct/findProduct" method="get">
+                <input name="searchProperty" type="hidden" value="name">
+                <div class="active input-group">
+                    <input name="searchValue" class="form-control" type="text" placeholder="商品搜索">
+                    <span class="input-group-btn">
+					<button class="btn btn-flat" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+                </div>
+            </form>
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-clone"></i>
+                        <span>商品管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/product/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-red" title="缺货">0</span>
+									<span class="label pull-right bg-orange" title="库存警告">0</span>
+							</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/stock/log">
+                                <i class="fa fa-circle-o"></i>
+                                库存记录
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/product_notify/list">
+                                <i class="fa fa-circle-o"></i>
+                                到货通知
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/consultation/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品咨询
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/review/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品评论
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-list-ul"></i>
+                        <span>订单管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/order/list">
+                                <i class="fa fa-circle-o"></i>
+                                订单列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-orange" title="待处理订单">0</span>
+								</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_template/list">
+                                <i class="fa fa-circle-o"></i>
+                                快递单模板
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_center/list">
+                                <i class="fa fa-circle-o"></i>
+                                发货点管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-tags"></i>
+                        <span>店铺管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <i class="fa fa-circle-o"></i>
+                                店铺设置
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_category/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品分类
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_tag/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品标签
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/category_application/list">
+                                <i class="fa fa-circle-o"></i>
+                                经营分类申请
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store/payment">
+                                <i class="fa fa-circle-o"></i>
+                                店铺缴费
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/shipping_method/list">
+                                <i class="fa fa-circle-o"></i>
+                                配送方式
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_ad_image/list">
+                                <i class="fa fa-circle-o"></i>
+                                <span>店铺广告图片</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-heart-o"></i>
+                        <span>促销管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/discount_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                折扣促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/full_reduction_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                满减促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/coupon/list">
+                                <i class="fa fa-circle-o"></i>
+                                优惠券
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>预存款管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/deposit/recharge">
+                                <i class="fa fa-circle-o"></i>
+                                预存款充值
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/cash/list">
+                                <i class="fa fa-circle-o"></i>
+                                预存款提现
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/deposit/log">
+                                <i class="fa fa-circle-o"></i>
+                                预存款记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span>个人资料</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/profile/edit">
+                                <i class="fa fa-circle-o"></i>
+                                个人资料
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/password/edit">
+                                <i class="fa fa-circle-o"></i>
+                                密码修改
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../../business/instant_message/list">
+                        <i class="fa fa-comment-o"></i>
+                        <span>客服设置</span>
+                    </a>
+                </li>
+                <li class="header">统计信息</li>
+                <li>
+                    <a href="../../business/order_statistic/list">
+                        <i class="fa fa-line-chart text-red"></i>
+                        <span>订单统计</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="../../business/product_ranking/list">
+                        <i class="fa fa-bar-chart text-yellow"></i>
+                        <span>商品排名</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>		<div class="content-wrapper">
+    <div class="container-fluid">
+        <section class="content-header">
+            <h1>商品排名</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="../../business/index">
+                        <i class="fa fa-home"></i>
+                        首页
+                    </a>
+                </li>
+                <li class="active">商品排名</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="productRankingForm"  method="post">
+                        <input name="rankingType" type="hidden" value="score">
+                        <input name="size" type="hidden" value="10">
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="btn-group">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                            排名类型
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="active" data-ranking-type="score" data-ranking-type-name="评分">
+                                                <a href="javascript:;">评分</a>
+                                            </li>
+                                            <li data-ranking-type="scorecount" data-ranking-type-name="评分数">
+                                                <a href="javascript:;">评分数</a>
+                                            </li>
+                                            <!--<li data-ranking-type="weekHits" data-ranking-type-name="周点击数">
+                                                <a href="javascript:;">周点击数</a>
+                                            </li>
+                                            <li data-ranking-type="monthHits" data-ranking-type-name="月点击数">
+                                                <a href="javascript:;">月点击数</a>
+                                            </li>
+                                            <li data-ranking-type="hits" data-ranking-type-name="点击数">
+                                                <a href="javascript:;">点击数</a>
+                                            </li>
+                                            <li data-ranking-type="weekSales" data-ranking-type-name="周销量">
+                                                <a href="javascript:;">周销量</a>
+                                            </li>
+                                            <li data-ranking-type="monthSales" data-ranking-type-name="月销量">
+                                                <a href="javascript:;">月销量</a>
+                                            </li>-->
+                                            <li data-ranking-type="sales" data-ranking-type-name="销量">
+                                                <a href="javascript:;">销量</a>
+                                            </li>
+                                            <li data-ranking-type="price" data-ranking-type-name="价格">
+                                                <a href="javascript:;">价格</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                            数量
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="active" data-size="10">
+                                                <a href="javascript:;">10</a>
+                                            </li>
+                                            <li data-size="20">
+                                                <a href="javascript:;">20</a>
+                                            </li>
+                                            <li data-size="30">
+                                                <a href="javascript:;">30</a>
+                                            </li>
+                                            <li data-size="50">
+                                                <a href="javascript:;">50</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button id="export1" class="btn btn-default" type="button" style="display: ruby">
+                                            <i class="fa fa-download"></i>
+                                            点击图片右上角进行导出
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div id="main" style="width: 95%;height:600px;" ></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 5.0
+        </div>
+        <strong>
+            COPYRIGHT © 2008-2017 <a href="http://www.shopxx.net">SHOPXX.NET</a> ALL RIGHTS RESERVED.
+        </strong>
+    </footer>	</div>
+</body>
+<script type="text/javascript">
+    var myChart;
+    $().ready(function() {
+
+        var $productRankingForm = $("#productRankingForm");
+        var $rankingType = $("[name='rankingType']");
+        var $size = $("[name='size']");
+        var $export = $("#export1");
+        var $rankingTypeItem = $("[data-ranking-type]");
+        var $sizeItem = $("[data-size]");
+        var size=null;
+        var rankingType=null;
+
+
+
+
+
+        // 数量
+        $sizeItem.click(function () {
+            var $element = $(this);
+            size= $element.data("size");
+
+            $element.addClass("active").siblings().removeClass("active");
+            $size.val(size);
+
+            find(rankingType,size);
+        });
+        // 排名类型
+        $rankingTypeItem.click(function () {
+            var $element = $(this);
+            rankingType = $element.data("ranking-type");
+
+            $element.addClass("active").siblings().removeClass("active");
+            $rankingType.val(rankingType);
+
+            find(rankingType,size);
+        });
+
+    })
+
+    find = function(b,p){
+        if(p==null){
+            p=10;
+        }
+        $.post("../../wgrproduct/findProduct.do",{page:1,rows:p},function (data) {
+            var a=[];
+
+            if(b=="sales" || b==null){
+                for (var i = 0; i < data.rows.length; i++) {
+                    a.push([data.rows[i].product.sales, data.rows[i].product.name]);
+                }
+            }else
+            if(b=="score" ){
+                for (var i = 0; i < data.rows.length; i++) {
+                    a.push([data.rows[i].product.score, data.rows[i].product.name]);
+                }
+            }else
+            if(b=="scorecount"){
+                for (var i = 0; i < data.rows.length; i++) {
+                    a.push([data.rows[i].product.scorecount, data.rows[i].product.name]);
+                }
+            }else
+            if(b=="price"){
+                for (var i = 0; i < data.rows.length; i++) {
+                    a.push([data.rows[i].product.price, data.rows[i].product.name]);
+                }
+            }
+
+            for (var i = 0; i < data.rows.length; i++) {
+                // 基于准备好的dom，初始化echarts实例
+                 myChart = echarts.init(document.getElementById('main'));
+                // 指定图表的配置项和数据
+                var option = {
+                    toolbox: {
+
+                        show: true,
+                        feature: {
+
+                            saveAsImage: {
+                                show:true,
+
+                                excludeComponents :['main'],
+
+                                pixelRatio: 5
+
+                            }
+
+                        }
+
+                    },
+                    dataset: {
+                        source: a
+                    },
+                    grid: {containLabel: true},
+                    xAxis: {name: 'amount'},
+                    yAxis: {type: 'category'},
+                    visualMap: {
+                        orient: 'horizontal',
+                        left: 'center',
+                        min: 1,
+                        max: 100,
+                        text: ['High Score', 'Low Score'],
+                        // Map the score column to color
+                        dimension: 0,
+                        inRange: {
+                            color: ['#D7DA8B', '#E15457']
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            encode: {
+                                // Map the "amount" column to X axis.
+                                x: 'amount',
+                                // Map the "product" column to Y axis
+                                y: 'product'
+                            }
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+
+
+            }
+
+        })
+    }
+
+    $(function () {
+        find();
+    })
+
+
+
+
+
+</script>
+</html>

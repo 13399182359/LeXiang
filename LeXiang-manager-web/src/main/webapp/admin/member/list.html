@@ -1,0 +1,158 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>会员列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 会员列表 <span>(共1条记录)</span>
+</div>
+<form id="memberForm" method="post">
+    <div class="bar">
+        <a href="add.html" class="iconButton">
+            <span class="addIcon">&nbsp;</span>添加
+        </a>
+        <div class="buttonGroup">
+            <a @click="delMember()"  class="iconButton">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+
+            <!--<div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>-->
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text"  id="searchValue" name="username" value="" maxlength="200" />
+                <button  onclick="searchMember()" type="button">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="name">名称</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="username">用户名</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="memberRank">会员等级</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="email">E-mail</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+            </th>
+            <th>
+                <span>状态</span>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr v-for="e in memberList">
+            <td>
+                <input type="checkbox" name="ids" v-model="ids" :value="e.member.id" />
+            </td>
+            <td>
+                {{e.member.username}}
+            </td>
+            <td>
+                {{e.memberrank.name}}
+            </td>
+            <td>
+                {{e.member.email}}
+            </td>
+            <td>
+                {{e.users.createddate}}
+            </td>
+            <td>
+                <span v-if="e.users.isenabled" class="green">启用</span>
+                <span v-else class="red">禁用</span>
+            </td>
+            <td>
+                <a @click="check(e.member.id)">[查看]</a>
+                <a @click="edit(e.member.id)">[编辑]</a>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+</form>
+
+<script type="text/javascript">
+
+    var vm;
+    $(function () {
+        findMembers();
+    })
+    function findMembers(){
+        $.post("../../member/findMember.do",{page:1,rows:20},function (data) {
+            vm = new Vue({
+                el:'#memberForm',
+                data:{
+                    memberList:data.rows,
+                    ids:[]
+                }
+            })
+        })
+   }
+
+    searchMember = function (page,rows) {
+        $.post("../../member/findMember.do",{page:1,rows:20,username:$("#searchValue").val()},function (data) {
+            vm.memberList=data.rows;
+        })
+    }
+
+    delMember = function () {
+
+        var ids = vm.ids.join(",");
+        if ( ids!= null && ids!="") {
+            $.post("../../member/delMember.do",{ids:vm.ids.join(",")},function (data) {
+                alert(data.message)
+                location.href=location;
+            })
+        }else {
+            alert("请选择要删除的数据！！")
+        }
+
+    }
+    check = function (id) {
+        location.href = "view.html?id="+id;
+    }
+    edit = function (id) {
+        location.href = "edit.html?id="+id;
+    }
+</script>
+
+</body>
+
+
+
+</html>

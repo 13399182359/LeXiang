@@ -1,0 +1,158 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>编辑参数 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $addNameButton = $("#addNameButton");
+            var $nameTable = $("#nameTable");
+
+
+            // 增加参数名称
+            $addNameButton.click(function() {
+                $nameTable.append(
+                    '<tr> <td> <input type="text" name="names" class="text" maxlength="200" \/> <\/td> <td> <a href="javascript:;" class="remove">[删除]<\/a> <\/td> <\/tr>'		);
+            });
+
+            // 删除参数名称
+            $nameTable.on("click", "a.remove", function() {
+                if ($nameTable.find("tr").size() <= 2) {
+                    $.message("warn", "删除失败，必须至少保留一项");
+                    return false;
+                }
+                $(this).closest("tr").remove();
+            });
+
+            // 表单验证
+            $inputForm.validate({
+                rules: {
+                    group: "required",
+                    order: "digits",
+                    names: "required"
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 编辑参数
+</div>
+<form id="inputForm" action="update" method="post">
+    <input type="hidden" name="id" value="1" />
+    <table class="input">
+        <tr>
+            <th>
+                绑定分类:
+            </th>
+            <td>
+                手机
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>参数组:
+            </th>
+            <td>
+                <input type="text" name="group" class="text" value="基本参数" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                排序:
+            </th>
+            <td>
+                <input type="text" name="order" class="text" value="1" maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <a href="javascript:;" id="addNameButton" class="button">增加参数名称</a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <table id="nameTable" class="item">
+                    <tr>
+                        <th>
+                            参数名称
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="names" class="text" value="操作系统" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="names" class="text" value="CPU频率" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="names" class="text" value="核心数" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="names" class="text" value="电池类型" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="names" class="text" value="电池容量" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

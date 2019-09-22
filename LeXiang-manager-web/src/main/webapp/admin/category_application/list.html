@@ -1,0 +1,111 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>经营分类申请列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $reviewForm = $("#reviewForm");
+            var $id = $("#id");
+            var $isPassed = $("#isPassed");
+
+
+            // 审核
+            $.review = function(categoryApplicationId) {
+                $.dialog({
+                    type: "warn",
+                    content: "经营分类申请是否通过审核？",
+                    ok: "是",
+                    cancel: "否",
+                    onOk: function() {
+                        $id.val(categoryApplicationId);
+                        $isPassed.val("true");
+                        $reviewForm.submit();
+                        return false;
+                    },
+                    onCancel: function() {
+                        $id.val(categoryApplicationId);
+                        $isPassed.val("false");
+                        $reviewForm.submit();
+                        return false;
+                    }
+                });
+            };
+
+
+        });
+    </script>
+</head>
+<body>
+<form id="reviewForm" action="review" method="post">
+    <input type="hidden" id="id" name="id"/>
+    <input type="hidden" id="isPassed" name="isPassed" />
+</form>
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index">首页</a> &raquo; 经营分类申请列表 <span>(共0条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <div class="buttonGroup">
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" value="" maxlength="200" />
+                <button type="submit">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="productCategory.name">经营分类</li>
+                <li val="store.name">店铺</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th>
+                <a href="javascript:;" class="sort" name="productCategory.name">经营分类</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="rate">分佣比例</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="store.name">店铺</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="status">状态</a>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+</form>
+</body>
+</html>

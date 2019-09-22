@@ -1,0 +1,938 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="author" content="SHOP++ Team">
+	<meta name="copyright" content="SHOP++">
+	<title>查看订单 - Powered By SHOP++</title>
+	<link href="/favicon.ico" rel="icon">
+	<link href="/resources/business/css/bootstrap.css" rel="stylesheet">
+	<link href="/resources/business/css/font-awesome.css" rel="stylesheet">
+	<link href="/resources/business/css/bootstrap-select.css" rel="stylesheet">
+	<link href="/resources/business/css/animate.css" rel="stylesheet">
+	<link href="/resources/business/css/adminLTE.css" rel="stylesheet">
+	<link href="/resources/business/css/common.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="/resources/business/js/html5shiv.js"></script>
+	<script src="/resources/business/js/respond.js"></script>
+	<![endif]-->
+	<script src="/resources/business/js/jquery.js"></script>
+	<script src="/resources/business/js/bootstrap.js"></script>
+	<script src="/resources/business/js/bootstrap-select.js"></script>
+	<script src="/resources/business/js/jquery.lSelect.js"></script>
+	<script src="/resources/business/js/jquery.validate.js"></script>
+	<script src="/resources/business/js/adminLTE.js"></script>
+	<script src="/resources/business/js/underscore.js"></script>
+	<script src="/resources/business/js/common.js"></script>
+	<script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+	<style>
+		.returns-items-quantity, .shipping-items-quantity {
+			width: 50px;
+		}
+		div.modal .table tbody tr td {
+			vertical-align: middle;
+		}
+	</style>
+	<script id="transitStepTemplate" type="text/template">
+		<%if (_.isEmpty(data.transitSteps)) {%>
+		<p class="gray-darker">暂无信息</p>
+		<%} else {%>
+		<div class="list-group list-group-flat">
+			<%_.each(data.transitSteps, function(transitStep, i) {%>
+			<div class="list-group-item">
+				<p class="gray-darker"><%-transitStep.time%></p>
+				<p><%-transitStep.context%></p>
+			</div>
+			<%})%>
+		</div>
+		<%}%>
+	</script>
+	<script type="text/javascript">
+		$().ready(function() {
+
+			var $reviewButton = $("#reviewButton");
+			var $passed = $("#passed");
+			var $reviewDismissButton = $("#reviewDismissButton");
+			var $paymentForm = $("#paymentForm");
+			var $amount = $("#paymentForm input[name='amount']");
+			var $refundsForm = $("#refundsForm");
+			var $refundsMethod = $("#refundsForm select[name='method']");
+			var $refundsButton = $("#refundsButton");
+			var $areaId = $("[name='areaId']");
+			var $shippingForm = $("#shippingForm");
+			var $shippingItemsQuantity = $("#shippingForm .shipping-items-quantity");
+			var $shippingLogistics = $("#shippingLogistics");
+			var $shippingButton = $("#shippingButton");
+			var $returnsForm = $("#returnsForm");
+			var $returnsItemsQuantity = $("#returnsForm .returns-items-quantity");
+			var $returnsButton = $("#returnsButton");
+			var $transitStep = $("#transitStep");
+			var transitStepTemplate = _.template($("#transitStepTemplate").html());
+			var $transitStepModal = $("#transitStepModal");
+			var $transitStepModalBody = $("#transitStepModal div.modal-body");
+			var isLocked = false;
+
+			// 地区选择
+			$areaId.lSelect({
+				url: "/shopxxb2b2c/common/area"
+			});
+
+			// 检查锁定
+			function acquireLock() {
+				$.ajax({
+					url: "/shopxxb2b2c/business/order/acquire_lock",
+					type: "POST",
+					data: {
+						orderId: 51
+					},
+					dataType: "json",
+					cache: false,
+					success: function(data) {
+						if(!data) {
+							$.alert("该订单已被锁定，请稍后再试！");
+							$("#reviewModalButton").add($("#paymentModalButton")).add($("#refundsModalButton")).add($("#shippingModalButton")).add($("#returnsModalButton")).add($("#completeModalButton")).add($("#failModalButton")).prop("disabled", true);
+							isLocked = true;
+						}
+					}
+				});
+			}
+
+			// 获取订单锁
+			acquireLock();
+			setInterval(function() {
+				if (!isLocked) {
+					acquireLock();
+				}
+			}, 50000);
+
+			// 审核
+			$reviewButton.click(function() {
+				$passed.val("true");
+			});
+
+			$reviewDismissButton.click(function() {
+				$passed.val("false");
+			});
+
+			// 收款
+			$paymentForm.validate({
+				rules: {
+					amount: {
+						required: true,
+						positive: true,
+						decimal: {
+							integer: 12,
+							fraction: 2
+						}
+					}
+				},
+				submitHandler: function(form) {
+					if (parseFloat($amount.val()) <= 0 || confirm("付款金额大于订单应付金额，是否继续？")) {
+						form.submit();
+					}
+				}
+			});
+
+			// 退款
+			$refundsForm.validate({
+				rules: {
+					amount: {
+						required: true,
+						positive: true,
+						max: 0,
+						decimal: {
+							integer: 12,
+							fraction: 2
+						}
+					}
+				}
+			});
+
+			$refundsButton.click(function() {
+				if ($refundsMethod.val() == "deposit") {
+				}
+				$("#refundsForm").submit();
+				return false;
+			});
+
+			// 发货
+			function checkDelivery() {
+				var isDelivery = false;
+				$shippingItemsQuantity.each(function() {
+					var $element = $(this);
+
+					if ($element.data("is-delivery") && $element.val() > 0) {
+						isDelivery = true;
+						return false;
+					}
+				});
+				if (isDelivery) {
+					$shippingLogistics.find(":input:not([name='memo'])").prop("disabled", false);
+				} else {
+					$shippingLogistics.find(":input:not([name='memo'])").prop("disabled", true);
+				}
+			}
+
+			checkDelivery();
+
+			$shippingItemsQuantity.on("input propertychange change", function(event) {
+				if (event.type != "propertychange" || event.originalEvent.propertyName == "value") {
+					checkDelivery()
+				}
+			});
+
+			$.validator.addClassRules({
+				"shipping-items-quantity": {
+					required: true,
+					digits: true
+				}
+			});
+
+			$shippingForm.validate({
+				rules: {
+					deliveryCorpId: "required",
+					freight: {
+						min: 0,
+						decimal: {
+							integer: 12,
+							fraction: 2
+						}
+					},
+					consignee: "required",
+					zipCode: {
+						required: true,
+						pattern: /^\d{6}$/
+					},
+					areaId: "required",
+					address: "required",
+					phone: {
+						required: true,
+						pattern: /^\d{3,4}-?\d{7,9}$/
+					}
+				}
+			});
+
+			$shippingButton.click(function() {
+				var total = 0;
+				$shippingItemsQuantity.each(function() {
+					var quantity = $(this).val();
+
+					if ($.isNumeric(quantity)) {
+						total += parseInt(quantity);
+					}
+				});
+				if (total <= 0) {
+					$.alert("发货总数必须大于0");
+					return false;
+				} else {
+					$shippingForm.submit();
+				}
+			});
+
+			// 退货
+			$.validator.addClassRules({
+				"returns-items-quantity": {
+					required: true,
+					digits: true
+				}
+			});
+
+			$returnsForm.validate({
+				rules: {
+					freight: {
+						min: 0,
+						decimal: {
+							integer: 12,
+							fraction: 2
+						}
+					},
+					zipCode: {
+						pattern: /^\d{6}$/
+					},
+					phone: {
+						pattern: /^\d{3,4}-?\d{7,9}$/
+					},
+					orderReturnsItemsQuantity: {
+						required: true,
+						digits: true
+					}
+				}
+			});
+
+			$returnsButton.click(function() {
+				var total = 0;
+				$returnsItemsQuantity.each(function() {
+					var quantity = $(this).val();
+
+					if ($.isNumeric(quantity)) {
+						total += parseInt(quantity);
+					}
+				});
+				if (total <= 0) {
+					$.alert("发货总数必须大于0");
+					return false;
+				}
+			});
+
+			// 物流动态
+			$transitStep.click(function() {
+				var $element = $(this);
+				$.ajax({
+					url: "/shopxxb2b2c/business/order/transit_step",
+					type: "GET",
+					data: {
+						shippingId: $element.data("shipping-id")
+					},
+					dataType: "json",
+					beforeSend: function() {
+						$transitStepModal.modal();
+					},
+					success: function(data) {
+						$transitStepModalBody.html(transitStepTemplate({
+							data: data
+						}));
+					}
+				});
+				return false;
+			});
+
+		});
+	</script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+	<header class="main-header">
+		<a class="logo" href="/shopxxb2b2c/business/index">
+		<span class="logo-mini">
+			<img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ab964025-bb0b-4120-a4bc-f0c3015cf9e0.jpg" alt="手机旗舰店">
+		</span>
+			<span class="logo-lg">手机旗舰店</span>
+		</a>
+		<nav class="navbar navbar-static-top">
+			<div class="container-fluid">
+				<a class="sidebar-toggle" href="javascript:;" data-toggle="offcanvas"></a>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="/shopxxb2b2c/business/store/setting">
+								<img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ab964025-bb0b-4120-a4bc-f0c3015cf9e0.jpg" alt="手机旗舰店">
+								<span class="hidden-xs">shopxx_sj</span>
+							</a>
+						</li>
+						<li class="dropdown notifications-menu">
+							<a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+								<span class="fa fa-bell-o"></span>
+								<div class="label">
+								</div>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="header">
+									<span class="fa fa-warning text-orange"></span>
+									<strong>提醒信息</strong>
+								</li>
+								<li>
+									<ul class="menu">
+										<li>
+											<a href="/shopxxb2b2c/business/order/list?status=pendingPayment&hasExpired=false">
+												<span class="fa fa-credit-card text-aqua"></span>
+												0个待付款订单
+											</a>
+										</li>
+										<li>
+											<a href="/shopxxb2b2c/business/order/list?status=pendingReview&hasExpired=false">
+												<span class="fa fa-user-o text-red"></span>
+												0个待审核订单
+											</a>
+										</li>
+										<li>
+											<a href="/shopxxb2b2c/business/order/list?status=pendingShipment">
+												<span class="fa fa-truck text-green"></span>
+												0个待发货订单
+											</a>
+										</li>
+										<li>
+											<a href="/shopxxb2b2c/business/order/list?isPendingRefunds=true">
+												<span class="fa fa-rmb text-yellow"></span>
+												0个待退款订单
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li class="footer">
+									<a href="/shopxxb2b2c/business/order/list">查看所有订单</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a class="logout" href="/shopxxb2b2c/business/logout">
+								<span class="fa fa-sign-out"></span>
+								注销
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header><script type="text/javascript">
+
+	$().ready(function() {
+		var $includeForm = $("#includeForm");
+		var $searchValue = $("input[name='searchValue']");
+
+		$includeForm.submit(function() {
+			if($.trim($searchValue.val()) == "") {
+				return false;
+			}
+		})
+	});
+
+</script>
+	<aside class="main-sidebar">
+		<section class="sidebar">
+			<form id="includeForm" class="sidebar-form" action="/shopxxb2b2c/business/product/list" method="get">
+				<input name="searchProperty" type="hidden" value="name">
+				<div class="active input-group">
+					<input name="searchValue" class="form-control" type="text" placeholder="商品搜索">
+					<span class="input-group-btn">
+					<button class="btn btn-flat" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+				</div>
+			</form>
+			<ul class="sidebar-menu">
+				<li class="treeview">
+					<a href="javascript:;">
+						<i class="fa fa-clone"></i>
+						<span>商品管理</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="/shopxxb2b2c/business/product/list">
+								<i class="fa fa-circle-o"></i>
+								商品列表
+								<span class="pull-right-container">
+									<span class="label pull-right bg-red" title="缺货">2</span>
+									<span class="label pull-right bg-orange" title="库存警告">2</span>
+							</span>
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/stock/log">
+								<i class="fa fa-circle-o"></i>
+								库存记录
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/product_notify/list">
+								<i class="fa fa-circle-o"></i>
+								到货通知
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/consultation/list">
+								<i class="fa fa-circle-o"></i>
+								商品咨询
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/review/list">
+								<i class="fa fa-circle-o"></i>
+								商品评论
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview active">
+					<a href="javascript:;">
+						<i class="fa fa-list-ul"></i>
+						<span>订单管理</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+					</a>
+					<ul class="treeview-menu">
+						<li class="active">
+							<a href="/business/order/list.html">
+								<i class="fa fa-circle-o"></i>
+								订单列表
+								<span class="pull-right-container">
+									<span class="label pull-right bg-orange" title="待处理订单">0</span>
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/delivery_template/list">
+								<i class="fa fa-circle-o"></i>
+								快递单模板
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/delivery_center/list">
+								<i class="fa fa-circle-o"></i>
+								发货点管理
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview">
+					<a href="javascript:;">
+						<i class="fa fa-tags"></i>
+						<span>店铺管理</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="/shopxxb2b2c/business/store/setting">
+								<i class="fa fa-circle-o"></i>
+								店铺设置
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/store_product_category/list">
+								<i class="fa fa-circle-o"></i>
+								店铺商品分类
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/store_product_tag/list">
+								<i class="fa fa-circle-o"></i>
+								店铺商品标签
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/category_application/list">
+								<i class="fa fa-circle-o"></i>
+								经营分类申请
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/store/payment">
+								<i class="fa fa-circle-o"></i>
+								店铺缴费
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/shipping_method/list">
+								<i class="fa fa-circle-o"></i>
+								配送方式
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/store_ad_image/list">
+								<i class="fa fa-circle-o"></i>
+								<span>店铺广告图片</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview">
+					<a href="javascript:;">
+						<i class="fa fa-heart-o"></i>
+						<span>促销管理</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="/shopxxb2b2c/business/discount_promotion/list">
+								<i class="fa fa-circle-o"></i>
+								折扣促销
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/full_reduction_promotion/list">
+								<i class="fa fa-circle-o"></i>
+								满减促销
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/coupon/list">
+								<i class="fa fa-circle-o"></i>
+								优惠券
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview">
+					<a href="javascript:;">
+						<i class="fa fa-credit-card"></i>
+						<span>预存款管理</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="/shopxxb2b2c/business/deposit/recharge">
+								<i class="fa fa-circle-o"></i>
+								预存款充值
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/cash/list">
+								<i class="fa fa-circle-o"></i>
+								预存款提现
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/deposit/log">
+								<i class="fa fa-circle-o"></i>
+								预存款记录
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="treeview">
+					<a href="#">
+						<i class="fa fa-user-o"></i>
+						<span>个人资料</span>
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="/shopxxb2b2c/business/profile/edit">
+								<i class="fa fa-circle-o"></i>
+								个人资料
+							</a>
+						</li>
+						<li>
+							<a href="/shopxxb2b2c/business/password/edit">
+								<i class="fa fa-circle-o"></i>
+								密码修改
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="/shopxxb2b2c/business/instant_message/list">
+						<i class="fa fa-comment-o"></i>
+						<span>客服设置</span>
+					</a>
+				</li>
+				<li class="header">统计信息</li>
+				<li>
+					<a href="/shopxxb2b2c/business/order_statistic/list">
+						<i class="fa fa-line-chart text-red"></i>
+						<span>订单统计</span>
+					</a>
+				</li>
+				<li>
+					<a href="/shopxxb2b2c/business/product_ranking/list">
+						<i class="fa fa-bar-chart text-yellow"></i>
+						<span>商品排名</span>
+					</a>
+				</li>
+			</ul>
+		</section>
+	</aside>		<div class="content-wrapper">
+	<div class="container-fluid">
+		<section class="content-header">
+			<h1>查看订单</h1>
+			<ol class="breadcrumb">
+				<li>
+					<a href="/shopxxb2b2c/business/index">
+						<i class="fa fa-home"></i>
+						首页
+					</a>
+				</li>
+				<li class="active">查看订单</li>
+			</ol>
+		</section>
+		<section class="content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="box-body">
+							<form id="paymentForm" class="form-horizontal" action="/shopxxb2b2c/business/order/payment" method="post">
+								<input name="csrfToken" type="hidden" value="de358cbcdfb1af01407a05cc6c06d4fd">
+								<input name="orderId" type="hidden" value="51">
+								<div id="paymentModal" class="modal fade" tabindex="-1">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" type="button" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">收 款</h4>
+											</div>
+											<div class="modal-body">
+												<div class="row">
+													<div class="col-xs-6">
+														<dl class="items dl-horizontal">
+															<dt>编号:</dt>
+															<dd>2019091720200</dd>
+															<dt>订单金额:</dt>
+															<dd>￥1900.00</dd>
+														</dl>
+													</div>
+													<div class="col-xs-6">
+														<dl class="items dl-horizontal">
+															<dt>创建日期:</dt>
+															<dd>2019-09-17 16:10:33</dd>
+															<dt>应付金额:</dt>
+															<dd>￥0.00</dd>
+														</dl>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label" for="bank">收款银行:</label>
+															<div class="col-xs-8">
+																<input id="bank" name="bank" class="form-control" type="text" maxlength="200">
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label" for="account">收款账号:</label>
+															<div class="col-xs-8">
+																<input id="account" name="account" class="form-control" type="text" maxlength="200">
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label item-required" for="amount">付款金额:</label>
+															<div class="col-xs-8">
+																<input id="amount" name="amount" class="form-control" type="text" maxlength="16">
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label" for="payer">付款人:</label>
+															<div class="col-xs-8">
+																<input id="payer" name="payer" class="form-control" type="text" maxlength="200">
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label">方式:</label>
+															<div class="col-xs-8">
+																<select name="method" class="selectpicker form-control" data-size="5">
+																	<option value="online">在线支付</option>
+																	<option value="offline">线下支付</option>
+
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label">支付方式:</label>
+															<div class="col-xs-8">
+																<select name="paymentMethodId" class="selectpicker form-control" data-size="5">
+																	<option value="">请选择...</option>
+																	<option value="1">网上支付</option>
+																	<option value="2">银行汇款</option>
+																	<option value="3">货到付款</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-6">
+														<div class="form-group">
+															<label class="col-xs-4 control-label" for="memo">备注:</label>
+															<div class="col-xs-8">
+																<input id="memo" name="memo" class="form-control" type="text" maxlength="200">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button class="btn btn-primary" type="submit">确 定</button>
+												<button class="btn btn-default" type="button" data-dismiss="modal">取 消</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<div id="transitStepModal" class="transit-step-modal modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button class="close" type="button" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">物流动态</h4>
+										</div>
+										<div class="modal-body"></div>
+										<div class="modal-footer">
+											<button class="btn btn-default" type="button" data-dismiss="modal">取 消</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<form class="form-horizontal">
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#orderInfo" data-toggle="tab">订单信息</a>
+									</li>
+
+								</ul>
+								<div class="tab-content">
+									<div id="orderInfo" class="tab-pane active">
+										<div class="row" id="logDiv">
+											<div class="col-xs-6 col-xs-offset-2">
+												<div class="form-group">
+													<button id="reviewModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#reviewModal" disabled>审 核</button>
+													<button id="paymentModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#paymentModal" disabled>收 款</button>
+													<button id="refundsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#refundsModal" disabled>退 款</button>
+													<button id="shippingModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#shippingModal" disabled>发 货</button>
+													<button id="returnsModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#returnsModal" disabled>退 货</button>
+													<button id="completeModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#completeModal" disabled>完 成</button>
+													<button id="failModalButton" class="btn btn-default" type="button" data-toggle="modal" data-target="#failModal" disabled>失 败</button>
+												</div>
+											</div>
+											<div class="col-xs-6">
+												<dl class="items dl-horizontal">
+													<dt>编号:</dt>
+													<dd>{{list.orders.sn}}</dd>
+													<dt>类型:</dt>
+													<dd>{{list.orders.type}}</dd>
+													<dt>会员:</dt>
+													<dd>{{list.orders.username}}</dd>
+													<dt>价格:</dt>
+													<dd>{{list.orders.price}}</dd>
+													<dt>订单金额:</dt>
+													<dd>{{list.orders.amount}}</dd>
+													<dt>重量:</dt>
+													<dd>{{list.orders.weight}}</dd>
+													<dt>已发货数量:</dt>
+													<dd>{{list.orders.quantity}}</dd>
+
+													<dt>使用优惠券:</dt>
+													<dd>{{list.orders.coupondiscount}}</dd>
+													<dt>支付手续费:</dt>
+													<dd>{{list.orders.fee}}</dd>
+													<dt>调整金额:</dt>
+													<dd>{{list.orders.offsetamount}}</dd>
+													<dt>支付方式:</dt>
+													<dd>{{list.orders.paymentmethodname}}</dd>
+													<dt>收货人:</dt>
+													<dd>{{list.orders.consignee}}</dd>
+													<dt>地址:</dt>
+													<dd>{{list.orders.address}}</dd>
+													<dt>电话:</dt>
+													<dd>{{list.orders.phone}}</dd>
+												</dl>
+											</div>
+											<div class="col-xs-6">
+												<dl class="items dl-horizontal">
+													<dt>创建日期:</dt>
+													<dd>{{list.orders.createddate}}</dd>
+													<dt>状态:</dt>
+													<dd>
+														{{list.orders.status==1?"已付款":"未付款"}}
+
+													</dd>
+													<dt>会员等级:</dt>
+													<dd>{{list.memberrank.name}}</dd>
+													<dt>兑换积分:</dt>
+													<dd>{{list.orders.exchangepoint}}</dd>
+													<dt>已付金额:</dt>
+													<dd>
+														￥{{list.orders.amountpaid}}
+													</dd>
+													<dt>数量:</dt>
+													<dd>{{list.orders.quantity}}</dd>
+													<dt>已退货数量:</dt>
+													<dd>{{list.orders.returnedquantity}}</dd>
+													<dt>促销折扣:</dt>
+													<dd>￥{{list.orders.promotiondiscount}}</dd>
+													<dt>优惠券折扣:</dt>
+													<dd>￥{{list.orders.coupondiscount}}</dd>
+													<dt>运费:</dt>
+													<dd>￥{{list.orders.freight}}</dd>
+													<dt>赠送积分:</dt>
+													<dd>{{list.orders.rewardpoint}}</dd>
+													<dt>配送方式:</dt>
+													<dd>{{list.orders.shippingmethodname}}</dd>
+													<dt>地区:</dt>
+													<dd>{{list.orders.areaname}}</dd>
+													<dt>邮编:</dt>
+													<dd>{{list.orders.zipcode}}</dd>
+													<dt>附言:</dt>
+													<dd></dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="box-footer">
+							<div class="row">
+								<div class="col-xs-4 col-xs-offset-2">
+									<button class="btn btn-default" type="button" onclick="backPage()" data-toggle="back">返 回</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+	<footer class="main-footer">
+		<div class="pull-right hidden-xs">
+			<b>Version</b> 5.0
+		</div>
+		<strong>
+			COPYRIGHT © 2008-2017 <a href="http://www.shopxx.net">SHOPXX.NET</a> ALL RIGHTS RESERVED.
+		</strong>
+	</footer>	</div>
+<script type="text/javascript">
+
+
+	$(function () {
+		sHref = window.location.href;
+		var args = sHref.split("?");
+		var  arr= args[1].split("=")
+		queryList(arr[1]);
+
+
+	})
+	var  vm= new Vue({
+		el: '#logDiv',
+		data: {
+			list:""
+
+		}
+	})
+	function queryList(id) {
+		$.ajax({
+			url:"../../ordersYwh/queryOrdersById.do",
+			data:{id:id},
+			type:"post",
+			async:false,
+			success:function (result) {
+				vm.list = result;
+
+
+
+
+
+			}
+		})
+	}
+
+	function backPage() {
+		location.href="list.html"
+	}
+
+
+</script>
+</body>
+</html>

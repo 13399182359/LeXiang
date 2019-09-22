@@ -1,0 +1,174 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>编辑属性 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $addOptionButton = $("#addOptionButton");
+            var $optionTable = $("#optionTable");
+
+
+            // 增加可选项
+            $addOptionButton.click(function() {
+                $optionTable.append(
+                    '<tr> <td> <input type="text" name="options" class="text" maxlength="200" \/> <\/td> <td> <a href="javascript:;" class="remove">[删除]<\/a> <\/td> <\/tr>'		);
+            });
+
+            // 删除可选项
+            $optionTable.on("click", "a.remove", function() {
+                if ($optionTable.find("tr").size() <= 2) {
+                    $.message("warn", "删除失败，必须至少保留一项");
+                    return false;
+                }
+                $(this).closest("tr").remove();
+            });
+
+            // 表单验证
+            $inputForm.validate({
+                rules: {
+                    name: "required",
+                    order: "digits",
+                    options: "required"
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 编辑属性
+</div>
+<form id="inputForm" action="update" method="post">
+    <input type="hidden" name="id" value="1" />
+    <table class="input">
+        <tr>
+            <th>
+                绑定分类:
+            </th>
+            <td>
+                手机
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>名称:
+            </th>
+            <td>
+                <input type="text" name="name" class="text" value="屏幕尺寸" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                排序:
+            </th>
+            <td>
+                <input type="text" name="order" class="text" value="1" maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <a href="javascript:;" id="addOptionButton" class="button">增加可选项</a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <table id="optionTable" class="item">
+                    <tr>
+                        <th>
+                            可选项
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="3英寸以下" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="3-4英寸" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="4-5英寸" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="5-6英寸" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="6-7英寸" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="7-8英寸" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="options" class="text" value="8英寸以上" maxlength="200" />
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="remove">[删除]</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

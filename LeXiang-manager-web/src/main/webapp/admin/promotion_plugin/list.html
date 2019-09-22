@@ -1,0 +1,153 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>促销插件列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $listTable = $("#listTable");
+            var $install = $("#listTable a.install");
+            var $uninstall = $("#listTable a.uninstall");
+
+
+            // 安装
+            $install.click(function() {
+                var $this = $(this);
+                $.dialog({
+                    type: "warn",
+                    content: "您确定要安装该插件吗？",
+                    onOk: function() {
+                        $.ajax({
+                            url: $this.attr("href"),
+                            type: "POST",
+                            dataType: "json",
+                            cache: false,
+                            success: function(message) {
+                                if (message.type == "success") {
+                                    location.reload(true);
+                                } else {
+                                    $.message(message);
+                                }
+                            }
+                        });
+                    }
+                });
+                return false;
+            });
+
+            // 卸载
+            $uninstall.click(function() {
+                var $this = $(this);
+                $.dialog({
+                    type: "warn",
+                    content: "您确定要卸载该插件吗？",
+                    onOk: function() {
+                        $.ajax({
+                            url: $this.attr("href"),
+                            type: "POST",
+                            dataType: "json",
+                            cache: false,
+                            success: function(message) {
+                                if (message.type == "success") {
+                                    location.reload(true);
+                                } else {
+                                    $.message(message);
+                                }
+                            }
+                        });
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index">首页</a> &raquo; 促销插件列表 <span>(共2条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <div class="buttonGroup">
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th>
+                <span>名称</span>
+            </th>
+            <th>
+                <span>版本</span>
+            </th>
+            <th>
+                <span>作者</span>
+            </th>
+            <th>
+                <span>价格</span>
+            </th>
+            <th>
+                <span>是否已启用</span>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                折扣促销
+            </td>
+            <td>
+                1.0
+            </td>
+            <td>
+                SHOP++
+            </td>
+            <td>
+                1000.00
+            </td>
+            <td>
+                <span class="trueIcon">&nbsp;</span>
+            </td>
+            <td>
+                <a href="discount_promotion/setting">[设置]</a>
+                <a href="discount_promotion/uninstall" class="uninstall">[卸载]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                满减促销
+            </td>
+            <td>
+                1.0
+            </td>
+            <td>
+                SHOP++
+            </td>
+            <td>
+                1000.00
+            </td>
+            <td>
+                <span class="trueIcon">&nbsp;</span>
+            </td>
+            <td>
+                <a href="full_reduction_promotion/setting">[设置]</a>
+                <a href="full_reduction_promotion/uninstall" class="uninstall">[卸载]</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

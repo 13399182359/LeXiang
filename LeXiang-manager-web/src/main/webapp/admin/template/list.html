@@ -1,0 +1,933 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>模板列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $listForm = $("#listForm");
+            var $type = $("#type");
+            var $typeMenu = $("#typeMenu");
+            var $typeMenuItem = $("#typeMenu li");
+
+
+            $typeMenu.hover(
+                function() {
+                    $(this).children("ul").show();
+                }, function() {
+                    $(this).children("ul").hide();
+                }
+            );
+
+            $typeMenuItem.click(function() {
+                $type.val($(this).attr("val"));
+                $listForm.submit();
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    模板列表
+</div>
+<form id="listForm" action="list" method="get">
+    <input type="hidden" id="type" name="type" value="" />
+    <div class="bar">
+        <div class="buttonGroup">
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="typeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    类型<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li class="current" val="">所有类型</li>
+                    <li val="page">页面模板</li>
+                    <li val="print">打印模板</li>
+                    <li val="mail">邮件模板</li>
+                    <li val="sms">短信模板</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th>
+                <span>名称</span>
+            </th>
+            <th>
+                <span>类型</span>
+            </th>
+            <th>
+                <span>模板文件路径</span>
+            </th>
+            <th>
+                <span>描述</span>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                头部
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/include/header.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=header">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                底部
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/include/footer.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=footer">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                登录
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/login/index.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=login">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                注册
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/register/index.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=register">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                首页
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/index.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=index">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                文章列表
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/article/list.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=articleList">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                文章搜索
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/article/search.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=articleSearch">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                文章详情
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/article/detail.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=articleDetail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商品列表
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/product/list.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=productList">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商品搜索
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/product/search.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=productSearch">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商品详情
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/product/detail.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=productDetail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                品牌列表
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/brand/list.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=brandList">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                品牌详情
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/brand/detail.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=brandDetail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                促销详情
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/promotion/detail.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=promotionDetail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商品分类
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/product_category/index.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=productCategory">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                友情链接
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/friend_link/index.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=friendLink">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                购物车
+            </td>
+            <td>
+                页面模板
+            </td>
+            <td>
+                shop/cart/list.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=cart">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单打印
+            </td>
+            <td>
+                打印模板
+            </td>
+            <td>
+                admin/print/order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=orderPrint">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                购物单打印
+            </td>
+            <td>
+                打印模板
+            </td>
+            <td>
+                admin/print/product.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=productPrint">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                发货单打印
+            </td>
+            <td>
+                打印模板
+            </td>
+            <td>
+                admin/print/shipping.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=shippingPrint">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                SMTP测试
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                admin/mail/test_smtp.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=testSmtpMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                忘记密码
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/forgot_password.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=forgotPasswordMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                到货通知
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/product_notify.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=productNotifyMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                会员注册
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/register_member.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=registerMemberMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单创建
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/create_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=createOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单更新
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/update_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=updateOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单取消
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/cancel_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=cancelOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单审核
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/review_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=reviewOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单收款
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/payment_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=paymentOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单退款
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/refunds_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=refundsOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单发货
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/shipping_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=shippingOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单退货
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/returns_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=returnsOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单收货
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/receive_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=receiveOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单完成
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/complete_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=completeOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单失败
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/fail_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=failOrderMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商家注册
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/register_business.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=registerBusinessMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                店铺审核成功
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/approval_store.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=approvalStoreMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                店铺审核失败
+            </td>
+            <td>
+                邮件模板
+            </td>
+            <td>
+                shop/mail/fail_store.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=failStoreMail">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                会员注册
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/register_member.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=registerMemberSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单创建
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/create_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=createOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单更新
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/update_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=updateOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单取消
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/cancel_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=cancelOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单审核
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/review_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=reviewOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单收款
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/payment_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=paymentOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单退款
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/refunds_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=refundsOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单发货
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/shipping_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=shippingOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单退货
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/returns_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=returnsOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单收货
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/receive_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=receiveOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单完成
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/complete_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=completeOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                订单失败
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/fail_order.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=failOrderSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商家注册
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/register_business.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=registerBusinessSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                店铺审核成功
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/approval_store.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=approvalStoreSms">[编辑]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                店铺审核失败
+            </td>
+            <td>
+                短信模板
+            </td>
+            <td>
+                shop/sms/fail_store.ftl
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="edit?id=failStoreSms">[编辑]</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

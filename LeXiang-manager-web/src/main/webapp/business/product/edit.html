@@ -1,0 +1,1779 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="SHOP++ Team">
+    <meta name="copyright" content="SHOP++">
+    <title>编辑商品 - Powered By SHOP++</title>
+    <link href="../../favicon.ico" rel="icon">
+    <link href="../../resources/business/css/bootstrap.css" rel="stylesheet">
+    <link href="../../resources/business/css/font-awesome.css" rel="stylesheet">
+    <link href="../../resources/business/css/bootstrap-select.css" rel="stylesheet">
+    <link href="../../resources/business/css/bootstrap-checkbox-x.css" rel="stylesheet">
+    <link href="../../resources/business/css/bootstrap-fileinput.css" rel="stylesheet">
+    <link href="../../resources/business/css/summernote.css" rel="stylesheet">
+    <link href="../../resources/business/css/animate.css" rel="stylesheet">
+    <link href="../../resources/business/css/adminLTE.css" rel="stylesheet">
+    <link href="../../resources/business/css/common.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../../resources/business/js/html5shiv.js"></script>
+    <script src="../../resources/business/js/respond.js"></script>
+    <![endif]-->
+    <script src="../../resources/business/js/jquery.js"></script>
+    <script src="../../resources/business/js/bootstrap.js"></script>
+    <script src="../../resources/business/js/bootstrap-select.js"></script>
+    <script src="../../resources/business/js/bootstrap-checkbox-x.js"></script>
+    <script src="../../resources/business/js/bootstrap-fileinput.js"></script>
+    <script src="../../resources/business/js/velocity.js"></script>
+    <script src="../../resources/business/js/velocity.ui.js"></script>
+    <script src="../../resources/business/js/summernote.js"></script>
+    <script src="../../resources/business/js/sortable.js"></script>
+    <script src="../../resources/business/js/jquery.validate.js"></script>
+    <script src="../../resources/business/js/icheck.js"></script>
+    <script src="../../resources/business/js/underscore.js"></script>
+    <script src="../../resources/business/js/adminLTE.js"></script>
+    <script src="../../resources/business/js/common.js"></script>
+    <script id="productImageInputTemplate" type="text/template">
+        <input name="productImages[<%-productImageIndex%>].source" type="hidden" value="<%-productImage.source%>">
+        <input name="productImages[<%-productImageIndex%>].large" type="hidden" value="<%-productImage.large%>">
+        <input name="productImages[<%-productImageIndex%>].medium" type="hidden" value="<%-productImage.medium%>">
+        <input name="productImages[<%-productImageIndex%>].thumbnail" type="hidden" value="<%-productImage.thumbnail%>">
+        <input name="productImages[<%-productImageIndex%>].order" type="hidden" value="<%-productImage.order%>">
+    </script>
+    <script id="addParameterGroupTemplate" type="text/template">
+        <div class="item" data-parameter-index="<%-parameterIndex%>">
+            <div class="form-group">
+                <div class="col-xs-1 col-xs-offset-1 text-right">
+                    <p class="form-control-static">参数组:</p>
+                </div>
+                <div class="col-xs-4">
+                    <input name="parameterValues[<%-parameterIndex%>].group" class="parameter-group form-control" type="text" maxlength="200">
+                </div>
+                <div class="col-xs-6">
+                    <p class="form-control-static">
+                        <a class="remove group" href="javascript:;">[删除]</a>
+                        <a class="add" href="javascript:;">[添加]</a>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-1 col-xs-offset-1">
+                    <input name="parameterValues[<%-parameterIndex%>].entries[<%-parameterEntryIndex%>].name" class="parameter-entry-name form-control text-right" type="text" maxlength="200">
+                </div>
+                <div class="col-xs-4">
+                    <input name="parameterValues[<%-parameterIndex%>].entries[<%-parameterEntryIndex%>].value" class="parameter-entry-value form-control" type="text" maxlength="200">
+                </div>
+                <div class="col-xs-6">
+                    <a class="remove" href="javascript:;">[删除]</a>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="addParameterTemplate" type="text/template">
+        <div class="form-group">
+            <div class="col-xs-1 col-xs-offset-1">
+                <input name="parameterValues[<%-parameterIndex%>].entries[<%-parameterEntryIndex%>].name" class="parameter-entry-name form-control" type="text" maxlength="200">
+            </div>
+            <div class="col-xs-4">
+                <input name="parameterValues[<%-parameterIndex%>].entries[<%-parameterEntryIndex%>].value" class="parameter-entry-value form-control" type="text" maxlength="200">
+            </div>
+            <div class="col-xs-6">
+                <a class="remove" href="javascript:;">[删除]</a>
+            </div>
+        </div>
+    </script>
+    <script id="parameterGroupTemplate" type="text/template">
+        <%_.each(parameters, function(parameter, i) {%>
+        <div class="item" data-parameter-index="<%-parameterIndex%>">
+            <div class="form-group">
+                <div class="col-xs-1 col-xs-offset-1 text-right">
+                    <p class="form-control-static">参数组:</p>
+                </div>
+                <div class="col-xs-4">
+                    <input name="parameterValues[<%-parameterIndex%>].group" class="parameter-group form-control" type="text" value="<%-parameter.group%>" maxlength="200">
+                </div>
+                <div class="col-xs-6">
+                    <p class="form-control-static">
+                        <a class="remove group" href="javascript:;">[删除]</a>
+                        <a class="add" href="javascript:;">[添加]</a>
+                    </p>
+                </div>
+            </div>
+            <% var parameterEntryIndex = 0 %>
+            <%_.each(parameter.names, function(name, i) {%>
+            <div class="form-group">
+                <div class="col-xs-1 col-xs-offset-1">
+                    <input name="parameterValues[<%-parameterIndex%>].entries[<%-parameterEntryIndex%>].name" class="parameter-entry-name form-control text-right" type="text" value="<%-name%>" maxlength="200">
+                </div>
+                <div class="col-xs-4">
+                    <input name="parameterValues[<%-parameterIndex%>].entries[<%-parameterEntryIndex%>].value" class="parameter-entry-value form-control" type="text" maxlength="200">
+                </div>
+                <div class="col-xs-6">
+                    <a class="remove" href="javascript:;">[删除]</a>
+                </div>
+            </div>
+            <% parameterEntryIndex ++ %>
+            <%})%>
+            <% parameterIndex ++ %>
+        </div>
+        <%})%>
+    </script>
+    <script id="attributeTemplate" type="text/template">
+        <%_.each(attributes, function(attribute, i) {%>
+        <div class="form-group">
+            <label class="col-xs-2 control-label"><%-attribute.name%></label>
+            <div class="col-xs-4">
+                <select name="attribute_<%-attribute.id%>" class="form-control">
+                    <option value="">请选择...</option>
+                    <%_.each(attribute.options, function(option, i) {%>
+                    <option value="<%-option%>"><%-option%></option>
+                    <%})%>
+                </select>
+            </div>
+        </div>
+        <%})%>
+    </script>
+    <script id="specificationTemplate" type="text/template">
+        <%_.each(specifications, function(specification, i) {%>
+        <div class="specification-item form-group">
+            <div class="col-xs-2">
+                <input name="specificationItems[<%-i%>].name" class="specification-item-name form-control text-right" type="text" value="<%-specification.name%>" data-value=<%-specification.name%>>
+            </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <%_.each(specification.options, function(option, j) {%>
+                    <div class="col-xs-2">
+                        <div class="input-group">
+									<span class="input-group-addon">
+										<input name="specificationItems[<%-i%>].entries[<%-j%>].isSelected" class="icheckd" type="checkbox" value="true">
+									</span>
+                            <input name="specificationItems[<%-i%>].entries[<%-j%>].value" class="specification-item-entry-value form-control" type="text" value="<%-option%>" data-value=<%-specification.name%>>
+                            <input name="_specificationItems[<%-i%>].entries[<%-j%>].isSelected" type="hidden" value="false">
+                            <input name="specificationItems[<%-i%>].entries[<%-j%>].id" class="specification-item-entry-id" type="hidden" value="<%-_.uniqueId()%>">
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
+        </div>
+        <%})%>
+    </script>
+    <script id="skuTemplate" type="text/template">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <%_.each(specificationItems, function(specificationItem, i) {%>
+                <th><%-specificationItem.name%></th>
+                <%})%>
+                <th>销售价</th>
+                <th>成本价</th>
+                <th>市场价</th>
+                <th>赠送积分</th>
+                <th>库存</th>
+                <th>是否默认</th>
+                <th>是否启用</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%_.each(skus, function(entries, i) {%>
+            <%
+            var ids = [];
+            _.each(entries, function(entry, j) {
+            ids.push(entry.id);
+            });
+            var initSkuValue = initSkuValues[ids.join(",")];
+            %>
+            <tr data-ids="<%-ids.join(",")%>" <%if (initSkuValue != null) {%>title="编号: <%-initSkuValue.sn%>"<%}%>>
+            <%
+            var skuValue = skuValues[ids.join(",")];
+            var price = skuValue != null && skuValue.price != null ? skuValue.price : "";
+            var cost = skuValue != null && skuValue.cost != null ? skuValue.cost : "";
+            var marketPrice = skuValue != null && skuValue.marketPrice != null ? skuValue.marketPrice : "";
+            var rewardPoint = skuValue != null && skuValue.rewardPoint != null ? skuValue.rewardPoint : "";
+            var exchangePoint = skuValue != null && skuValue.exchangePoint != null ? skuValue.exchangePoint : "";
+            var stock = skuValue != null && skuValue.stock != null ? skuValue.stock : "";
+            var isDefault = skuValue != null && skuValue.isDefault != null ? skuValue.isDefault : false;
+            var isEnabled = skuValue != null && skuValue.isEnabled != null ? skuValue.isEnabled : false;
+            %>
+            <%_.each(entries, function(entry, j) {%>
+            <td>
+                <p class="form-control-static"><%-entry.value%></p>
+                <input name="skuList[<%-i%>].specificationValues[<%-j%>].id" type="hidden" value="<%-entry.id%>">
+                <input name="skuList[<%-i%>].specificationValues[<%-j%>].value" type="hidden" value="<%-entry.value%>">
+            </td>
+            <%})%>
+            <td>
+                <input name="skuList[<%-i%>].price" class="price form-control" type="text" value="<%-price%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+            </td>
+            <td>
+                <input name="skuList[<%-i%>].cost" class="cost form-control" type="text" value="<%-cost%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+            </td>
+            <td>
+                <input name="skuList[<%-i%>].marketPrice" class="market-price form-control" type="text" value="<%-marketPrice%>" maxlength="16"<%-!isEnabled ? " disabled" : ""%>>
+            </td>
+            <td>
+                <input name="skuList[<%-i%>].rewardPoint" class="reward-point form-control" type="text" value="<%-rewardPoint%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+            </td>
+            <td>
+                <%if (initSkuValue != null) {%>
+                <div class="input-group">
+                    <input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-initSkuValue.stock%>" maxlength="9" title="已分配库存: <%-initSkuValue.allocatedStock%>" readonly>
+                    <div class="input-group-btn">
+                        <a class="sn btn btn-default" href="../stock/stock_in?skuSn=<%-initSkuValue.sn%>" title="入库">+</a>
+                        <a class="sn btn btn-default" href="../stock/stock_out?skuSn=<%-initSkuValue.sn%>" title="出库">-</a>
+                    </div>
+                </div>
+                <%} else {%>
+                <input name="skuList[<%-i%>].stock" class="stock form-control" type="text" value="<%-stock%>" maxlength="9"<%-!isEnabled ? " disabled" : ""%>>
+                <%}%>
+            </td>
+            <td>
+                <input name="skuList[<%-i%>].isDefault" class="is-default" type="checkbox" value="true"<%-isDefault ? " checked" : ""%><%-!isEnabled ? " disabled" : ""%>>
+                <input name="_skuList[<%-i%>].isDefault" type="hidden" value="false">
+            </td>
+            <td>
+                <input name="isEnabled" class="is-enabled" type="checkbox" value="true"<%-isEnabled ? " checked" : ""%>>
+            </td>
+            </tr>
+            <%})%>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $productForm = $("#productForm");
+            var $isDefault = $("#isDefault");
+            var $productCategoryId = $("#productCategoryId");
+            var $confirmButton = $("#confirmButton");
+            var $dismissButton = $("#dismissButton");
+            var $price = $("#price");
+            var $cost = $("#cost");
+            var $marketPrice = $("#marketPrice");
+            var $rewardPoint = $("#rewardPoint");
+            var $exchangePoint = $("#exchangePoint");
+            var $stock = $("#stock");
+            var $promotionIds = $("input[name='promotionIds']");
+            var $productImage = $("#productImage");
+            var $productImageFile = $("#productImage input:file");
+            var $parameter = $("#parameter");
+            var $addParameterButton = $("#addParameterButton");
+            var $resetParameterButton = $("#resetParameterButton");
+            var $parameterContent = $("#parameterContent");
+            var $attribute = $("#attribute");
+            var $resetSpecificationButton = $("#resetSpecificationButton");
+            var $specificationContent = $("#specificationContent");
+            var $sku = $("#sku");
+            var productImageInputTemplate = _.template($("#productImageInputTemplate").html());
+            var addParameterGroupTemplate = _.template($("#addParameterGroupTemplate").html());
+            var addParameterTemplate = _.template($("#addParameterTemplate").html());
+            var parameterGroupTemplate = _.template($("#parameterGroupTemplate").html());
+            var attributeTemplate = _.template($("#attributeTemplate").html());
+            var specificationTemplate = _.template($("#specificationTemplate").html());
+            var skuTemplate = _.template($("#skuTemplate").html());
+            var previousProductCategoryId = 41;
+            var productImageIndex = 0;
+            var parameterIndex = 3;
+            var parameterEntryIndex = 0;
+            var hasSpecification = false;
+            var productImages = [];
+            var initSkuValues = {};
+
+
+            productImages = [
+                {
+                    source: "http://image.demo.shopxx.net/b2b2c/5.0/201601/198bc691-83e8-42f5-9595-5a54367911c3-source.jpg",
+                    large: "http://image.demo.shopxx.net/b2b2c/5.0/201601/198bc691-83e8-42f5-9595-5a54367911c3-large.jpg",
+                    medium: "http://image.demo.shopxx.net/b2b2c/5.0/201601/198bc691-83e8-42f5-9595-5a54367911c3-medium.jpg",
+                    thumbnail: "http://image.demo.shopxx.net/b2b2c/5.0/201601/198bc691-83e8-42f5-9595-5a54367911c3-thumbnail.jpg",
+                    order: "1"
+                },
+                {
+                    source: "http://image.demo.shopxx.net/b2b2c/5.0/201601/36522eab-9938-4b55-90bf-345cdb329157-source.jpg",
+                    large: "http://image.demo.shopxx.net/b2b2c/5.0/201601/36522eab-9938-4b55-90bf-345cdb329157-large.jpg",
+                    medium: "http://image.demo.shopxx.net/b2b2c/5.0/201601/36522eab-9938-4b55-90bf-345cdb329157-medium.jpg",
+                    thumbnail: "http://image.demo.shopxx.net/b2b2c/5.0/201601/36522eab-9938-4b55-90bf-345cdb329157-thumbnail.jpg",
+                    order: "2"
+                }
+            ];
+
+
+            loadSpecification();
+
+            // 商品分类
+            $productCategoryId.change(function() {
+                if (!isEmpty($attribute.find("select"))) {
+                    $("#resetAttributeModal").modal();
+                    $confirmButton.click(function() {
+                        if (isEmpty($parameterContent.find("input.parameter-entry-value"))) {
+                            loadParameter();
+                        }
+                        loadAttribute();
+                        if (isEmpty($sku.find("input:text"))) {
+                            loadSpecification();
+                        }
+                        previousProductCategoryId = $productCategoryId.val();
+                    });
+                    $dismissButton.click(function() {
+                        $productCategoryId.val(previousProductCategoryId);
+                    });
+                } else {
+                    if (isEmpty($parameterContent.find("input.parameter-entry-value"))) {
+                        loadParameter();
+                    }
+                    loadAttribute();
+                    if (isEmpty($sku.find("input:text"))) {
+                        loadSpecification();
+                    }
+                    previousProductCategoryId = $productCategoryId.val();
+                }
+            });
+
+            // 判断是否为空
+            function isEmpty($elements) {
+                var isEmpty = true;
+
+                $elements.each(function() {
+                    var $element = $(this);
+                    if ($.trim($element.val()) != "") {
+                        isEmpty = false;
+                        return false;
+                    }
+                });
+                return isEmpty;
+            }
+
+            // 修改视图
+            function changeView() {
+                if (hasSpecification) {
+                    $isDefault.prop("disabled", true);
+                    $price.add($cost).add($marketPrice).add($rewardPoint).add($exchangePoint).add($stock).prop("disabled", true).closest("div.form-group").velocity("slideUp");
+                } else {
+                    $isDefault.prop("disabled", false);
+                    $price.add($cost).add($marketPrice).add($rewardPoint).add($exchangePoint).add($stock).prop("disabled", false).closest("div.form-group").velocity("slideUp");
+                }
+            }
+
+            // 商品图片
+            $productImageFile.fileinput({
+                uploadUrl: "../../business/product/upload_product_image",
+                allowedFileExtensions: "jpg,jpeg,bmp,gif,png".split(","),
+                maxFileSize: 10 * 1024,
+                showRemove: false,
+                showClose: false,
+                dropZoneEnabled: false,
+                overwriteInitial: false,
+                previewClass: "multiple-file-preview",
+                previewThumbTags: {
+                    "{inputs}": function() {
+                        return productImageInputTemplate({
+                            productImageIndex: productImageIndex ++
+                        });
+                    }
+                },
+                layoutTemplates: {
+                    footer: '<div class="file-thumbnail-footer">{inputs}{actions}</div>',
+                    actions: '<div class="file-actions"><div class="file-footer-buttons">{upload} {delete} {zoom} {other}</div></div>'
+                },
+                initialPreviewAsData: true,
+                initialPreview: $.map(productImages, function(productImage) {
+                    return productImage.large;
+                }),
+                initialPreviewConfig: $.map(productImages, function(productImage, i) {
+                    return {
+                        url: "../../business/product/delete_product_image",
+                        key: i
+                    }
+                }),
+                initialPreviewThumbTags: $.map(productImages, function(productImage) {
+                    return {
+                        "{inputs}": productImageInputTemplate({
+                            productImageIndex: productImageIndex ++,
+                            productImage: productImage
+                        })
+                    }
+                }),
+                fileActionSettings: {
+                    showUpload: false,
+                    showRemove: true,
+                    showDrag: false
+                },
+                removeFromPreviewOnError: true,
+                showAjaxErrorDetails: false
+            }).on("fileuploaded", function(event, data, previewId, index) {
+                var $preview = $("#" + previewId);
+                var productImage = data.response;
+
+                $preview.find("input[name$='.source']").val(productImage.source);
+                $preview.find("input[name$='.large']").val(productImage.large);
+                $preview.find("input[name$='.medium']").val(productImage.medium);
+                $preview.find("input[name$='.thumbnail']").val(productImage.thumbnail);
+            });
+
+            // 商品图片排序
+            Sortable.create($productImage.find(".file-preview-thumbnails")[0], {
+                animation: 300
+            });
+
+            // 增加参数
+            $addParameterButton.click(function() {
+                var parameterIndex = $parameterContent.children(".item").size();
+                $parameterContent.append(addParameterGroupTemplate({
+                    parameterIndex: parameterIndex,
+                    parameterEntryIndex: parameterEntryIndex
+                }));
+            });
+
+            // 重置参数
+            $resetParameterButton.click(function() {
+                loadParameter();
+            });
+
+            // 删除参数
+            $parameterContent.on("click", "a.remove", function() {
+                var $element = $(this);
+
+                if ($element.hasClass("group")) {
+                    $element.closest("div.item").velocity("fadeOut", {
+                        complete: function() {
+                            $(this).remove();
+                        }
+                    });
+                } else {
+                    if ($element.closest("div.item").find("div.form-group").size() <= 2) {
+                        $.alert("删除失败，必须至少保留一项");
+                        return false;
+                    }
+                    $element.closest("div.form-group").velocity("fadeOut", {
+                        complete: function() {
+                            $(this).remove();
+                        }
+                    });
+                }
+            });
+
+            // 添加参数
+            $parameterContent.on("click", "a.add", function() {
+                var $element = $(this);
+                var $item = $element.closest(".item");
+                var parameterIndex = $item.data("parameter-index");
+                var parameterEntryIndex = ($item.find(".form-group").size())-1;
+
+                $item.append(addParameterTemplate({
+                    parameterIndex: parameterIndex,
+                    parameterEntryIndex: parameterEntryIndex
+                }));
+            });
+
+            // 加载参数
+            function loadParameter() {
+                $.ajax({
+                    url: "../../business/product/parameters",
+                    type: "GET",
+                    data: {
+                        productCategoryId: $productCategoryId.val()
+                    },
+                    dataType: "json",
+                    success: function(parameters) {
+                        $parameterContent.html(parameterGroupTemplate({
+                            parameters: parameters,
+                            parameterIndex: parameterIndex
+                        }));
+                    }
+                });
+            }
+
+            // 加载属性
+            function loadAttribute() {
+                $.ajax({
+                    url: "../../business/product/attributes",
+                    type: "GET",
+                    data: {
+                        productCategoryId: $productCategoryId.val()
+                    },
+                    dataType: "json",
+                    success: function(attributes) {
+                        $attribute.html(attributeTemplate({
+                            attributes: attributes
+                        }));
+                    }
+                });
+            }
+
+            // 重置规格
+            $resetSpecificationButton.click(function() {
+                hasSpecification = false;
+                changeView();
+                loadSpecification();
+            });
+
+            // 选择规格
+            $specificationContent.on("ifChanged", "input.icheckd", function() {
+                hasSpecification = $specificationContent.find("input:checkbox:checked").size() > 0;
+                changeView();
+                buildSkuTable();
+                if ($sku.find("input.is-default:not(:disabled):checked").size() == 0) {
+                    $sku.find("input.is-default:not(:disabled):first").prop("checked", true);
+                }
+            });
+
+            // 规格
+            $specificationContent.on("change", "input:text", function() {
+                var $element = $(this);
+                var value = $.trim($element.val());
+
+                if (value == "") {
+                    $element.val($element.data("value"));
+                    return false;
+                }
+                if ($element.hasClass("specification-item-entry-value")) {
+                    var values = $element.closest("div.specification-item").find("input.specification-item-entry-value").not($element).map(function() {
+                        return $.trim($(this).val());
+                    }).get();
+                    if ($.inArray(value, values) >= 0) {
+                        $.alert("规格值不允许重复");
+                        $element.val($element.data("value"));
+                        return false;
+                    }
+                }
+                $element.data("value", value);
+                buildSkuTable();
+            });
+
+            // 是否默认
+            $sku.on("change", "input.is-default", function() {
+                var $element = $(this);
+
+                if ($element.prop("checked")) {
+                    $sku.find("input.is-default").not($element).prop("checked", false);
+                } else {
+                    $element.prop("checked", true);
+                }
+            });
+
+            // 是否启用
+            $sku.on("change", "input.is-enabled", function() {
+                var $element = $(this);
+
+                if ($element.prop("checked")) {
+                    $element.closest("tr").find("input:not(input.is-enabled)").prop("disabled", false);
+                } else {
+                    $element.closest("tr").find("input:not(input.is-enabled)").prop("disabled", true).end().find("input.is-default").prop("checked", false);
+                }
+                if ($sku.find("input.is-default:not(:disabled):checked").size() == 0) {
+                    $sku.find("input.is-default:not(:disabled):first").prop("checked", true);
+                }
+            });
+
+            // 生成SKU表
+            function buildSkuTable(skuValues) {
+                var specificationItems = [];
+
+                if (!hasSpecification) {
+                    $sku.empty()
+                    return false;
+                }
+                $specificationContent.find("div.specification-item").each(function() {
+                    var $element = $(this);
+                    var $checked = $element.find("input:checkbox:checked");
+
+                    if ($checked.size() > 0) {
+                        var specificationItem = {};
+                        specificationItem.name = $element.find("input.specification-item-name").val();
+                        specificationItem.entries = $checked.map(function() {
+                            var $element = $(this);
+                            return {
+                                id: $element.closest("div.input-group").find("input.specification-item-entry-id").val(),
+                                value: $element.closest("div.input-group").find("input.specification-item-entry-value").val()
+                            };
+                        }).get();
+                        specificationItems.push(specificationItem);
+                    }
+                });
+                var skus = cartesianSkuOf($.map(specificationItems, function(specificationItem) {
+                    return [specificationItem.entries];
+                }));
+                if (skuValues == null) {
+                    skuValues = {};
+                    $sku.find("tr").each(function() {
+                        var $element = $(this);
+                        skuValues[$element.data("ids")] = {
+                            sn: $element.find("a.sn").data("id"),
+                            price: $element.find("input.price").val(),
+                            cost: $element.find("input.cost").val(),
+                            marketPrice: $element.find("input.market-price").val(),
+                            rewardPoint: $element.find("input.reward-point").val(),
+                            exchangePoint: $element.find("input.exchange-point").val(),
+                            stock: $element.find("input.stock").val(),
+                            isDefault: $element.find("input.is-default").prop("checked"),
+                            isEnabled: $element.find("input.is-enabled").prop("checked")
+                        };
+                    });
+                }
+                $sku.html(skuTemplate({
+                    initSkuValues: initSkuValues,
+                    specificationItems: specificationItems,
+                    skus: skus,
+                    skuValues: skuValues
+                }));
+            }
+
+            // 笛卡尔积
+            function cartesianSkuOf(array) {
+                function addTo(current, args) {
+                    var i, copy;
+                    var rest = args.slice(1);
+                    var isLast = !rest.length;
+                    var result = [];
+                    for (i = 0; i < args[0].length; i++) {
+                        copy = current.slice();
+                        copy.push(args[0][i]);
+                        if (isLast) {
+                            result.push(copy);
+                        } else {
+                            result = result.concat(addTo(copy, rest));
+                        }
+                    }
+                    return result;
+                }
+                return addTo([], array);
+            }
+
+            // 加载规格
+            function loadSpecification() {
+                $.ajax({
+                    url: "../../business/product/specifications",
+                    type: "GET",
+                    data: {
+                        productCategoryId: $productCategoryId.val()
+                    },
+                    dataType: "json",
+                    success: function(specifications) {
+                        $specificationContent.html(specificationTemplate({
+                            specifications: specifications
+                        }));
+                        $sku.empty();
+                    },
+                    complete: function() {
+                        var $icheckd = $("input.icheckd");
+                        $icheckd.iCheck({
+                            checkboxClass: "icheckbox-flat-blue",
+                            radioClass: "iradio-flat-blue"
+                        });
+                    }
+                });
+            }
+
+            $.validator.addClassRules({
+                "parameter-group": {
+                    required: true
+                },
+                price: {
+                    required: true,
+                    min: 0,
+                    decimal: {
+                        integer: 12,
+                        fraction: 2
+                    }
+                },
+                cost: {
+                    min: 0,
+                    decimal: {
+                        integer: 12,
+                        fraction: 2
+                    }
+                },
+                "market-price": {
+                    min: 0,
+                    decimal: {
+                        integer: 12,
+                        fraction: 2
+                    }
+                },
+                "reward-point": {
+                    digits: true,
+                    max: function(element) {
+                        var $element = $(element);
+                        var price = $element.closest("tr").find("input.price").val();
+                        return $.isNumeric(price) ? parseInt(price * 1) : 999999999;
+                    }
+                },
+                "exchange-point": {
+                    required: true,
+                    digits: true
+                },
+                stock: {
+                    required: true,
+                    digits: true
+                }
+            });
+
+            // 表单验证
+            $productForm.validate({
+                rules: {
+                    productCategoryId: "required",
+                    name: "required",
+                    "sku.price": {
+                        required: true,
+                        min: 0,
+                        decimal: {
+                            integer: 12,
+                            fraction: 2
+                        }
+                    },
+                    "sku.cost": {
+                        min: 0,
+                        decimal: {
+                            integer: 12,
+                            fraction: 2
+                        }
+                    },
+                    "sku.marketPrice": {
+                        min: 0,
+                        decimal: {
+                            integer: 12,
+                            fraction: 2
+                        }
+                    },
+                    weight: "digits",
+                    "sku.rewardPoint": {
+                        digits: true,
+                        max: function() {
+                            return parseInt($price.val() * 1);
+                        }
+                    },
+                    "sku.exchangePoint": {
+                        digits: true,
+                        required: true
+                    },
+                    "sku.stock": {
+                        required: true,
+                        digits: true
+                    }
+                },
+                messages: {
+                    sn: {
+                        pattern: "非法字符",
+                        remote: "已存在"
+                    }
+                },
+                submitHandler: function(form) {
+                    if (hasSpecification && $sku.find("input.is-enabled:checked").size() < 1) {
+                        $.alert("请设置规格商品");
+                        return false;
+                    }
+                    if ($productImageFile.fileinput("getFileStack").length > 0) {
+                        $.alert("存在未上传商品图片");
+                        return false;
+                    }
+                    $productImage.find(".kv-preview-thumb input[name$='.order']").each(function(i) {
+                        $(this).val(i);
+                    });
+                    $productImage.find(".kv-zoom-thumb input").each(function() {
+                        $(this).prop("disabled", true);
+                    });
+                    addCookie("previousProductCategoryId", $productCategoryId.val(), {
+                        expires: 24 * 60 * 60
+                    });
+                    $(form).find("button:submit").prop("disabled", true);
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a class="logo" href="../../business/index">
+		<span class="logo-mini">
+			<img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ab964025-bb0b-4120-a4bc-f0c3015cf9e0.jpg" alt="手机旗舰店">
+		</span>
+            <span class="logo-lg">手机旗舰店</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="offcanvas"></a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ab964025-bb0b-4120-a4bc-f0c3015cf9e0.jpg" alt="手机旗舰店">
+                                <span class="hidden-xs">shopxx_sj</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu">
+                            <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                                <span class="fa fa-bell-o"></span>
+                                <div class="label">
+                                    <span class="fa fa-circle text-red"></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <span class="fa fa-warning text-orange"></span>
+                                    <strong>提醒信息</strong>
+                                </li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingPayment&hasExpired=false">
+                                                <span class="fa fa-credit-card text-aqua"></span>
+                                                0个待付款订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingReview&hasExpired=false">
+                                                <span class="fa fa-user-o text-red"></span>
+                                                0个待审核订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingShipment">
+                                                <span class="fa fa-truck text-green"></span>
+                                                0个待发货订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?isPendingRefunds=true">
+                                                <span class="fa fa-rmb text-yellow"></span>
+                                                12个待退款订单
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="../../business/order/list">查看所有订单</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="logout" href="../../business/logout">
+                                <span class="fa fa-sign-out"></span>
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header><script type="text/javascript">
+
+    $().ready(function() {
+        var $includeForm = $("#includeForm");
+        var $searchValue = $("input[name='searchValue']");
+
+        $includeForm.submit(function() {
+            if($.trim($searchValue.val()) == "") {
+                return false;
+            }
+        })
+    });
+
+</script>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <form id="includeForm" class="sidebar-form" action="../../business/product/list" method="get">
+                <input name="searchProperty" type="hidden" value="name">
+                <div class="active input-group">
+                    <input name="searchValue" class="form-control" type="text" placeholder="商品搜索">
+                    <span class="input-group-btn">
+					<button class="btn btn-flat" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+                </div>
+            </form>
+            <ul class="sidebar-menu">
+                <li class="treeview active">
+                    <a href="javascript:;">
+                        <i class="fa fa-clone"></i>
+                        <span>商品管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active">
+                            <a href="../../business/product/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-red" title="缺货">2</span>
+									<span class="label pull-right bg-orange" title="库存警告">2</span>
+							</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/stock/log">
+                                <i class="fa fa-circle-o"></i>
+                                库存记录
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/product_notify/list">
+                                <i class="fa fa-circle-o"></i>
+                                到货通知
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/consultation/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品咨询
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/review/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品评论
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-list-ul"></i>
+                        <span>订单管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/order/list">
+                                <i class="fa fa-circle-o"></i>
+                                订单列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-orange" title="待处理订单">0</span>
+								</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_template/list">
+                                <i class="fa fa-circle-o"></i>
+                                快递单模板
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_center/list">
+                                <i class="fa fa-circle-o"></i>
+                                发货点管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-tags"></i>
+                        <span>店铺管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <i class="fa fa-circle-o"></i>
+                                店铺设置
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_category/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品分类
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_tag/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品标签
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/category_application/list">
+                                <i class="fa fa-circle-o"></i>
+                                经营分类申请
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store/payment">
+                                <i class="fa fa-circle-o"></i>
+                                店铺缴费
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/shipping_method/list">
+                                <i class="fa fa-circle-o"></i>
+                                配送方式
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_ad_image/list">
+                                <i class="fa fa-circle-o"></i>
+                                <span>店铺广告图片</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-heart-o"></i>
+                        <span>促销管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/discount_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                折扣促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/full_reduction_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                满减促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/coupon/list">
+                                <i class="fa fa-circle-o"></i>
+                                优惠券
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>预存款管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/deposit/recharge">
+                                <i class="fa fa-circle-o"></i>
+                                预存款充值
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/cash/list">
+                                <i class="fa fa-circle-o"></i>
+                                预存款提现
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/deposit/log">
+                                <i class="fa fa-circle-o"></i>
+                                预存款记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span>个人资料</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/profile/edit">
+                                <i class="fa fa-circle-o"></i>
+                                个人资料
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/password/edit">
+                                <i class="fa fa-circle-o"></i>
+                                密码修改
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../../business/instant_message/list">
+                        <i class="fa fa-comment-o"></i>
+                        <span>客服设置</span>
+                    </a>
+                </li>
+                <li class="header">统计信息</li>
+                <li>
+                    <a href="../../business/order_statistic/list">
+                        <i class="fa fa-line-chart text-red"></i>
+                        <span>订单统计</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../business/product_ranking/list">
+                        <i class="fa fa-bar-chart text-yellow"></i>
+                        <span>商品排名</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>		<div class="content-wrapper">
+    <div class="container-fluid">
+        <section class="content-header">
+            <h1>编辑商品</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="../../business/index">
+                        <i class="fa fa-home"></i>
+                        首页
+                    </a>
+                </li>
+                <li class="active">编辑商品</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="productForm" class="form-horizontal" action="../../business/product/update" method="post">
+                        <input name="productId" type="hidden" value="5">
+                        <input id="isDefault" name="sku.isDefault" type="hidden" value="true">
+                        <div class="box">
+                            <div class="box-body">
+                                <div id="resetParameterModal" class="modal fade" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>重置参数后当前商品参数设置将清空，是否继续？</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="resetParameterButton" class="btn btn-primary" type="button" data-dismiss="modal">确 定</button>
+                                                <button class="btn btn-default" type="button" data-dismiss="modal">取 消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resetSpecificationModal" class="modal fade" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>重置规格后当前商品规格设置将清空，是否继续？</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="resetSpecificationButton" class="btn btn-primary" type="button" data-dismiss="modal">确 定</button>
+                                                <button class="btn btn-default" type="button" data-dismiss="modal">取 消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="resetAttributeModal" class="modal fade" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>修改商品分类后当前商品属性设置将清空，是否继续？</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="confirmButton" class="btn btn-primary" type="button" data-dismiss="modal">确 定</button>
+                                                <button id="dismissButton" class="btn btn-default" type="button" data-dismiss="modal">取 消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#base" data-toggle="tab">基本信息</a>
+                                    </li>
+                                    <li>
+                                        <a href="#introduction" data-toggle="tab">商品介绍</a>
+                                    </li>
+                                    <li>
+                                        <a href="#productImage" data-toggle="tab">商品图片</a>
+                                    </li>
+                                    <li>
+                                        <a href="#parameter" data-toggle="tab">商品参数</a>
+                                    </li>
+                                    <li>
+                                        <a href="#attribute" data-toggle="tab">商品属性</a>
+                                    </li>
+                                    <li>
+                                        <a href="#specification" data-toggle="tab">商品规格</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="base" class="tab-pane active">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">商品分类:</label>
+                                            <div class="col-xs-4">
+                                                <select id="productCategoryId" name="productCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="1" title="手机数码">
+                                                        手机数码
+                                                    </option>
+                                                    <option value="7" title="手机通讯" disabled>
+                                                        &nbsp;&nbsp;
+                                                        手机通讯
+                                                    </option>
+                                                    <option value="41" title="手机" selected>
+                                                        &nbsp;&nbsp;
+                                                        &nbsp;&nbsp;
+                                                        手机
+                                                    </option>
+                                                    <option value="241" title="积分商城">
+                                                        积分商城
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">店铺商品分类:</label>
+                                            <div class="col-xs-4">
+                                                <select name="storeProductCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="1" title="智能手机">
+                                                        智能手机
+                                                    </option>
+                                                    <option value="7" title="iPhone">
+                                                        &nbsp;&nbsp;
+                                                        iPhone
+                                                    </option>
+                                                    <option value="8" title="OPPO">
+                                                        &nbsp;&nbsp;
+                                                        OPPO
+                                                    </option>
+                                                    <option value="9" title="三星">
+                                                        &nbsp;&nbsp;
+                                                        三星
+                                                    </option>
+                                                    <option value="10" title="华为" selected>
+                                                        &nbsp;&nbsp;
+                                                        华为
+                                                    </option>
+                                                    <option value="11" title="小米">
+                                                        &nbsp;&nbsp;
+                                                        小米
+                                                    </option>
+                                                    <option value="12" title="魅族">
+                                                        &nbsp;&nbsp;
+                                                        魅族
+                                                    </option>
+                                                    <option value="13" title="酷派">
+                                                        &nbsp;&nbsp;
+                                                        酷派
+                                                    </option>
+                                                    <option value="14" title="中兴">
+                                                        &nbsp;&nbsp;
+                                                        中兴
+                                                    </option>
+                                                    <option value="15" title="HTC">
+                                                        &nbsp;&nbsp;
+                                                        HTC
+                                                    </option>
+                                                    <option value="2" title="普通手机">
+                                                        普通手机
+                                                    </option>
+                                                    <option value="3" title="手机配件">
+                                                        手机配件
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">类型:</label>
+                                            <div class="col-xs-4">
+                                                <p class="form-control-static">普通商品</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">编号:</label>
+                                            <div class="col-xs-4">
+                                                <p class="form-control-static">20160101105</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label item-required" for="name">名称:</label>
+                                            <div class="col-xs-4">
+                                                <input id="name" name="name" class="form-control" type="text" value="华为 Ascend G7" maxlength="200">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="caption">副标题:</label>
+                                            <div class="col-xs-4">
+                                                <input id="caption" name="caption" class="form-control" type="text" value="一体化设计，尖端工艺" maxlength="200">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label item-required" for="price">销售价:</label>
+                                            <div class="col-xs-4">
+                                                <input id="price" name="sku.price" class="form-control" type="text" value="1900" maxlength="16">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="cost">成本价:</label>
+                                            <div class="col-xs-4">
+                                                <input id="cost" name="sku.cost" class="form-control" type="text" value="" maxlength="16" title="前台不会显示，仅供后台使用">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="marketPrice">市场价:</label>
+                                            <div class="col-xs-4">
+                                                <input id="marketPrice" name="sku.marketPrice" class="form-control" type="text" value="2280" maxlength="16" title="若留空则由系统自动计算">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">展示图片:</label>
+                                            <div class="col-xs-4">
+                                                <input name="image" type="hidden" value="http://image.demo.shopxx.net/b2b2c/5.0/201601/198bc691-83e8-42f5-9595-5a54367911c3-thumbnail.jpg" data-provide="fileinput" data-file-type="image">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="unit">单位:</label>
+                                            <div class="col-xs-4">
+                                                <input id="unit" name="unit" class="form-control" type="text" value="台" maxlength="200">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="weight">重量:</label>
+                                            <div class="col-xs-4">
+                                                <input id="weight" name="weight" class="form-control" type="text" value="450" maxlength="9" title="单位：克">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="rewardPoint">赠送积分:</label>
+                                            <div class="col-xs-4">
+                                                <input id="rewardPoint" name="sku.rewardPoint" class="form-control" type="text" value="1900" maxlength="9" title="若留空则由系统自动计算">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="stock">库存:</label>
+                                            <div class="col-xs-4">
+                                                <div class="input-group">
+                                                    <input id="stock" name="sku.stock" class="form-control" type="text" value="100" maxlength="9" title="已分配库存: 0" readonly>
+                                                    <div class="input-group-btn">
+                                                        <a class="btn btn-default" href="../stock/stock_in?skuSn=20160101105" title="入库">+</a>
+                                                        <a class="btn btn-default" href="../stock/stock_out?skuSn=20160101105" title="出库">-</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">品牌:</label>
+                                            <div class="col-xs-4">
+                                                <select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="1">苹果</option>
+                                                    <option value="2">三星</option>
+                                                    <option value="3">索尼</option>
+                                                    <option value="4" selected>华为</option>
+                                                    <option value="5">魅族</option>
+                                                    <option value="6">佳能</option>
+                                                    <option value="7">尼康</option>
+                                                    <option value="8">松下</option>
+                                                    <option value="9">戴尔</option>
+                                                    <option value="10">惠普</option>
+                                                    <option value="11">华硕</option>
+                                                    <option value="12">微星</option>
+                                                    <option value="13">宏碁</option>
+                                                    <option value="14">联想</option>
+                                                    <option value="15">兄弟</option>
+                                                    <option value="16">得力</option>
+                                                    <option value="17">海尔</option>
+                                                    <option value="18">美的</option>
+                                                    <option value="19">格力</option>
+                                                    <option value="20">海信</option>
+                                                    <option value="21">创维</option>
+                                                    <option value="22">先锋</option>
+                                                    <option value="23">夏普</option>
+                                                    <option value="24">九阳</option>
+                                                    <option value="25">耐克</option>
+                                                    <option value="26">特步</option>
+                                                    <option value="27">安踏</option>
+                                                    <option value="28">劲霸</option>
+                                                    <option value="29">柒牌</option>
+                                                    <option value="30">杉杉</option>
+                                                    <option value="31">红豆</option>
+                                                    <option value="32">婷美</option>
+                                                    <option value="33">薇姿</option>
+                                                    <option value="34">美即</option>
+                                                    <option value="35">多芬</option>
+                                                    <option value="36">沙宣</option>
+                                                    <option value="37">欧莱雅</option>
+                                                    <option value="38">美宝莲</option>
+                                                    <option value="39">妮维雅</option>
+                                                    <option value="40">海飞丝</option>
+                                                    <option value="41">欧普</option>
+                                                    <option value="42">公牛</option>
+                                                    <option value="43">妙洁</option>
+                                                    <option value="44">中宇</option>
+                                                    <option value="45">多喜爱</option>
+                                                    <option value="46">北极绒</option>
+                                                    <option value="47">恒源祥</option>
+                                                    <option value="48">富安娜</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label item-required">商品标签:</label>
+                                            <div class="col-xs-10">
+                                                <label class="checkbox-inline">
+                                                    <input name="productTagIds" class="icheck" type="checkbox" value="1" checked>
+                                                    热销
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input name="productTagIds" class="icheck" type="checkbox" value="2">
+                                                    最新
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label item-required">店铺商品标签:</label>
+                                            <div class="col-xs-10">
+                                                <label class="checkbox-inline">
+                                                    <input name="storeProductTagIds" class="icheck" type="checkbox" value="4" checked>
+                                                    本店新品
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input name="storeProductTagIds" class="icheck" type="checkbox" value="3">
+                                                    热卖商品
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">设置:</label>
+                                            <div class="col-xs-10 checkbox">
+                                                <input id="isMarketable" name="isMarketable" type="text" value="true" data-toggle="checkbox-x">
+                                                <label for="isMarketable" class="cbx-label">是否上架</label>
+                                                <input id="isList" name="isList" type="text" value="true" data-toggle="checkbox-x">
+                                                <label for="isList" class="cbx-label">是否列出</label>
+                                                <input id="isTop" name="isTop" type="text" value="true" data-toggle="checkbox-x">
+                                                <label for="isTop" class="cbx-label">是否置顶</label>
+                                                <input id="isDelivery" name="isDelivery" type="text" value="true" data-toggle="checkbox-x">
+                                                <label for="isDelivery" class="cbx-label">是否需要物流</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="memo">备注:</label>
+                                            <div class="col-xs-4">
+                                                <input id="memo" name="memo" class="form-control" type="text" value="" maxlength="200">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label" for="keyword">搜索关键词:</label>
+                                            <div class="col-xs-4">
+                                                <input id="keyword" name="keyword" class="form-control" type="text" value="华为,huawei" maxlength="200" title="应用于前台商品搜索，多个关键字以(,)分隔">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="introduction" class="tab-pane">
+                                        <textarea name="introduction" data-provide="editor">&lt;p&gt;&lt;img src=&quot;http://image.demo.shopxx.net/b2b2c/5.0/201601/25606c77-73d6-4bf4-befc-d4721000b300.png&quot;/&gt;&lt;/p&gt;</textarea>
+                                    </div>
+                                    <div id="productImage" class="tab-pane">
+                                        <div class="form-group">
+                                            <div class="col-xs-6">
+                                                <input name="file" type="file" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="parameter" class="tab-pane">
+                                        <div class="form-group">
+                                            <div class="col-xs-10 col-xs-offset-2">
+                                                <button id="addParameterButton" class="btn btn-default" type="button">
+                                                    <i class="fa fa-plus"></i>
+                                                    增加参数
+                                                </button>
+                                                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#resetParameterModal">
+                                                    <i class="fa fa-repeat"></i>
+                                                    重置参数
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="parameterContent">
+                                            <div class="item" data-parameter-index="0" data-parameter-entry-index="5">
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1 text-right">
+                                                        <p class="form-control-static">参数组:</p>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[0].group" class="parameter-group form-control" type="text" value="基本参数" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove group" href="javascript:;">[删除]</a>
+                                                            <a class="add" href="javascript:;">[添加]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[0].entries[0].name" class="parameter-entry-name form-control text-right" type="text" value="操作系统" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[0].entries[0].value" class="parameter-entry-value form-control" type="text" value="Android" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[0].entries[1].name" class="parameter-entry-name form-control text-right" type="text" value="CPU频率" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[0].entries[1].value" class="parameter-entry-value form-control" type="text" value="1.2GHz" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[0].entries[2].name" class="parameter-entry-name form-control text-right" type="text" value="核心数" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[0].entries[2].value" class="parameter-entry-value form-control" type="text" value="四核" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[0].entries[3].name" class="parameter-entry-name form-control text-right" type="text" value="电池类型" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[0].entries[3].value" class="parameter-entry-value form-control" type="text" value="锂电池" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[0].entries[4].name" class="parameter-entry-name form-control text-right" type="text" value="电池容量" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[0].entries[4].value" class="parameter-entry-value form-control" type="text" value="3000mAh" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item" data-parameter-index="1" data-parameter-entry-index="3">
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1 text-right">
+                                                        <p class="form-control-static">参数组:</p>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[1].group" class="parameter-group form-control" type="text" value="显示" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove group" href="javascript:;">[删除]</a>
+                                                            <a class="add" href="javascript:;">[添加]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[1].entries[0].name" class="parameter-entry-name form-control text-right" type="text" value="屏幕尺寸" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[1].entries[0].value" class="parameter-entry-value form-control" type="text" value="5.5英寸" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[1].entries[1].name" class="parameter-entry-name form-control text-right" type="text" value="触摸屏类型" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[1].entries[1].value" class="parameter-entry-value form-control" type="text" value="电容屏、多点触控" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[1].entries[2].name" class="parameter-entry-name form-control text-right" type="text" value="分辨率" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[1].entries[2].value" class="parameter-entry-value form-control" type="text" value="1280 x 720" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item" data-parameter-index="2" data-parameter-entry-index="2">
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1 text-right">
+                                                        <p class="form-control-static">参数组:</p>
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[2].group" class="parameter-group form-control" type="text" value="存储" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove group" href="javascript:;">[删除]</a>
+                                                            <a class="add" href="javascript:;">[添加]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[2].entries[0].name" class="parameter-entry-name form-control text-right" type="text" value="运行内存" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[2].entries[0].value" class="parameter-entry-value form-control" type="text" value="2GB" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-xs-1 col-xs-offset-1">
+                                                        <input name="parameterValues[2].entries[1].name" class="parameter-entry-name form-control text-right" type="text" value="机身内存" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <input name="parameterValues[2].entries[1].value" class="parameter-entry-value form-control" type="text" value="16GB" maxlength="200">
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <p class="form-control-static">
+                                                            <a class="remove" href="javascript:;">[删除]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="attribute" class="tab-pane">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">屏幕尺寸:</label>
+                                            <div class="col-xs-4">
+                                                <select name="attribute_1" class="form-control">
+                                                    <option value="">请选择...</option>
+                                                    <option value="3英寸以下">3英寸以下</option>
+                                                    <option value="3-4英寸">3-4英寸</option>
+                                                    <option value="4-5英寸">4-5英寸</option>
+                                                    <option value="5-6英寸" selected>5-6英寸</option>
+                                                    <option value="6-7英寸">6-7英寸</option>
+                                                    <option value="7-8英寸">7-8英寸</option>
+                                                    <option value="8英寸以上">8英寸以上</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">网络类型:</label>
+                                            <div class="col-xs-4">
+                                                <select name="attribute_2" class="form-control">
+                                                    <option value="">请选择...</option>
+                                                    <option value="移动4G" selected>移动4G</option>
+                                                    <option value="联通4G">联通4G</option>
+                                                    <option value="电信4G">电信4G</option>
+                                                    <option value="移动3G">移动3G</option>
+                                                    <option value="联通3G">联通3G</option>
+                                                    <option value="电信3G">电信3G</option>
+                                                    <option value="移动2G">移动2G</option>
+                                                    <option value="联通2G">联通2G</option>
+                                                    <option value="电信2G">电信2G</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">网络模式:</label>
+                                            <div class="col-xs-4">
+                                                <select name="attribute_3" class="form-control">
+                                                    <option value="">请选择...</option>
+                                                    <option value="单卡单模">单卡单模</option>
+                                                    <option value="单卡多模">单卡多模</option>
+                                                    <option value="双卡双模">双卡双模</option>
+                                                    <option value="双卡多模" selected>双卡多模</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label">操作系统:</label>
+                                            <div class="col-xs-4">
+                                                <select name="attribute_4" class="form-control">
+                                                    <option value="">请选择...</option>
+                                                    <option value="iOS">iOS</option>
+                                                    <option value="Android" selected>Android</option>
+                                                    <option value="Windows">Windows</option>
+                                                    <option value="其它">其它</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="specification" class="tab-pane">
+                                        <div class="form-group">
+                                            <div class="col-xs-4 col-xs-offset-2">
+                                                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#resetSpecificationModal">
+                                                    <i class="fa fa-repeat"></i>
+                                                    重置规格
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="specificationContent">
+                                        </div>
+                                        <div id="sku"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-xs-4 col-xs-offset-2">
+                                        <button class="btn btn-primary" type="submit">确 定</button>
+                                        <button class="btn btn-default" type="button" data-toggle="back">返 回</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 5.0
+        </div>
+        <strong>
+            COPYRIGHT © 2008-2017 <a href="http://www.shopxx.net">SHOPXX.NET</a> ALL RIGHTS RESERVED.
+        </strong>
+    </footer>	</div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>优惠券列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+    <link rel="stylesheet" href="../../resources/admin/js/bootstrap3/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../resources/admin/js/bootstrap3/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 优惠券列表 <span>(共0条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <div class="buttonGroup">
+            <a onclick="deleteCoupon()" id="delete" class="iconButton">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+        </div>
+        <select class="search" v-model="resultBean.where">
+            <option value="店铺">店铺</option>
+            <option value="名称">名称</option>
+        </select>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" v-model="resultBean.message" maxlength="200" />
+                <button type="button" onclick="whereQueryCoupon()">&nbsp;</button>
+            </div>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="name">名称</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="store">店铺</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="prefix">前缀</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="beginDate">使用起始日期</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="endDate">使用结束日期</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="isEnabled">是否启用</a>
+            </th>
+        </tr>
+        <tr v-for="e in list">
+            <td class="check" >
+                <input type="checkbox" v-model="ids" :value="e.coupon.id" id="select" />
+            </td>
+            <td>
+                {{e.coupon.name}}
+            </td>
+            <td>
+                {{e.store.name}}
+            </td>
+            <td>
+               {{e.coupon.prefix}}
+            </td>
+            <td>
+                {{e.coupon.begindate}}
+            </td>
+            <td>
+                {{e.coupon.enddate}}
+            </td>
+            <td>
+                <span v-if="e.coupon.isenabled == 1" class="green">是</span>
+                <span v-else class="red">否</span>
+            </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:"#listForm",
+        data:{
+            list:'',
+            ids:[],
+            resultBean:{
+                page:1,
+                meiPageCount:20,
+                message:'',
+                where:'店铺',
+                sumPage:''
+            }
+        }
+    })
+    $.post("../../coupon/findAll.do",{page:1,meiPageCount:20},function (data) {
+        vm.list = data.rows;
+        vm.resultBean.page = data.page
+        vm.resultBean.sumPage = data.sumPage
+        vm.resultBean.meiPageCount = data.meiPageCount
+
+    })
+    deleteCoupon = function () {
+        var ids = vm.ids.join(",");
+        $.post("../../coupon/delete.do",{ids:ids},function (data) {
+            alert(data.message);
+            whereQueryCoupon();
+        })
+    }
+    whereQueryCoupon = function () {
+        $.ajax({
+            url:'../../coupon/findAll.do',
+            type:'post',
+            data:vm.resultBean,
+            dataType:'json',
+            success:function (data) {
+                vm.list = data.rows
+            }
+        })
+    }
+    function toPage(n) {
+        if (vm.resultBean.page == 1) {
+            alert("当前已是首页！")
+        }else if(n==1){
+            vm.resultBean.page = 1;
+            whereQueryCoupon();
+        }else {
+            vm.resultBean.page = vm.resultBean.page-1;
+            whereQueryCoupon();
+        }
+    }
+    function toFirst() {
+    }
+    function toEnd() {
+        if (vm.resultBean.page == vm.resultBean.sumPage) {
+            alert("当前已是最后一页！")
+        }else {
+            vm.resultBean.page = vm.resultBean.page+1;
+            whereQueryCoupon();
+        }
+    }
+</script>
+</html>

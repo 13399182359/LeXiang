@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.OrderreturnsMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.pojo.Orderreturns" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="createdDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="lastModifiedDate" property="lastmodifieddate" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="deliveryCorp" property="deliverycorp" jdbcType="VARCHAR" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="shipper" property="shipper" jdbcType="VARCHAR" />
+    <result column="shippingMethod" property="shippingmethod" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="trackingNo" property="trackingno" jdbcType="VARCHAR" />
+    <result column="zipCode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="orders" property="orders" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createdDate, lastModifiedDate, version, address, area, deliveryCorp, freight, 
+    memo, phone, shipper, shippingMethod, sn, trackingNo, zipCode, orders
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.pojo.OrderreturnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orderreturns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orderreturns
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orderreturns
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.pojo.OrderreturnsExample" >
+    delete from orderreturns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.pojo.Orderreturns" >
+    insert into orderreturns (id, createdDate, lastModifiedDate, 
+      version, address, area, 
+      deliveryCorp, freight, memo, 
+      phone, shipper, shippingMethod, 
+      sn, trackingNo, zipCode, 
+      orders)
+    values (#{id,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastmodifieddate,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{deliverycorp,jdbcType=VARCHAR}, #{freight,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{shipper,jdbcType=VARCHAR}, #{shippingmethod,jdbcType=VARCHAR}, 
+      #{sn,jdbcType=VARCHAR}, #{trackingno,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
+      #{orders,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.pojo.Orderreturns" >
+    insert into orderreturns
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createddate != null" >
+        createdDate,
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="deliverycorp != null" >
+        deliveryCorp,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="shipper != null" >
+        shipper,
+      </if>
+      <if test="shippingmethod != null" >
+        shippingMethod,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="trackingno != null" >
+        trackingNo,
+      </if>
+      <if test="zipcode != null" >
+        zipCode,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverycorp != null" >
+        #{deliverycorp,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipper != null" >
+        #{shipper,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingmethod != null" >
+        #{shippingmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingno != null" >
+        #{trackingno,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.pojo.OrderreturnsExample" resultType="java.lang.Integer" >
+    select count(*) from orderreturns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orderreturns
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createddate != null" >
+        createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifieddate != null" >
+        lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliverycorp != null" >
+        deliveryCorp = #{record.deliverycorp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freight != null" >
+        freight = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipper != null" >
+        shipper = #{record.shipper,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingmethod != null" >
+        shippingMethod = #{record.shippingmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackingno != null" >
+        trackingNo = #{record.trackingno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipcode != null" >
+        zipCode = #{record.zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orders != null" >
+        orders = #{record.orders,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orderreturns
+    set id = #{record.id,jdbcType=BIGINT},
+      createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=BIGINT},
+      address = #{record.address,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      deliveryCorp = #{record.deliverycorp,jdbcType=VARCHAR},
+      freight = #{record.freight,jdbcType=DECIMAL},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      shipper = #{record.shipper,jdbcType=VARCHAR},
+      shippingMethod = #{record.shippingmethod,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=VARCHAR},
+      trackingNo = #{record.trackingno,jdbcType=VARCHAR},
+      zipCode = #{record.zipcode,jdbcType=VARCHAR},
+      orders = #{record.orders,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.pojo.Orderreturns" >
+    update orderreturns
+    <set >
+      <if test="createddate != null" >
+        createdDate = #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverycorp != null" >
+        deliveryCorp = #{deliverycorp,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="shipper != null" >
+        shipper = #{shipper,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingmethod != null" >
+        shippingMethod = #{shippingmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingno != null" >
+        trackingNo = #{trackingno,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipCode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.pojo.Orderreturns" >
+    update orderreturns
+    set createdDate = #{createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      deliveryCorp = #{deliverycorp,jdbcType=VARCHAR},
+      freight = #{freight,jdbcType=DECIMAL},
+      memo = #{memo,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      shipper = #{shipper,jdbcType=VARCHAR},
+      shippingMethod = #{shippingmethod,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      trackingNo = #{trackingno,jdbcType=VARCHAR},
+      zipCode = #{zipcode,jdbcType=VARCHAR},
+      orders = #{orders,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

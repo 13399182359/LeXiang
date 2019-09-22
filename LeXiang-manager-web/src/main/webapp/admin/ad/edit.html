@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>${message("admin.ad.edit")} - Powered By SHOP++</title>
+<meta name="author" content="SHOP++ Team" />
+<meta name="copyright" content="SHOP++" />
+<link href="../../admin/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../admin/js/jquery.js"></script>
+<script type="text/javascript" src="../../admin/js/jquery.validate.js"></script>
+<script type="text/javascript" src="../../admin/js/webuploader.js"></script>
+<script type="text/javascript" src="../../admin/ueditor/ueditor.js"></script>
+<script type="text/javascript" src="../../admin/js/input.js"></script>
+
+	<script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+<script type="text/javascript">
+$().ready(function() {
+
+	var $inputForm = $("#inputForm");
+
+
+	
+
+	
+
+	
+
+	// 表单验证
+	$inputForm.validate({
+		rules: {
+			title: "required",
+			adPositionId: "required",
+			path: {
+				required: true,
+				pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+			},
+			url: {
+				pattern: /^(http:\/\/|https:\/\/|ftp:\/\/|mailto:|\/|#).*$/i
+			},
+			order: "digits"
+		}
+	});
+
+});
+</script>
+</head>
+
+	<div class="breadcrumb">
+		<a href="${base}/admin/common/index">${message("admin.breadcrumb.home")}</a> &raquo; ${message("admin.ad.edit")}
+	</div>
+	<div id="updateDiv">
+	<form id="inputForm"  method="post">
+		<input type="hidden" name="id" v-model="ad.id" />
+		<table class="input">
+			<tr>
+				<th>
+					<span class="requiredField">*</span>标题
+				</th>
+				<td>
+					<input type="text" name="title" class="text" v-model="ad.title" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					类型
+				</th>
+				<td>
+					<select id="type" v-model="ad.type">
+							<option value="-1">请选择</option>
+							<option value="1">图片</option>
+							<option value="2">影像</option>
+							<option value="3">图片2</option>
+
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+				 广告位
+				</th>
+				<td>
+					<select v-model="ad.adpositionId"  id="adpositionid">
+
+							<option value="-1">请选择</option>
+
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+				内容
+				</th>
+				<td>
+					<textarea id="content" v-model="ad.content" style="width: 100%;">{{ad.content}}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>路径
+				</th>
+				<td>
+					<span class="fieldSet">
+						<input type="text" id="path" name="path" class="text" v-model="ad.path" maxlength="200" />
+					<!--	<a href="javascript:;" id="filePicker" class="button">${message("admin.upload.filePicker")}</a>-->
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					开始日期
+				</th>
+				<td>
+					<input type="text" id="beginDate" v-model="ad.begindate" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					结束日期
+				</th>
+				<td>
+					<input type="text" id="endDate"v-model="ad.enddate"    />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					url
+				</th>
+				<td>
+					<input type="text" name="url" class="text" v-model="ad.url" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					排序
+				</th>
+				<td>
+					<input type="text" name="order" class="text" v-model="ad.orders" maxlength="9" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					&nbsp;
+				</th>
+				<td>
+					<input type="button" class="button" onclick="update()" value="修改" />
+					<input type="button" class="button"value="返回"  onclick="history.back(); return false;" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</div>
+<script type="text/javascript">
+	$(function () {
+		sHref = window.location.href;
+
+
+
+		var args = sHref.split("?");
+
+		var  arr= args[1].split("=")
+
+
+		$("#id").val(arr[1]);
+
+
+
+		queryList(arr[1]);
+
+	})
+
+	var vm;
+	function queryList(id) {
+		$.ajax({
+			url:"../../ad/queryAdById.do",
+			data:{id:id},
+			type:"post",
+			async:false,
+			success:function (data) {
+
+				TbcontentTc.ad=data;
+				queryType(data.adpositionid);
+
+			}
+		})
+	}
+
+
+
+
+
+	function  update() {
+		$.ajax({
+			url:"../../ad/updateAd.do",
+			type:"post",
+			data:TbcontentTc.ad,
+			success:function (data) {
+				alert(data.message);
+			}
+		})
+	}
+	var TbcontentTc=new Vue({
+		el:"#updateDiv",
+		data:{
+			ad:{
+				id:"",
+				title:"",
+				createddate:"",
+				lastmodifieddate:"",
+				version:"",
+				orders:"",
+				bigindate:"",
+				enddate:"",
+				path:"",
+				url:"",
+				type:"",
+				adpositionId:"",
+				author:"",
+				hits:""
+
+			}
+		}
+	})
+
+
+
+	function queryType(id) {
+		if(id==null | id==""){
+			id=-1;
+		}
+		$.ajax({
+			url:"../../ad/queryadpostion.do",
+			data:{id:id},
+			success:function (data) {
+				var html = "";
+
+				for (var i = 0; i < data.length; i++) {
+
+					if (data[i].id == id) {
+						html += "<option value='" + data[i].id + "' selected>" + data[i].name + "</option>"
+					} else {
+						html += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+					}
+
+					$("#adpositionid").html(html);
+				}
+			}
+
+		})
+
+	}
+</script>
+</body>
+
+</html>

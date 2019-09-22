@@ -1,0 +1,131 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>编辑品牌 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/webuploader.js"></script>
+    <script type="text/javascript" src="../../resources/admin/ueditor/ueditor.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $type = $("#type");
+            var $logo = $("#logo");
+            var $filePicker = $("#filePicker");
+            var $introduction = $("#introduction");
+
+
+            $filePicker.uploader();
+
+            $introduction.editor();
+
+            $type.change(function() {
+                if ($(this).val() == "text") {
+                    $logo.prop("disabled", true).closest("tr").hide();
+                } else {
+                    $logo.prop("disabled", false).closest("tr").show();
+                }
+            });
+
+            // 表单验证
+            $inputForm.validate({
+                rules: {
+                    name: "required",
+                    logo: {
+                        required: true,
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    url: {
+                        pattern: /^(http:\/\/|https:\/\/|ftp:\/\/|mailto:|\/|#).*$/i
+                    },
+                    order: "digits"
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 编辑品牌
+</div>
+<form id="inputForm" action="update" method="post">
+    <input type="hidden" name="id" value="1" />
+    <table class="input">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>名称:
+            </th>
+            <td>
+                <input type="text" name="name" class="text" value="苹果" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                类型:
+            </th>
+            <td>
+                <select id="type" name="type">
+                    <option value="text">文本</option>
+                    <option value="image" selected="selected">图片</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                logo:
+            </th>
+            <td>
+					<span class="fieldSet">
+						<input type="text" id="logo" name="logo" class="text" value="http://image.demo.shopxx.net/b2b2c/5.0/201601/a8275260-f9fa-4e20-8173-35b755fabb14.gif" maxlength="200" />
+						<a href="javascript:;" id="filePicker" class="button">选择文件</a>
+							<a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/a8275260-f9fa-4e20-8173-35b755fabb14.gif" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                网址:
+            </th>
+            <td>
+                <input type="text" name="url" class="text" value="http://www.apple.com" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                排序:
+            </th>
+            <td>
+                <input type="text" name="order" class="text" value="1" maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                介绍:
+            </th>
+            <td>
+                <textarea id="introduction" name="introduction" class="editor">&lt;p&gt;苹果公司创立之初主要开发和销售的个人电脑，截至2014年致力于设计、开发和销售消费电子、计算机软件、在线服务和个人计算机。苹果的Apple II于1970年代助长了个人电脑革命，其后的Macintosh接力于1980年代持续发展。该公司硬件产品主要是Mac电脑系列、iPod媒体播放器、iPhone智能手机和iPad平板电脑；在线服务包括iCloud、iTunes Store和App Store；消费软件包括OS X和iOS操作系统、iTunes多媒体浏览器、Safari网络浏览器，还有iLife和iWork创意和生产力套件。苹果公司在高科技企业中以创新而闻名世界。&lt;/p&gt;</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

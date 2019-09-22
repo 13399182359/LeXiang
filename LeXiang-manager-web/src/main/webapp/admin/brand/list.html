@@ -1,0 +1,523 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>品牌列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 品牌列表 <span>(共48条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <div class="bar">
+        <a href="add" class="iconButton">
+            <span class="addIcon">&nbsp;</span>添加
+        </a>
+        <div class="buttonGroup">
+            <a href="javascript:;" id="deleteButton" class="iconButton disabled">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" value="" maxlength="200" />
+                <button type="submit">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="name">名称</li>
+                <li val="url">网址</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th class="check">
+                <input type="checkbox" id="selectAll" />
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="name">名称</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="logo">logo</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="url">网址</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="order">排序</a>
+            </th>
+            <th>
+                <span>操作</span>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="1" />
+            </td>
+            <td>
+                苹果
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/a8275260-f9fa-4e20-8173-35b755fabb14.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.apple.com" target="_blank">http://www.apple.com</a>
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                <a href="edit?id=1">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/1" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="2" />
+            </td>
+            <td>
+                三星
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/8aa08a42-f5b3-4f52-bea0-5ee8bd123b0c.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.samsung.com" target="_blank">http://www.samsung.com</a>
+            </td>
+            <td>
+                2
+            </td>
+            <td>
+                <a href="edit?id=2">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/2" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="3" />
+            </td>
+            <td>
+                索尼
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/dd75c116-51a7-4fbd-b014-6cf4bedcd0bb.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.sony.com.cn" target="_blank">http://www.sony.com.cn</a>
+            </td>
+            <td>
+                3
+            </td>
+            <td>
+                <a href="edit?id=3">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/3" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="4" />
+            </td>
+            <td>
+                华为
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/2a5efa56-c4cd-4984-b11a-d56cadca6cff.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.huawei.com" target="_blank">http://www.huawei.com</a>
+            </td>
+            <td>
+                4
+            </td>
+            <td>
+                <a href="edit?id=4">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/4" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="5" />
+            </td>
+            <td>
+                魅族
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/72657c6c-d279-4952-ac20-1abcff776b07.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.meizu.com" target="_blank">http://www.meizu.com</a>
+            </td>
+            <td>
+                5
+            </td>
+            <td>
+                <a href="edit?id=5">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/5" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="6" />
+            </td>
+            <td>
+                佳能
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/081d4e29-b631-4a49-8672-792a1308ce97.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.canon.com.cn" target="_blank">http://www.canon.com.cn</a>
+            </td>
+            <td>
+                6
+            </td>
+            <td>
+                <a href="edit?id=6">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/6" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="7" />
+            </td>
+            <td>
+                尼康
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/5bd8bec2-f2df-4c84-937a-6eead637abd4.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.nikon.com.cn" target="_blank">http://www.nikon.com.cn</a>
+            </td>
+            <td>
+                7
+            </td>
+            <td>
+                <a href="edit?id=7">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/7" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="8" />
+            </td>
+            <td>
+                松下
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/e921d086-358d-4610-9a53-b46a551b6557.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.panasonic.cn" target="_blank">http://www.panasonic.cn</a>
+            </td>
+            <td>
+                8
+            </td>
+            <td>
+                <a href="edit?id=8">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/8" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="9" />
+            </td>
+            <td>
+                戴尔
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/1ff77e2d-6190-4fea-9e12-be75d2d4ce83.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.dell.com.cn" target="_blank">http://www.dell.com.cn</a>
+            </td>
+            <td>
+                9
+            </td>
+            <td>
+                <a href="edit?id=9">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/9" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="10" />
+            </td>
+            <td>
+                惠普
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/271e4fc7-4451-488b-9d10-a7f80b41d719.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.hp.com" target="_blank">http://www.hp.com</a>
+            </td>
+            <td>
+                10
+            </td>
+            <td>
+                <a href="edit?id=10">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/10" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="11" />
+            </td>
+            <td>
+                华硕
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/b438688d-5051-4812-a113-e9fc54273a2d.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.asus.com.cn" target="_blank">http://www.asus.com.cn</a>
+            </td>
+            <td>
+                11
+            </td>
+            <td>
+                <a href="edit?id=11">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/11" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="12" />
+            </td>
+            <td>
+                微星
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/1d7b0f53-689b-4612-a188-54792af44917.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://cn.msi.com" target="_blank">http://cn.msi.com</a>
+            </td>
+            <td>
+                12
+            </td>
+            <td>
+                <a href="edit?id=12">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/12" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="13" />
+            </td>
+            <td>
+                宏碁
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/294438dc-222b-433b-a458-ce4dc987bfa6.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.acer.com.cn" target="_blank">http://www.acer.com.cn</a>
+            </td>
+            <td>
+                13
+            </td>
+            <td>
+                <a href="edit?id=13">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/13" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="14" />
+            </td>
+            <td>
+                联想
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/b37f67c6-1145-44aa-b681-39613e22363f.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.lenovo.com.cn" target="_blank">http://www.lenovo.com.cn</a>
+            </td>
+            <td>
+                14
+            </td>
+            <td>
+                <a href="edit?id=14">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/14" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="15" />
+            </td>
+            <td>
+                兄弟
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/b5b7fd21-ebc5-4309-9417-94d75834f251.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.brother.cn" target="_blank">http://www.brother.cn</a>
+            </td>
+            <td>
+                15
+            </td>
+            <td>
+                <a href="edit?id=15">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/15" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="16" />
+            </td>
+            <td>
+                得力
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/adf8e03d-f93c-49b4-8038-e5391da9e754.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.nbdeli.com" target="_blank">http://www.nbdeli.com</a>
+            </td>
+            <td>
+                16
+            </td>
+            <td>
+                <a href="edit?id=16">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/16" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="17" />
+            </td>
+            <td>
+                海尔
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/da39c18f-18ed-4c66-b585-24dc61f6189d.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.haier.net" target="_blank">http://www.haier.net</a>
+            </td>
+            <td>
+                17
+            </td>
+            <td>
+                <a href="edit?id=17">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/17" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="18" />
+            </td>
+            <td>
+                美的
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/435aaaa9-093c-43da-af74-3d011be8b826.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.midea.com" target="_blank">http://www.midea.com</a>
+            </td>
+            <td>
+                18
+            </td>
+            <td>
+                <a href="edit?id=18">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/18" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="19" />
+            </td>
+            <td>
+                格力
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/6b6f1328-47dc-4570-bdfe-094eeb7e317b.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.gree.com.cn" target="_blank">http://www.gree.com.cn</a>
+            </td>
+            <td>
+                19
+            </td>
+            <td>
+                <a href="edit?id=19">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/19" target="_blank">[查看]</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="ids" value="20" />
+            </td>
+            <td>
+                海信
+            </td>
+            <td>
+                <a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/64366d02-55e9-4427-a2ad-54ba020a7a5a.gif" target="_blank">查看</a>
+            </td>
+            <td>
+                <a href="http://www.hisense.cn" target="_blank">http://www.hisense.cn</a>
+            </td>
+            <td>
+                20
+            </td>
+            <td>
+                <a href="edit?id=20">[编辑]</a>
+                <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/brand/detail/20" target="_blank">[查看]</a>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+    <div class="pagination">
+        <span class="firstPage">&nbsp;</span>
+        <span class="previousPage">&nbsp;</span>
+        <span class="currentPage">1</span>
+        <a href="javascript: $.pageSkip(2);">2</a>
+        <a href="javascript: $.pageSkip(3);">3</a>
+        <a href="javascript: $.pageSkip(2);" class="nextPage">&nbsp;</a>
+        <a href="javascript: $.pageSkip(3);" class="lastPage">&nbsp;</a>
+        <span class="pageSkip">
+			共3页
+			<input id="pageNumber" name="pageNumber" value="1" maxlength="9" onpaste="return false;" />
+			<button type="submit">&nbsp;</button>
+		</span>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.PaymenttransactionMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.pojo.Paymenttransaction" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="createdDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="lastModifiedDate" property="lastmodifieddate" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="expire" property="expire" jdbcType="TIMESTAMP" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="isSuccess" property="issuccess" jdbcType="BIT" />
+    <result column="paymentPluginId" property="paymentpluginid" jdbcType="VARCHAR" />
+    <result column="paymentPluginName" property="paymentpluginname" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="orders" property="orders" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="svc_id" property="svcId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createdDate, lastModifiedDate, version, amount, expire, fee, isSuccess, paymentPluginId, 
+    paymentPluginName, sn, type, orders, parent_id, store_id, svc_id, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.pojo.PaymenttransactionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paymenttransaction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from paymenttransaction
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from paymenttransaction
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.pojo.PaymenttransactionExample" >
+    delete from paymenttransaction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.pojo.Paymenttransaction" >
+    insert into paymenttransaction (id, createdDate, lastModifiedDate, 
+      version, amount, expire, 
+      fee, isSuccess, paymentPluginId, 
+      paymentPluginName, sn, type, 
+      orders, parent_id, store_id, 
+      svc_id, user_id)
+    values (#{id,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastmodifieddate,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=BIGINT}, #{amount,jdbcType=DECIMAL}, #{expire,jdbcType=TIMESTAMP}, 
+      #{fee,jdbcType=DECIMAL}, #{issuccess,jdbcType=BIT}, #{paymentpluginid,jdbcType=VARCHAR}, 
+      #{paymentpluginname,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{orders,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{storeId,jdbcType=BIGINT}, 
+      #{svcId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.pojo.Paymenttransaction" >
+    insert into paymenttransaction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createddate != null" >
+        createdDate,
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="expire != null" >
+        expire,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="issuccess != null" >
+        isSuccess,
+      </if>
+      <if test="paymentpluginid != null" >
+        paymentPluginId,
+      </if>
+      <if test="paymentpluginname != null" >
+        paymentPluginName,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="svcId != null" >
+        svc_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="expire != null" >
+        #{expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="issuccess != null" >
+        #{issuccess,jdbcType=BIT},
+      </if>
+      <if test="paymentpluginid != null" >
+        #{paymentpluginid,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentpluginname != null" >
+        #{paymentpluginname,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="svcId != null" >
+        #{svcId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.pojo.PaymenttransactionExample" resultType="java.lang.Integer" >
+    select count(*) from paymenttransaction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paymenttransaction
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createddate != null" >
+        createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifieddate != null" >
+        lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expire != null" >
+        expire = #{record.expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.issuccess != null" >
+        isSuccess = #{record.issuccess,jdbcType=BIT},
+      </if>
+      <if test="record.paymentpluginid != null" >
+        paymentPluginId = #{record.paymentpluginid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentpluginname != null" >
+        paymentPluginName = #{record.paymentpluginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.orders != null" >
+        orders = #{record.orders,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.svcId != null" >
+        svc_id = #{record.svcId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paymenttransaction
+    set id = #{record.id,jdbcType=BIGINT},
+      createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=BIGINT},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      expire = #{record.expire,jdbcType=TIMESTAMP},
+      fee = #{record.fee,jdbcType=DECIMAL},
+      isSuccess = #{record.issuccess,jdbcType=BIT},
+      paymentPluginId = #{record.paymentpluginid,jdbcType=VARCHAR},
+      paymentPluginName = #{record.paymentpluginname,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      orders = #{record.orders,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      store_id = #{record.storeId,jdbcType=BIGINT},
+      svc_id = #{record.svcId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.pojo.Paymenttransaction" >
+    update paymenttransaction
+    <set >
+      <if test="createddate != null" >
+        createdDate = #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="expire != null" >
+        expire = #{expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="issuccess != null" >
+        isSuccess = #{issuccess,jdbcType=BIT},
+      </if>
+      <if test="paymentpluginid != null" >
+        paymentPluginId = #{paymentpluginid,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentpluginname != null" >
+        paymentPluginName = #{paymentpluginname,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="svcId != null" >
+        svc_id = #{svcId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.pojo.Paymenttransaction" >
+    update paymenttransaction
+    set createdDate = #{createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      amount = #{amount,jdbcType=DECIMAL},
+      expire = #{expire,jdbcType=TIMESTAMP},
+      fee = #{fee,jdbcType=DECIMAL},
+      isSuccess = #{issuccess,jdbcType=BIT},
+      paymentPluginId = #{paymentpluginid,jdbcType=VARCHAR},
+      paymentPluginName = #{paymentpluginname,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      orders = #{orders,jdbcType=BIGINT},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      store_id = #{storeId,jdbcType=BIGINT},
+      svc_id = #{svcId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

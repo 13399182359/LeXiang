@@ -1,0 +1,122 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>发送消息 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../admin/js/common.js"></script>
+    <script type="text/javascript" src="../../admin/js/input.js"></script>
+    <script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index">首页</a> &raquo; 发送消息
+</div>
+<div id="sendDiv">
+<form id="inputForm"  method="post">
+    <input type="hidden" name="draftMessageId" value="" />
+    <input type="hidden" id="isDraft" name="isDraft" value="false" />
+    <table class="input">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>收件人:
+            </th>
+            <td>
+                <input type="text" v-model="message.username" class="text" value="" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>标题:
+            </th>
+            <td>
+                <input type="text" v-model="message.title" class="text" value="" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>内容:
+            </th>
+            <td>
+                <textarea v-model="message.content" class="text">{{message.content}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="button" id="send" onclick="sendNew(0)" class="button" value="立即发送" />
+                <input type="button" id="save" onclick="sendNew(1)" class="button" value="保存为草稿" />
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+
+<script type="text/javascript">
+    function sendNew(id) {
+        if(id==0){
+            TbcontentTc.message.isdraft=false;
+        $.ajax({
+            url:"../../message/insertMessage.do",
+            data:TbcontentTc.message,
+            type:"post",
+            success:function (data) {
+                alert(data.message)
+            }
+        })
+        }else{
+            TbcontentTc.message.isdraft=true;
+            $.ajax({
+
+                url:"../../message/insertMessage.do",
+                data:TbcontentTc.message,
+                type:"post",
+                success:function (data) {
+                    alert(data.message)
+                }
+            })
+        }
+    }
+
+
+
+    var TbcontentTc=new Vue({
+        el:"#sendDiv",
+        data:{
+            message:{
+                id:"",
+                title:"",
+                createddate:"",
+                lastmodifieddate:"",
+                version:"",
+                content:"",
+                ip:"",
+                isdraft:"",
+                receiverread:"",
+                receiverdelete:"",
+                senderdelete:"",
+                senderead:"",
+                formessageid:"",
+                receiverid:"",
+                senderid:""
+
+            }
+        }
+    })
+
+
+
+
+
+</script>
+</body>
+</html>

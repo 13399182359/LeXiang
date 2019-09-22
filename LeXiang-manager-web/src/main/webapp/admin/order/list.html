@@ -1,0 +1,388 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>订单列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/echarts.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/admin/js/webuploader/webuploader.css">
+    <!--引入JS-->
+    <script type="text/javascript" src="../../resources/admin/js/webuploader/webuploader.js"></script>
+
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 订单列表 <span>(共0条记录)</span>
+</div>
+<form id="listForm" action="list" method="get">
+    <input type="hidden" id="type" name="type" value="" />
+    <input type="hidden" id="status" name="status" value="" />
+    <input type="hidden" id="memberUsername" name="memberUsername" value="" />
+    <input type="hidden" id="isPendingReceive" name="isPendingReceive" value="" />
+    <input type="hidden" id="isPendingRefunds" name="isPendingRefunds" value="" />
+    <input type="hidden" id="isAllocatedStock" name="isAllocatedStock" value="" />
+    <input type="hidden" id="hasExpired" name="hasExpired" value="" />
+    <div class="bar">
+        <div class="buttonGroup">
+            <a onclick="deleteOrder()" class="iconButton">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+        </div>
+            <select class="search" v-model="resultBean.where">
+                <option value="运单号">运单号</option>
+                <option value="收货人">收货人</option>
+                <option value="电话">电话</option>
+                <option value="地区">地区</option>
+            </select>
+
+            <div  class="dropdownMenu">
+                <div class="search">
+                    <input type="text" v-model="resultBean.message" maxlength="200" />
+                    <button type="button" onclick="whereQueryOrder()">&nbsp;</button>
+                </div>
+            </div>
+
+    </div>
+    <div class="bar">
+        <div class="asc">
+            <a onclick="selectEcharts()"  class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>echarts图表
+            </a>
+            <input class="search" type="date" id="s1"/>
+            <input class="search" type="date" id="s2"/>
+            <a onclick="selectEcharts()"  class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>搜索
+            </a>
+        </div>
+    </div>
+        <a onclick="poiDown()"  class="iconButton">
+            <span class="refreshIcon">&nbsp;</span>POI一键导出
+        </a>
+
+
+    <!--<form action="../../upload.do" method="post" enctype="multipart/form-data">
+        <input type="file" class="fieldError"/>
+        <button type="submit"  class="iconButton">
+            <span class="refreshIcon">&nbsp;</span>POI导入
+        </button>
+    </form>-->
+    <table id="listTable" class="list">
+        <thead>
+            <tr>
+                <th class="check">
+                    <input type="checkbox" id="selectAll" />
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="sn">运单号</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="amount">订单金额</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="member">会员</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="business">店铺</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="consignee">收货人</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="paymentMethodName">支付方式</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="shippingMethodName">配送方式</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="status">状态</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="">电话</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="entity in ordersList">
+                <td>
+                    <input type="checkbox" :value="entity.orders.id" v-model="ids" />
+                </td>
+                <td>
+                    {{entity.orders.sn}}
+                </td>
+                <td>
+                    {{entity.orders.price}}
+                </td>
+                <td>
+                    {{entity.memberrank.name}}
+                </td>
+                <td>
+                    {{entity.store.name}}
+                </td>
+                <td>
+                    {{entity.orders.consignee}}
+                </td>
+                <td>
+                    {{entity.orders.paymentmethodname}}
+                </td>
+                <td>
+                    {{entity.orders.shippingmethodname}}
+                </td>
+                <td>
+                    {{entity.orders.status==1? '等待收款':''}}
+                    {{entity.orders.status==2? '无需收款':''}}
+                    {{entity.orders.status==3? '等待退款':''}}
+                    {{entity.orders.status==4? '无需退款':''}}
+                    {{entity.orders.status==5? '已分配库存':''}}
+                    {{entity.orders.status==6? '未分配库存':''}}
+                    {{entity.orders.status==7? '已过期':''}}
+                    {{entity.orders.status==8? '未过期':''}}
+                </td>
+                <td>
+                    {{entity.orders.createddate}}
+                </td>
+                <td>
+                    {{entity.orders.phone}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        <div id="showEchartsId" style="width: 1200px;height:400px;"></div>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+</form>
+</body>
+<script type="text/javascript">
+     var  vm=new Vue({
+        el:"#listForm",
+        data:{
+            ordersList:"",
+            ids:[],
+            resultBean:{
+                page:1,
+                meiPageCount:20,
+                message:'',
+                where:'运单号'
+            }
+        }
+    })
+        $.ajax({
+            url:"../../order/findAll.do",
+            type:'post',
+            dataType:'json',
+            data:{page:1,meiPageCount:20},
+            success:function (data) {
+               vm.ordersList = data.rows
+            },
+            error: function () {
+                alert("系统错误，请联系管理员！");
+            }
+        })
+     whereQueryOrder = function () {
+         $.ajax({
+             url:"../../order/findAll.do",
+             type:'post',
+             dataType:'json',
+             data:vm.resultBean,
+             success:function (data) {
+                 vm.ordersList = data.rows
+             },
+             error: function () {
+                 alert("系统错误，请联系管理员！");
+             }
+         })
+     }
+     deleteOrder = function () {
+         var ids = vm.ids.join(",");
+        $.post("../../order/delete.do",{ids:ids},function (data) {
+            alert(data.message);
+            whereQueryOrder();
+        })
+     }
+     selectEcharts = function () {
+         $.post("../../order/findEcharts.do",{startDate:$("#s1").val(),endDate:$("#s2").val()},function (data) {
+             var myChart = echarts.init(document.getElementById('showEchartsId'));
+             var  option = {
+                 title: {
+                     text: '订单数量',
+                     subtext: '纯属虚构'
+                 },
+                 tooltip: {
+                     trigger: 'axis'
+                 },
+                 legend: {
+                     data:['订单数量统计','订单完成数']
+                 },
+                 toolbox: {
+                     show: true,
+                     feature: {
+                         dataZoom: {
+                             yAxisIndex: 'none'
+                         },
+                         dataView: {readOnly: false},
+                         magicType: {type: ['line', 'bar']},
+                         restore: {},
+                         saveAsImage: {}
+                     }
+                 },
+                 xAxis: {
+                     type: 'category',
+                     boundaryGap: false,
+                     data: data.rows[0]
+                 },
+                 yAxis: {
+                     type: 'value',
+                     axisLabel: {
+                         formatter: '{value} 万'
+                     }
+                 },
+                 series: [{
+                     name:"订单数量统计",
+                     data: data.rows[1],
+                     markLine: {
+                         data: [
+                             {type: 'average', name: '平均值'},
+                             [{
+                                 symbol: 'none',
+                                 x: '90%',
+                                 yAxis: 'max'
+                             }, {
+                                 symbol: 'circle',
+                                 label: {
+                                     normal: {
+                                         position: 'start',
+                                         formatter: '最大值'
+                                     }
+                                 },
+                                 type: 'max',
+                                 name: '最高点'
+                             }]
+                         ]
+                     },
+                     type: 'line',
+                     smooth: true,
+                     areaStyle: {},
+                 },
+                     {
+                         name:"订单完成数",
+                         data: data.rows[2],
+                         markLine: {
+                             data: [
+                                 {type: 'average', name: '平均值'},
+                                 [{
+                                     symbol: 'none',
+                                     x: '90%',
+                                     yAxis: 'max'
+                                 }, {
+                                     symbol: 'circle',
+                                     label: {
+                                         normal: {
+                                             position: 'start',
+                                             formatter: '最大值'
+                                         }
+                                     },
+                                     type: 'max',
+                                     name: '最高点'
+                                 }]
+                             ]
+                         },
+                         type: 'line',
+                         smooth: true,
+                         areaStyle: {},
+                     },
+                 ]
+             };
+             myChart.setOption(option);
+         })
+     }
+     poiDown = function () {
+         location.href = "../../order/poiDown.do";
+     }
+</script>
+<!--<script type="text/javascript">
+    var uploader = WebUploader.create({
+        auto: true, // 选完文件后，是否自动上传
+        swf: '../js/webuploader/Uploader.swf', // swf文件路径
+        server: '../../uploadFile.do', // 文件接收服务端
+        pick: '#imgPicker', // 选择文件的按钮。可选
+        // 只允许选择图片文件。
+    });
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+            $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+                '</div>'
+            ),
+            $img = $li.find('img');
+
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+
+        // 创建缩略图
+        uploader.makeThumb( file, function( error, src ) {
+            if ( error ) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, 100, 100 ); //100x100为缩略图尺寸
+    });
+    // 文件上传过程中创建进度条实时显示。
+    uploader.on( 'uploadProgress', function( file, percentage ) {
+        var $li = $( '#'+file.id ),
+            $percent = $li.find('.progress span');
+
+        // 避免重复创建
+        if ( !$percent.length ) {
+            $percent = $('<p class="progress"><span></span></p>')
+                .appendTo( $li )
+                .find('span');
+        }
+
+        $percent.css( 'width', percentage * 100 + '%' );
+    });
+
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader.on( 'uploadSuccess', function( file, res ) {
+        console.log(res.filePath);//这里可以得到上传后的文件路径
+        $( '#'+file.id ).addClass('upload-state-done');
+    });
+
+    // 文件上传失败，显示上传出错。
+    uploader.on( 'uploadError', function( file ) {
+        var $li = $( '#'+file.id ),
+            $error = $li.find('div.error');
+
+        // 避免重复创建
+        if ( !$error.length ) {
+            $error = $('<div class="error"></div>').appendTo( $li );
+        }
+
+        $error.text('上传失败');
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on( 'uploadComplete', function( file ) {
+        $( '#'+file.id ).find('.progress').remove();
+    });
+</script>-->
+</html>

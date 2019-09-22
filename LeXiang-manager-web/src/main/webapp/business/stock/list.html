@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="SHOP++ Team">
+    <meta name="copyright" content="SHOP++">
+    <title>商品列表 - Powered By SHOP++</title>
+    <link href="../../favicon.ico" rel="icon">
+    <link href="../../resources/business/css/bootstrap.css" rel="stylesheet">
+    <link href="../../resources/business/css/font-awesome.css" rel="stylesheet">
+    <link href="../../resources/business/css/bootstrap-select.css" rel="stylesheet">
+    <link href="../../resources/business/css/animate.css" rel="stylesheet">
+    <link href="../../resources/business/css/adminLTE.css" rel="stylesheet">
+    <link href="../../resources/business/css/common.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="../../resources/business/js/html5shiv.js"></script>
+    <script src="../../resources/business/js/respond.js"></script>
+    <![endif]-->
+    <script src="../../resources/business/js/jquery.js"></script>
+    <script src="../../resources/business/js/bootstrap.js"></script>
+    <script src="../../resources/business/js/bootstrap-select.js"></script>
+    <script src="../../resources/business/js/velocity.js"></script>
+    <script src="../../resources/business/js/velocity.ui.js"></script>
+    <script src="../../resources/business/js/icheck.js"></script>
+    <script src="../../resources/business/js/adminLTE.js"></script>
+    <script src="../../resources/business/js/common.js"></script>
+    <script src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a class="logo" href="../../business/index">
+		<span class="logo-mini">
+			<img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ab964025-bb0b-4120-a4bc-f0c3015cf9e0.jpg" alt="手机旗舰店">
+		</span>
+            <span class="logo-lg">手机旗舰店</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="offcanvas"></a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <img class="img-circle" src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ab964025-bb0b-4120-a4bc-f0c3015cf9e0.jpg" alt="手机旗舰店">
+                                <span class="hidden-xs">shopxx_sj</span>
+                            </a>
+                        </li>
+                        <li class="dropdown notifications-menu">
+                            <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                                <span class="fa fa-bell-o"></span>
+                                <div class="label">
+                                    <span class="fa fa-circle text-red"></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <span class="fa fa-warning text-orange"></span>
+                                    <strong>提醒信息</strong>
+                                </li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingPayment&hasExpired=false">
+                                                <span class="fa fa-credit-card text-aqua"></span>
+                                                0个待付款订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingReview&hasExpired=false">
+                                                <span class="fa fa-user-o text-red"></span>
+                                                0个待审核订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?status=pendingShipment">
+                                                <span class="fa fa-truck text-green"></span>
+                                                0个待发货订单
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="../../business/order/list?isPendingRefunds=true">
+                                                <span class="fa fa-rmb text-yellow"></span>
+                                                12个待退款订单
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="../../business/order/list">查看所有订单</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="logout" href="../../business/logout">
+                                <span class="fa fa-sign-out"></span>
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header><script type="text/javascript">
+
+    $().ready(function() {
+        var $includeForm = $("#includeForm");
+        var $searchValue = $("input[name='searchValue']");
+
+        $includeForm.submit(function() {
+            if($.trim($searchValue.val()) == "") {
+                return false;
+            }
+        })
+    });
+
+</script>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <form id="includeForm" class="sidebar-form" action="../../business/product/list" method="get">
+                <input name="searchProperty" type="hidden" value="name">
+                <div class="active input-group">
+                    <input name="searchValue" class="form-control" type="text" placeholder="商品搜索">
+                    <span class="input-group-btn">
+					<button class="btn btn-flat" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+                </div>
+            </form>
+            <ul class="sidebar-menu">
+                <li class="treeview active">
+                    <a href="javascript:;">
+                        <i class="fa fa-clone"></i>
+                        <span>商品管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active">
+                            <a href="../../business/product/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-red" title="缺货">2</span>
+									<span class="label pull-right bg-orange" title="库存警告">2</span>
+							</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/stock/log">
+                                <i class="fa fa-circle-o"></i>
+                                库存记录
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/product_notify/list">
+                                <i class="fa fa-circle-o"></i>
+                                到货通知
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/consultation/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品咨询
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/review/list">
+                                <i class="fa fa-circle-o"></i>
+                                商品评论
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-list-ul"></i>
+                        <span>订单管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/order/list">
+                                <i class="fa fa-circle-o"></i>
+                                订单列表
+                                <span class="pull-right-container">
+									<span class="label pull-right bg-orange" title="待处理订单">0</span>
+								</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_template/list">
+                                <i class="fa fa-circle-o"></i>
+                                快递单模板
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/delivery_center/list">
+                                <i class="fa fa-circle-o"></i>
+                                发货点管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-tags"></i>
+                        <span>店铺管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/store/setting">
+                                <i class="fa fa-circle-o"></i>
+                                店铺设置
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_category/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品分类
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_product_tag/list">
+                                <i class="fa fa-circle-o"></i>
+                                店铺商品标签
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/category_application/list">
+                                <i class="fa fa-circle-o"></i>
+                                经营分类申请
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store/payment">
+                                <i class="fa fa-circle-o"></i>
+                                店铺缴费
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/shipping_method/list">
+                                <i class="fa fa-circle-o"></i>
+                                配送方式
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/store_ad_image/list">
+                                <i class="fa fa-circle-o"></i>
+                                <span>店铺广告图片</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-heart-o"></i>
+                        <span>促销管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/discount_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                折扣促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/full_reduction_promotion/list">
+                                <i class="fa fa-circle-o"></i>
+                                满减促销
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/coupon/list">
+                                <i class="fa fa-circle-o"></i>
+                                优惠券
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="fa fa-credit-card"></i>
+                        <span>预存款管理</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/deposit/recharge">
+                                <i class="fa fa-circle-o"></i>
+                                预存款充值
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/cash/list">
+                                <i class="fa fa-circle-o"></i>
+                                预存款提现
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/deposit/log">
+                                <i class="fa fa-circle-o"></i>
+                                预存款记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-o"></i>
+                        <span>个人资料</span>
+                        <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="../../business/profile/edit">
+                                <i class="fa fa-circle-o"></i>
+                                个人资料
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../business/password/edit">
+                                <i class="fa fa-circle-o"></i>
+                                密码修改
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../../business/instant_message/list">
+                        <i class="fa fa-comment-o"></i>
+                        <span>客服设置</span>
+                    </a>
+                </li>
+                <li class="header">统计信息</li>
+                <li>
+                    <a href="../../business/order_statistic/list">
+                        <i class="fa fa-line-chart text-red"></i>
+                        <span>订单统计</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../business/product_ranking/list">
+                        <i class="fa fa-bar-chart text-yellow"></i>
+                        <span>商品排名</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>		<div class="content-wrapper">
+    <div class="container-fluid">
+        <section class="content-header">
+            <h1>商品列表</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="../../business/index">
+                        <i class="fa fa-home"></i>
+                        首页
+                    </a>
+                </li>
+                <li class="active">商品列表</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id="formList" action="../../business/product/list" method="get">
+                        <input name="pageSize" type="hidden" value="20">
+                        <input name="pageNumber" type="hidden" value="1">
+                        <input name="searchProperty" type="hidden" value="">
+                        <input name="orderProperty" type="hidden" value="">
+                        <input name="orderDirection" type="hidden" value="">
+                        <input name="isActive" type="hidden" value="">
+                        <input name="isMarketable" type="hidden" value="">
+                        <input name="isList" type="hidden" value="">
+                        <input name="isTop" type="hidden" value="">
+                        <input name="isOutOfStock" type="hidden" value="">
+                        <input name="isStockAlert" type="hidden" value="">
+                        <div id="filterModal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button class="close" type="button" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">更多选项</h4>
+                                    </div>
+                                    <div class="modal-body form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">商品分类:</label>
+                                            <div class="col-xs-7">
+                                                <select name="productCategoryId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="1" title="手机数码">
+                                                        手机数码
+                                                    </option>
+                                                    <option value="7" title="手机通讯" disabled>
+                                                        &nbsp;&nbsp;
+                                                        手机通讯
+                                                    </option>
+                                                    <option value="41" title="手机">
+                                                        &nbsp;&nbsp;
+                                                        &nbsp;&nbsp;
+                                                        手机
+                                                    </option>
+                                                    <option value="241" title="积分商城">
+                                                        积分商城
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">类型:</label>
+                                            <div class="col-xs-7">
+                                                <select name="type" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="general">普通商品</option>
+                                                    <option value="exchange">兑换商品</option>
+                                                    <option value="gift">赠品</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">品牌:</label>
+                                            <div class="col-xs-7">
+                                                <select name="brandId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="1">苹果</option>
+                                                    <option value="2">三星</option>
+                                                    <option value="3">索尼</option>
+                                                    <option value="4">华为</option>
+                                                    <option value="5">魅族</option>
+                                                    <option value="6">佳能</option>
+                                                    <option value="7">尼康</option>
+                                                    <option value="8">松下</option>
+                                                    <option value="9">戴尔</option>
+                                                    <option value="10">惠普</option>
+                                                    <option value="11">华硕</option>
+                                                    <option value="12">微星</option>
+                                                    <option value="13">宏碁</option>
+                                                    <option value="14">联想</option>
+                                                    <option value="15">兄弟</option>
+                                                    <option value="16">得力</option>
+                                                    <option value="17">海尔</option>
+                                                    <option value="18">美的</option>
+                                                    <option value="19">格力</option>
+                                                    <option value="20">海信</option>
+                                                    <option value="21">创维</option>
+                                                    <option value="22">先锋</option>
+                                                    <option value="23">夏普</option>
+                                                    <option value="24">九阳</option>
+                                                    <option value="25">耐克</option>
+                                                    <option value="26">特步</option>
+                                                    <option value="27">安踏</option>
+                                                    <option value="28">劲霸</option>
+                                                    <option value="29">柒牌</option>
+                                                    <option value="30">杉杉</option>
+                                                    <option value="31">红豆</option>
+                                                    <option value="32">婷美</option>
+                                                    <option value="33">薇姿</option>
+                                                    <option value="34">美即</option>
+                                                    <option value="35">多芬</option>
+                                                    <option value="36">沙宣</option>
+                                                    <option value="37">欧莱雅</option>
+                                                    <option value="38">美宝莲</option>
+                                                    <option value="39">妮维雅</option>
+                                                    <option value="40">海飞丝</option>
+                                                    <option value="41">欧普</option>
+                                                    <option value="42">公牛</option>
+                                                    <option value="43">妙洁</option>
+                                                    <option value="44">中宇</option>
+                                                    <option value="45">多喜爱</option>
+                                                    <option value="46">北极绒</option>
+                                                    <option value="47">恒源祥</option>
+                                                    <option value="48">富安娜</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">商品标签:</label>
+                                            <div class="col-xs-7">
+                                                <select name="productTagId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="1">热销</option>
+                                                    <option value="2">最新</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">店铺商品标签:</label>
+                                            <div class="col-xs-7">
+                                                <select name="storeProductTagId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                    <option value="4">本店新品</option>
+                                                    <option value="3">热卖商品</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-3 control-label">促销:</label>
+                                            <div class="col-xs-7">
+                                                <select name="promotionId" class="selectpicker form-control" data-live-search="true" data-size="10">
+                                                    <option value="">请选择...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" type="submit">确 定</button>
+                                        <button class="btn btn-default" type="button" data-dismiss="modal">取 消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="btn-group">
+                                            <a class="btn btn-default" href="../../business/product/add.html">
+                                                <i class="fa fa-plus"></i>
+                                                添加
+                                            </a>
+                                            <button onclick="deleteProduct()" class="btn btn-default" type="button">
+                                                <i class="fa fa-times"></i>
+                                                删除
+                                            </button>
+                                            <button class="btn btn-default" type="button" data-toggle="refresh">
+                                                <i class="fa fa-refresh"></i>
+                                                刷新
+                                            </button>
+                                            <button id="shelves" class="btn btn-default" type="button" disabled>
+                                                <i class="fa fa-chevron-up"></i>
+                                                上架
+                                            </button>
+                                            <button id="shelf" class="btn btn-default" type="button" disabled>
+                                                <i class="fa fa-chevron-down"></i>
+                                                下架
+                                            </button>
+                                            <div class="btn-group">
+                                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    商品筛选
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li data-filter-property="isActive" data-filter-value="true">
+                                                        <a href="javascript:;">有效</a>
+                                                    </li>
+                                                    <li data-filter-property="isActive" data-filter-value="false">
+                                                        <a href="javascript:;">无效</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li data-filter-property="isMarketable" data-filter-value="true">
+                                                        <a href="javascript:;">已上架</a>
+                                                    </li>
+                                                    <li data-filter-property="isMarketable" data-filter-value="false">
+                                                        <a href="javascript:;">未上架</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li data-filter-property="isList" data-filter-value="true">
+                                                        <a href="javascript:;">已列出</a>
+                                                    </li>
+                                                    <li data-filter-property="isList" data-filter-value="false">
+                                                        <a href="javascript:;">未列出</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li data-filter-property="isTop" data-filter-value="true">
+                                                        <a href="javascript:;">已置顶</a>
+                                                    </li>
+                                                    <li data-filter-property="isTop" data-filter-value="false">
+                                                        <a href="javascript:;">未置顶</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li data-filter-property="isOutOfStock" data-filter-value="false">
+                                                        <a href="javascript:;">有货</a>
+                                                    </li>
+                                                    <li data-filter-property="isOutOfStock" data-filter-value="true">
+                                                        <a href="javascript:;">缺货</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li data-filter-property="isStockAlert" data-filter-value="false">
+                                                        <a href="javascript:;">库存正常</a>
+                                                    </li>
+                                                    <li data-filter-property="isStockAlert" data-filter-value="true">
+                                                        <a href="javascript:;">库存警告</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#filterModal">更多选项</button>
+                                            <div class="btn-group">
+                                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    每页显示
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li data-page-size="10">
+                                                        <a href="javascript:;">10</a>
+                                                    </li>
+                                                    <li class="active" data-page-size="20">
+                                                        <a href="javascript:;">20</a>
+                                                    </li>
+                                                    <li data-page-size="50">
+                                                        <a href="javascript:;">50</a>
+                                                    </li>
+                                                    <li data-page-size="100">
+                                                        <a href="javascript:;">100</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="box-tools">
+                                            <div id="search" class="input-group">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown">
+                                                        <span>编号</span>
+                                                        <i class="caret"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="active" data-search-property="sn">
+                                                            <a href="javascript:;">编号</a>
+                                                        </li>
+                                                        <li data-search-property="name">
+                                                            <a href="javascript:;">名称</a>
+                                                        </li>
+                                                        <li data-search-property="productCategory.name">
+                                                            <a href="javascript:;">商品分类</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <input name="searchValue" class="form-control" type="text" value="" placeholder="搜 索">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <i class="check-all fa fa-square-o" data-toggle="checkAll"></i>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="sn">
+                                                编号
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="name">
+                                                名称
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="productCategory">
+                                                商品分类
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="price">
+                                                销售价
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="isMarketable">
+                                                是否上架
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="isActive">
+                                                是否有效
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="createdDate">
+                                                创建日期
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="e in list">
+                                        <td>
+                                            <input name="ids" v-model="ids" type="checkbox" :value="e.id">
+                                        </td>
+                                        <td>
+                                           {{e.sn}}=={{e.id}}
+                                        </td>
+                                        <td>
+                                           {{e.name}}
+                                        </td>
+                                        <td>{{e.attributevalue19}}</td>
+                                        <td>￥{{e.price}}</td>
+                                        <td>
+                                            {{e.ismarketable==1?"√":"×"}}
+                                        </td>
+                                        <td>
+                                            {{e.isactive==1?"√":"×"}}
+                                        </td>
+                                        <td>
+                                            {{e.createddate}}
+                                        </td>
+                                        <td>
+                                            <a href="../../business/product/edit.html?id=5">[编辑]</a>
+                                            <a href="../../product/detail.html?id=5" target="_blank">[查看]</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <!--//==========================================-->
+                                <ul class="pagination no-margin pull-right">
+                                    <li>
+                                        <a onclick="toPage(1)">首页</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="toPage(2)">上一页</a>
+                                    </li>
+                                    <li  class="active">
+                                        <a >当前第{{resultBean.page}}页</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="toPage(3)" >下一页</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="toPage(4)">尾页</a>
+                                    </li>
+                                    <li>
+                                        <a>共{{resultBean.sumPage}}页</a>
+                                    </li>
+                                    <li>
+                                        <a>共{{resultBean.total}}条</a>
+                                    </li>
+                                </ul>											</div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 5.0
+        </div>
+        <strong>
+            COPYRIGHT © 2008-2017 <a href="http://www.shopxx.net">SHOPXX.NET</a> ALL RIGHTS RESERVED.
+        </strong>
+    </footer>	</div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#formList',
+        data:{
+            ids:[],
+            list:'',
+            resultBean:{
+                page:1,
+                meiPageCount:3,
+                message:'',
+                where:'',
+                total:'',
+                sumPage:"",
+                dangPage:""
+            }
+        }
+    })
+    //==========================================
+    $.post("../../productZhangjr/findAll.do",{page:1,meiPageCount:3},function (data) {
+        vm.list = data.rows;
+
+        vm.resultBean.sumPage = data.sumPage;
+        vm.resultBean.page = data.dangPage;
+        vm.resultBean.total = data.total;
+    })
+    deleteProduct = function () {
+        var ids = vm.ids.join(",");
+        alert(ids)
+       /* $.post("../../productZhangjr/delete.do",{ids:ids},function (data) {
+            alert(data.message);
+            whereQueryProduct();
+        })*/
+    }
+    whereQueryProduct = function () {
+        $.ajax({
+            url: "../../productZhangjr/findAll.do",
+            type: 'post',
+            data: vm.resultBean,
+            success: function (data) {
+                vm.list = data.rows
+                vm.resultBean.sumPage = data.sumPage
+                vm.resultBean.page = data.dangPage
+                vm.resultBean.total = data.total
+            }
+        })
+    }
+    toPage = function (page) {
+        if (page == 1){
+            if (vm.resultBean.page == 1) {
+                alert("当前已是首页！")
+                return;
+            }
+            vm.resultBean.page = 1;
+        }
+        if (page == 2){
+            if (vm.resultBean.page == 1) {
+                alert("当前已是第一页！")
+                return;
+            }
+            vm.resultBean.page = --vm.resultBean.page;
+        }
+        if (page == 3){
+            if (vm.resultBean.page == vm.resultBean.sumPage) {
+                alert("当前已是最后一页！")
+                return;
+            }
+            vm.resultBean.page = ++vm.resultBean.page;
+        }
+        if (page == 4){
+            if (vm.resultBean.page == vm.resultBean.sumPage) {
+                alert("当前已是尾页！")
+                return;
+            }
+            vm.resultBean.page = vm.resultBean.sumPage;
+        }
+        whereQueryProduct();
+    }
+</script>
+</html>

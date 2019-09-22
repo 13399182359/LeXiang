@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>${message("admin.adPosition.add")} - Powered By SHOP++</title>
+<meta name="author" content="SHOP++ Team" />
+<meta name="copyright" content="SHOP++" />
+<link href="../../admin/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../admin/js/jquery.js"></script>
+<script type="text/javascript" src="../../admin/js/jquery.tools.js"></script>
+<script type="text/javascript" src="../../admin/js/jquery.validate.js"></script>
+<script type="text/javascript" src="../../admin/js/input.js"></script>
+	<script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+<script type="text/javascript">
+$().ready(function() {
+
+	var $inputForm = $("#inputForm");
+	
+
+	
+	// 表单验证
+	$inputForm.validate({
+		rules: {
+			name: "required",
+			width: {
+				required: true,
+				integer: true,
+				min: 1
+			},
+			height: {
+				required: true,
+				integer: true,
+				min: 1
+			},
+			template: "required"
+		}
+	});
+
+});
+</script>
+</head>
+<body>
+	<div class="breadcrumb">
+		<a href="${base}/admin/common/index">${message("admin.breadcrumb.home")}</a> &raquo; ${message("admin.adPosition.add")}
+	</div>
+	<div id="addDiv">
+	<form id="addForm"  method="post">
+		<input type="hidden" name="id" id="id" v-model="adposition.id" />
+		<table class="input">
+			<tr>
+				<th>
+					<span class="requiredField">*</span>名称
+				</th>
+				<td>
+					<input type="text" name="name" class="text" v-model="adposition.name" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>宽度
+				</th>
+				<td>
+					<input type="text" name="width" v-model="adposition.width" maxlength="9" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>高度
+				</th>
+				<td>
+					<input type="text" name="height"  v-model="adposition.height" maxlength="9" />
+				</td>
+			</tr>
+			<tr>
+				<th>描述
+				</th>
+				<td>
+					<input type="text" name="description"  v-model="adposition.description" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>模板
+				</th>
+				<td>
+					<textarea name="template" class="text" style="width: 98%; height: 300px;">{{adposition.template}}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					&nbsp;
+				</th>
+				<td>
+					<input type="button" class="button" @click="addAdPosition()" value="提交" />
+					<input type="button" class="button" value="返回" onclick="history.back(); return false;" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script type="text/javascript">
+	var TbcontentTc=new Vue({
+		el:"#addDiv",
+		data:{
+			adposition:{
+				id:"",
+				name:"",
+				createdate:"",
+				lastmodifieddate:"",
+				version:"",
+				description:"",
+				height:"",
+				width:"",
+				template:""
+
+			}
+		}
+	})
+
+
+	function addAdPosition() {
+			$.ajax({
+			url:"../../adposition/add.do",
+				data:$("#addForm").serialize(),
+				type:"post",
+				success:function (data) {
+					alert(data.message)
+				}
+
+		})
+	}
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

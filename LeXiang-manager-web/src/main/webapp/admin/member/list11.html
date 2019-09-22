@@ -1,0 +1,127 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>会员列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 会员列表 <span>(共1条记录)</span>
+</div>
+
+<form id="listForm"  method="post">
+    <div class="bar">
+        <a href="add.html" class="iconButton">
+            <span class="addIcon">&nbsp;</span>添加
+        </a>
+        <div class="buttonGroup">
+            <a href="javascript:;" id="deleteButton" class="iconButton disabled">
+                <span class="deleteIcon">&nbsp;</span>删除
+            </a>
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" value="" maxlength="200" />
+                <button type="submit">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="username">用户名</li>
+                <li val="email">E-mail</li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+<div class="box-body" >
+
+    <!-- 数据表格 -->
+    <div class="table-box" id="contentId">
+
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+
+            </div>
+        </div>
+        <!--工具栏/-->
+
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                </th>
+                <th class="sorting_asc">用户名</th>
+                <th class="sorting">会员等级</th>
+                <th class="sorting">E-mail</th>
+                <th class="sorting">创建日期</th>
+                <th class="sorting">状态</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="entity in contentList">
+                <td><input :value="entity.tbContent.id" v-model="contentVue.ids" name="check" type="checkbox" ></td>
+                <td>{{entity.tbContent.username}}</td>
+                <td>{{entity.tbContentCategory.memberRank}}</td>
+                <td>{{entity.tbContent.email}}</td>
+                <td>{{entity.tbContent.createdDate}}</td>
+                <td>{{entity.tbContent.memberRank_id==1? "是":"否"}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" @click="updateContent(entity.tbContent.id)" data-toggle="modal" data-target="#editModal">修改</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+    </div>
+    <!-- 数据表格 /-->
+</div>
+
+<script type="text/javascript">
+
+    var vm;
+    $(function () {
+        findStore();
+    })
+    function findStore(){
+        $.post("../../member/findMember.do",{page:1,rows:20},function (data) {
+            vm = new Vue({
+                el:'#listForm',
+                data:{
+                    storeList:data.rows,
+                    ids:[]
+                }
+            })
+        })
+    }
+
+
+</script>
+
+</body>
+</html>

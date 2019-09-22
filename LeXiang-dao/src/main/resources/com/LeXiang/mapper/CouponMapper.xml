@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.CouponMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.pojo.Coupon" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="createdDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="lastModifiedDate" property="lastmodifieddate" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="beginDate" property="begindate" jdbcType="TIMESTAMP" />
+    <result column="endDate" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="isEnabled" property="isenabled" jdbcType="BIT" />
+    <result column="isExchange" property="isexchange" jdbcType="BIT" />
+    <result column="maximumPrice" property="maximumprice" jdbcType="DECIMAL" />
+    <result column="maximumQuantity" property="maximumquantity" jdbcType="INTEGER" />
+    <result column="minimumPrice" property="minimumprice" jdbcType="DECIMAL" />
+    <result column="minimumQuantity" property="minimumquantity" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="BIGINT" />
+    <result column="prefix" property="prefix" jdbcType="VARCHAR" />
+    <result column="priceExpression" property="priceexpression" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.LeXiang.pojo.Coupon" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createdDate, lastModifiedDate, version, beginDate, endDate, isEnabled, isExchange, 
+    maximumPrice, maximumQuantity, minimumPrice, minimumQuantity, name, point, prefix, 
+    priceExpression, store_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.LeXiang.pojo.CouponExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.pojo.CouponExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from coupon
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from coupon
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.pojo.CouponExample" >
+    delete from coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.pojo.Coupon" >
+    insert into coupon (id, createdDate, lastModifiedDate, 
+      version, beginDate, endDate, 
+      isEnabled, isExchange, maximumPrice, 
+      maximumQuantity, minimumPrice, minimumQuantity, 
+      name, point, prefix, 
+      priceExpression, store_id, introduction
+      )
+    values (#{id,jdbcType=BIGINT}, #{createddate,jdbcType=TIMESTAMP}, #{lastmodifieddate,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=BIGINT}, #{begindate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{isenabled,jdbcType=BIT}, #{isexchange,jdbcType=BIT}, #{maximumprice,jdbcType=DECIMAL}, 
+      #{maximumquantity,jdbcType=INTEGER}, #{minimumprice,jdbcType=DECIMAL}, #{minimumquantity,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{point,jdbcType=BIGINT}, #{prefix,jdbcType=VARCHAR}, 
+      #{priceexpression,jdbcType=VARCHAR}, #{storeId,jdbcType=BIGINT}, #{introduction,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.pojo.Coupon" >
+    insert into coupon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createddate != null" >
+        createdDate,
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="begindate != null" >
+        beginDate,
+      </if>
+      <if test="enddate != null" >
+        endDate,
+      </if>
+      <if test="isenabled != null" >
+        isEnabled,
+      </if>
+      <if test="isexchange != null" >
+        isExchange,
+      </if>
+      <if test="maximumprice != null" >
+        maximumPrice,
+      </if>
+      <if test="maximumquantity != null" >
+        maximumQuantity,
+      </if>
+      <if test="minimumprice != null" >
+        minimumPrice,
+      </if>
+      <if test="minimumquantity != null" >
+        minimumQuantity,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="prefix != null" >
+        prefix,
+      </if>
+      <if test="priceexpression != null" >
+        priceExpression,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="begindate != null" >
+        #{begindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isenabled != null" >
+        #{isenabled,jdbcType=BIT},
+      </if>
+      <if test="isexchange != null" >
+        #{isexchange,jdbcType=BIT},
+      </if>
+      <if test="maximumprice != null" >
+        #{maximumprice,jdbcType=DECIMAL},
+      </if>
+      <if test="maximumquantity != null" >
+        #{maximumquantity,jdbcType=INTEGER},
+      </if>
+      <if test="minimumprice != null" >
+        #{minimumprice,jdbcType=DECIMAL},
+      </if>
+      <if test="minimumquantity != null" >
+        #{minimumquantity,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=BIGINT},
+      </if>
+      <if test="prefix != null" >
+        #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="priceexpression != null" >
+        #{priceexpression,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.pojo.CouponExample" resultType="java.lang.Integer" >
+    select count(*) from coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update coupon
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createddate != null" >
+        createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifieddate != null" >
+        lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+      <if test="record.begindate != null" >
+        beginDate = #{record.begindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enddate != null" >
+        endDate = #{record.enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isenabled != null" >
+        isEnabled = #{record.isenabled,jdbcType=BIT},
+      </if>
+      <if test="record.isexchange != null" >
+        isExchange = #{record.isexchange,jdbcType=BIT},
+      </if>
+      <if test="record.maximumprice != null" >
+        maximumPrice = #{record.maximumprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maximumquantity != null" >
+        maximumQuantity = #{record.maximumquantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.minimumprice != null" >
+        minimumPrice = #{record.minimumprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.minimumquantity != null" >
+        minimumQuantity = #{record.minimumquantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=BIGINT},
+      </if>
+      <if test="record.prefix != null" >
+        prefix = #{record.prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceexpression != null" >
+        priceExpression = #{record.priceexpression,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update coupon
+    set id = #{record.id,jdbcType=BIGINT},
+      createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=BIGINT},
+      beginDate = #{record.begindate,jdbcType=TIMESTAMP},
+      endDate = #{record.enddate,jdbcType=TIMESTAMP},
+      isEnabled = #{record.isenabled,jdbcType=BIT},
+      isExchange = #{record.isexchange,jdbcType=BIT},
+      maximumPrice = #{record.maximumprice,jdbcType=DECIMAL},
+      maximumQuantity = #{record.maximumquantity,jdbcType=INTEGER},
+      minimumPrice = #{record.minimumprice,jdbcType=DECIMAL},
+      minimumQuantity = #{record.minimumquantity,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=BIGINT},
+      prefix = #{record.prefix,jdbcType=VARCHAR},
+      priceExpression = #{record.priceexpression,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=BIGINT},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update coupon
+    set id = #{record.id,jdbcType=BIGINT},
+      createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{record.lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=BIGINT},
+      beginDate = #{record.begindate,jdbcType=TIMESTAMP},
+      endDate = #{record.enddate,jdbcType=TIMESTAMP},
+      isEnabled = #{record.isenabled,jdbcType=BIT},
+      isExchange = #{record.isexchange,jdbcType=BIT},
+      maximumPrice = #{record.maximumprice,jdbcType=DECIMAL},
+      maximumQuantity = #{record.maximumquantity,jdbcType=INTEGER},
+      minimumPrice = #{record.minimumprice,jdbcType=DECIMAL},
+      minimumQuantity = #{record.minimumquantity,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=BIGINT},
+      prefix = #{record.prefix,jdbcType=VARCHAR},
+      priceExpression = #{record.priceexpression,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.pojo.Coupon" >
+    update coupon
+    <set >
+      <if test="createddate != null" >
+        createdDate = #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifieddate != null" >
+        lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="begindate != null" >
+        beginDate = #{begindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        endDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isenabled != null" >
+        isEnabled = #{isenabled,jdbcType=BIT},
+      </if>
+      <if test="isexchange != null" >
+        isExchange = #{isexchange,jdbcType=BIT},
+      </if>
+      <if test="maximumprice != null" >
+        maximumPrice = #{maximumprice,jdbcType=DECIMAL},
+      </if>
+      <if test="maximumquantity != null" >
+        maximumQuantity = #{maximumquantity,jdbcType=INTEGER},
+      </if>
+      <if test="minimumprice != null" >
+        minimumPrice = #{minimumprice,jdbcType=DECIMAL},
+      </if>
+      <if test="minimumquantity != null" >
+        minimumQuantity = #{minimumquantity,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=BIGINT},
+      </if>
+      <if test="prefix != null" >
+        prefix = #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="priceexpression != null" >
+        priceExpression = #{priceexpression,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.LeXiang.pojo.Coupon" >
+    update coupon
+    set createdDate = #{createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      beginDate = #{begindate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP},
+      isEnabled = #{isenabled,jdbcType=BIT},
+      isExchange = #{isexchange,jdbcType=BIT},
+      maximumPrice = #{maximumprice,jdbcType=DECIMAL},
+      maximumQuantity = #{maximumquantity,jdbcType=INTEGER},
+      minimumPrice = #{minimumprice,jdbcType=DECIMAL},
+      minimumQuantity = #{minimumquantity,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      point = #{point,jdbcType=BIGINT},
+      prefix = #{prefix,jdbcType=VARCHAR},
+      priceExpression = #{priceexpression,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=BIGINT},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.pojo.Coupon" >
+    update coupon
+    set createdDate = #{createddate,jdbcType=TIMESTAMP},
+      lastModifiedDate = #{lastmodifieddate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      beginDate = #{begindate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP},
+      isEnabled = #{isenabled,jdbcType=BIT},
+      isExchange = #{isexchange,jdbcType=BIT},
+      maximumPrice = #{maximumprice,jdbcType=DECIMAL},
+      maximumQuantity = #{maximumquantity,jdbcType=INTEGER},
+      minimumPrice = #{minimumprice,jdbcType=DECIMAL},
+      minimumQuantity = #{minimumquantity,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      point = #{point,jdbcType=BIGINT},
+      prefix = #{prefix,jdbcType=VARCHAR},
+      priceExpression = #{priceexpression,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

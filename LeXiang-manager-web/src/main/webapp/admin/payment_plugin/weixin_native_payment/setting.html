@@ -1,0 +1,158 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>微信支付扫码设置 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/webuploader.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $filePicker = $("#filePicker");
+
+
+            $filePicker.uploader();
+
+            // 表单验证
+            $inputForm.validate({
+                errorClass: "fieldError",
+                ignoreTitle: true,
+                rules: {
+                    paymentName: "required",
+                    appId: "required",
+                    mchId: "required",
+                    apiKey: "required",
+                    fee: {
+                        required: true,
+                        min: 0,
+                        decimal: {
+                            integer: 12,
+                            fraction: 2
+                        }
+                    },
+                    logo: {
+                        pattern: /^(http:\/\/|https:\/\/|\/).*$/i
+                    },
+                    order: "digits"
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    微信支付扫码设置
+</div>
+<form id="inputForm" action="update" method="post">
+    <table class="input">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>支付方式名称:
+            </th>
+            <td>
+                <input type="text" name="paymentName" class="text" value="微信支付扫码" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>APP ID:
+            </th>
+            <td>
+                <input type="text" name="appId" class="text" value="abc" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>商户号:
+            </th>
+            <td>
+                <input type="text" name="mchId" class="text" value="abc" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>商户key:
+            </th>
+            <td>
+                <input type="text" name="apiKey" class="text" value="abc" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                手续费类型:
+            </th>
+            <td>
+                <select name="feeType">
+                    <option value="scale" selected="selected">按比例收费</option>
+                    <option value="fixed">固定收费</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>手续费:
+            </th>
+            <td>
+                <input type="text" name="fee" class="text" value="0" maxlength="16" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                LOGO:
+            </th>
+            <td>
+					<span class="fieldSet">
+						<input type="text" name="logo" class="text" value="http://image.demo.shopxx.net/b2b2c/5.0/201601/ff3d7a85-8282-4d98-b4db-219be9cdfe12.gif" maxlength="200" />
+						<a href="javascript:;" id="filePicker" class="button">选择文件</a>
+							<a href="http://image.demo.shopxx.net/b2b2c/5.0/201601/ff3d7a85-8282-4d98-b4db-219be9cdfe12.gif" target="_blank">查看</a>
+					</span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                描述:
+            </th>
+            <td>
+                <textarea name="description" class="text"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                排序:
+            </th>
+            <td>
+                <input type="text" name="order" class="text" value="1" maxlength="9" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                是否已启用:
+            </th>
+            <td>
+                <label>
+                    <input type="checkbox" name="isEnabled" value="true" checked />
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="location.href='../list'" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

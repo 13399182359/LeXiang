@@ -1,0 +1,236 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>提现列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../admin/css/common.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../admin/js/bootstrap3/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../admin/js/jquery-2.2.3.min.js"></script>
+    <!--  <script type="text/javascript" src="../../admin/js/common.js"></script>-->
+    <script type="text/javascript" src="../../admin/js/list.js"></script>
+    <script type="text/javascript" src="../../admin/js/vue.min.js"></script>
+
+    <script type="text/javascript" src="../../admin/js/bootstrap3/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $reviewForm = $("#reviewForm");
+            var $id = $("#id");
+            var $isPassed = $("#isPassed");
+
+
+            // 审核
+            $.review = function(cashId) {
+                $.dialog({
+                    type: "warn",
+                    content: "提现是否通过审核？",
+                    ok: "是",
+                    cancel: "否",
+                    onOk: function() {
+                        $id.val(cashId);
+                        $isPassed.val("true");
+                        $reviewForm.submit();
+                        return false;
+                    },
+                    onCancel: function() {
+                        $id.val(cashId);
+                        $isPassed.val("false");
+                        $reviewForm.submit();
+                        return false;
+                    }
+                });
+            };
+        });
+    </script>
+</head>
+<body>
+<form id="reviewForm" action="review" method="post">
+    <input type="hidden" id="id" name="id"/>
+    <input type="hidden" id="isPassed" name="isPassed" />
+</form>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 提现列表 <span>(共0条记录)</span>
+</div>
+<div id="cashBusiness">
+    <form id="listForm"  >
+        <div class="bar">
+            <div class="buttonGroup">
+               <!-- <a href="javascript:;" id="refreshButton"  class="iconButton">
+                    <span class="refreshIcon">&nbsp;</span>刷新
+                </a>-->
+                <button type="button" class="refreshIcon" value="刷新" @click="refreshPage()"></button>
+                <div id="pageSizeMenu" class="dropdownMenu">
+                    <a href="javascript:;" class="button">
+                        每页显示<span class="arrow">&nbsp;</span>
+                    </a>
+                    <ul>
+                        <li val="10" onclick="search(vm.pageNum,10)">10</li>
+                        <li class="current" onclick="search(vm.pageNum,20)" val="20">20</li>
+                        <li val="50" onclick="search(vm.pageNum,50)">50</li>
+                        <li val="100" onclick="search(vm.pageNum,100)">100</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="searchPropertyMenu" class="dropdownMenu">
+                <div class="search">
+                    <span class="arrow">&nbsp;</span>
+                    <input type="text" id="searchName" name="ser" value="" maxlength="200" />
+                    <button type="button" @click="search(vm.pageNum,vm.pageSize)">&nbsp;</button>
+                </div>
+                <ul>
+                    <li val="business.name" >商家</li>
+                </ul>
+            </div>
+        </div>
+
+        <table id="listTable" class="list">
+            <thead>
+            <tr>
+                <th>
+                    <a class="sort" name="amount">金额</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="bank">收款银行</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="account">收款账号</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="business.name">商家</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="status">状态</a>
+                </th>
+                <th>
+                    <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+                </th>
+                <th>
+                    <span>操作</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="entity in cashList">
+                <td>{{entity.cash.amount}}</td>
+                <td>{{entity.cash.bank}}</td>
+                <td>{{entity.cash.account}}</td>
+                <td>{{entity.business.name}}</td>
+                <td>{{entity.cash.status}}</td>
+                <td>{{entity.cash.createddate}}</td>
+                <td><a href="#" @click="deleteCash(entity.cash.id)">删除</a></td>
+
+
+
+
+
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+
+            <li><a href="javascript:void(0);" @click="toPage(1)">首页</a></li>
+            <li><a href="#" @click="toFirst">上一页</a></li>
+            <template v-for="n in totalPage">
+                <li><a href="#" @click="toPage(n)">{{n}}</a></li>
+            </template>
+            <li><a href="#" @click="toEnd">下一页</a></li>
+            <li><a href="#" @click="toPage(vm.totalPage)">尾页</a></li>
+        </ul>
+
+        <input type="hidden" id="pageSize" name="pageSize" value="20" />
+        <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+        <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+        <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        queryList();
+    })
+    var vm;
+    function queryList() {
+        $.ajax({
+            url:"../../cash/queryCash.do",
+            type:"post",
+            success:function (result) {
+
+                vm = new Vue({
+                    el: '#cashBusiness',
+                    data: {
+                        cashList: result.rows,
+                        totalPage: result.totalPage,
+                        pageSize: result.pageSize,
+                        pageNum: result.pageNum,
+                        total: result.total
+
+                    }
+                })
+            }
+        })
+    }
+
+    function search(page, rows) {
+        alert($("#searchName").val())
+        $.ajax({
+            type: "post",
+            url:"../../cash/queryCash.do",
+            data: {  name: $("#searchName").val(), page:page, rows:rows},
+            dataType: "json",
+            success: function (result) {
+                vm.cashList = result.rows;
+                vm.totalPage = result.totalPage;
+                vm.pageSize = result.pageSize;
+                vm.pageNum = result.pageNum;
+                vm.total = result.total;
+
+            }
+        })
+    }
+
+
+    function toPage(n) {
+
+        search(n,vm.pageSize);
+    }
+    function toFirst() {
+        if(vm.pageNum==1){
+            alert("当前已经是首页了")
+        }else{
+            search(vm.pageNum-1,vm.pageSize)
+        }
+    }function toEnd() {
+
+        if(vm.pageNum==vm.totalPage){
+            alert("当前已经是尾页了")
+        }else{
+            search(vm.pageNum+1,vm.pageSize)
+        }
+    }
+
+    function deleteCash(id){
+        $.ajax({
+            url:"../../cash/deleteCash.do",
+            data:{id:id},
+            success:function (data) {
+                alert(data.message);
+                search(vm.pageNum,vm.pageSize)
+            }
+        })
+
+    }
+    function refreshPage() {
+
+        location.href=location;
+    }
+
+
+
+
+</script>
+</body>
+</html>

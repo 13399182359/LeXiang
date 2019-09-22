@@ -1,0 +1,146 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>预存款调整 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.tools.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $inputForm = $("#inputForm");
+            var $username = $("#username");
+            var $balance = $("#balance");
+            var $amount = $("#amount");
+            var balance = null;
+
+
+            // 检查会员
+            $username.change(function() {
+                if ($.trim($username) == "") {
+                    return;
+                }
+                $.ajax({
+                    url: "../../memberdeposit/queryMemberUserName.do",
+                    type: "post",
+                    data: {username: $username.val()},
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.message == "success") {
+                            balance = data.balance;
+                            $balance.text("余额: " + currency(data.balance, true, true)).closest("tr").show();
+                        } else {
+                            balance = null;
+                            $username.val("");
+                            $balance.closest("tr").hide();
+                            $.message(data.message);
+                        }
+                    }
+                });
+            });
+
+            // 表单验证
+            $inputForm.validate({
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    amount: {
+                        required: true,
+                        decimal: {
+                            integer: 12,
+                            fraction: 2
+                        }
+                    }
+                },
+                submitHandler: function(form) {
+                    var amount = parseFloat($amount.val());
+                    var  credit=0;
+                    var debit =0;
+                    if (amount == 0) {
+                        $.message("warn", "调整值不允许为零");
+                        return false;
+                    }
+                    if (balance != null && balance + amount < 0) {
+                        $.message("warn", "账户余额不足");
+                        return false;
+                    }
+                    $(form).find("input:submit").prop("disabled", true);
+                    if(amount>0 ){
+                        credit=amount;
+                    }else{
+                        debit=amount;
+                    }
+                    $.ajax({
+                        url:"../../memberdeposit/updateMemberDeposit.do",
+                        type:"post",
+                        data:{ username: $username.val(),credit:credit,debit:debit},
+                        success:function (data) {
+                            alert(data.message);
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 预存款调整
+</div>
+<form id="inputForm" >
+    <table class="input tabContent">
+        <tr>
+            <th>
+                <span class="requiredField">*</span>会员名:
+            </th>
+            <td>
+                <input type="text" id="username" name="username" class="text" maxlength="20" />
+            </td>
+        </tr>
+        <tr class="hidden">
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <span id="balance"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="requiredField">*</span>调整值:
+            </th>
+            <td>
+                <input type="text" id="amount" name="amount" class="text" maxlength="16" title="正数代表预存款充值，负数代表预存款扣除" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                备注:
+            </th>
+            <td>
+                <input type="text" name="memo" class="text" maxlength="200" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <td>
+                <input type="submit" class="button" value="确 定" />
+                <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

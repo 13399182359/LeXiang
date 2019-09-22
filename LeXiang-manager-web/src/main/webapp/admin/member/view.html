@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>查看会员 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/jquery.tools.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/input.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/vue.min.js"></script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../admin/common/index">首页</a> &raquo; 查看会员
+</div>
+<ul id="tab" class="tab">
+    <li>
+        <input type="button" value="基本信息" />
+    </li>
+
+</ul>
+<div id="findMember">
+<table class="input tabContent">
+    <tr>
+        <th>
+            用户名:
+        </th>
+        <td>
+            {{list.member.username}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            E-mail:
+        </th>
+        <td>
+            {{list.member.email}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            手机:
+        </th>
+        <td>
+            {{list.member.mobile}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            会员等级:
+        </th>
+        <td>
+            {{list.member.memberrankId}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            状态:
+        </th>
+        <td>
+            {{list.users.isenabled}}
+        </td>
+    </tr>
+    <!--<tr>
+        <th>
+            积分:
+        </th>
+        <td>
+            0
+        </td>
+    </tr>
+    <tr>
+        <th>
+            余额:
+        </th>
+        <td>
+            ￥0.00
+        </td>
+    </tr>
+    <tr>
+        <th>
+            消费金额:
+        </th>
+        <td>
+            ￥0.00
+        </td>
+    </tr>-->
+    <tr>
+        <th>
+            创建日期:
+        </th>
+        <td>
+            {{list.users.createddate}}
+        </td>
+    </tr>
+    <!--<tr>
+        <th>
+            最后登录IP:
+        </th>
+        <td>
+            -
+        </td>
+    </tr>
+    <tr>
+        <th>
+            最后登录日期:
+        </th>
+        <td>
+            —
+        </td>
+    </tr>
+    <tr>
+        <th>
+            评论数:
+        </th>
+        <td>
+            0
+        </td>
+    </tr>
+    <tr>
+        <th>
+            咨询数:
+        </th>
+        <td>
+            0
+        </td>
+    </tr>
+    <tr>
+        <th>
+            商品收藏数:
+        </th>
+        <td>
+            0
+        </td>
+    </tr>-->
+</table>
+<!--<table class="input tabContent">
+    <tr>
+        <th>
+            姓名:
+        </th>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            性别:
+        </th>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            电话:
+        </th>
+        <td>
+
+        </td>
+    </tr>
+</table>-->
+<table class="input">
+    <tr>
+        <th>
+            &nbsp;
+        </th>
+        <td>
+            <input type="button" class="button" value="返 回" onclick="history.back(); return false;" />
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var urls = window.location.href;
+    var argsIndex = urls .split("?id=");
+    var arg = argsIndex[1];
+    var vm;
+    $.post("../../member/toUpdMember.do",{id:arg},function (data) {
+        vm = new Vue({
+            el:'#findMember',
+            data:{
+                list:data
+            }
+        })
+
+    })
+
+
+</script>
+</div>
+</body>
+</html>

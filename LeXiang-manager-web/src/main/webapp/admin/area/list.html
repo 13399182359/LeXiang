@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>地区列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $delete = $("#listTable a.delete");
+
+
+            // 删除
+            $delete.click(function() {
+                var $this = $(this);
+                $.dialog({
+                    type: "warn",
+                    content: "您确定要删除吗？",
+                    onOk: function() {
+                        $.ajax({
+                            url: "delete",
+                            type: "POST",
+                            data: {id: $this.attr("val")},
+                            dataType: "json",
+                            cache: false,
+                            success: function(message) {
+                                $.message(message);
+                                if (message.type == "success") {
+                                    $this.parent().html("&nbsp;");
+                                }
+                            }
+                        });
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="../../resources/admin/common/index">首页</a> &raquo; 地区列表
+</div>
+<div class="bar">
+    <a href="add" class="iconButton">
+        <span class="addIcon">&nbsp;</span>添加
+    </a>
+</div>
+<table id="listTable" class="list">
+    <tr>
+        <th colspan="5" class="green" style="text-align: center;">
+            顶级地区
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=1" title="查看">北京市</a>
+            <a href="edit?id=1">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=18" title="查看">天津市</a>
+            <a href="edit?id=18">[编辑]</a>
+            <a href="javascript:;" class="delete" val="18">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=35" title="查看">河北省</a>
+            <a href="edit?id=35">[编辑]</a>
+            <a href="javascript:;" class="delete" val="35">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=219" title="查看">山西省</a>
+            <a href="edit?id=219">[编辑]</a>
+            <a href="javascript:;" class="delete" val="219">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=350" title="查看">内蒙古自治区</a>
+            <a href="edit?id=350">[编辑]</a>
+            <a href="javascript:;" class="delete" val="350">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=465" title="查看">辽宁省</a>
+            <a href="edit?id=465">[编辑]</a>
+            <a href="javascript:;" class="delete" val="465">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=580" title="查看">吉林省</a>
+            <a href="edit?id=580">[编辑]</a>
+            <a href="javascript:;" class="delete" val="580">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=650" title="查看">黑龙江省</a>
+            <a href="edit?id=650">[编辑]</a>
+            <a href="javascript:;" class="delete" val="650">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=792" title="查看">上海市</a>
+            <a href="edit?id=792">[编辑]</a>
+            <a href="javascript:;" class="delete" val="792">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=810" title="查看">江苏省</a>
+            <a href="edit?id=810">[编辑]</a>
+            <a href="javascript:;" class="delete" val="810">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=924" title="查看">浙江省</a>
+            <a href="edit?id=924">[编辑]</a>
+            <a href="javascript:;" class="delete" val="924">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1026" title="查看">安徽省</a>
+            <a href="edit?id=1026">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1026">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1148" title="查看">福建省</a>
+            <a href="edit?id=1148">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1148">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1243" title="查看">江西省</a>
+            <a href="edit?id=1243">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1243">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1355" title="查看">山东省</a>
+            <a href="edit?id=1355">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1355">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=1511" title="查看">河南省</a>
+            <a href="edit?id=1511">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1511">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1688" title="查看">湖北省</a>
+            <a href="edit?id=1688">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1688">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1805" title="查看">湖南省</a>
+            <a href="edit?id=1805">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1805">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=1942" title="查看">广东省</a>
+            <a href="edit?id=1942">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1942">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2085" title="查看">广西壮族自治区</a>
+            <a href="edit?id=2085">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2085">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=2210" title="查看">海南省</a>
+            <a href="edit?id=2210">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2210">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2237" title="查看">重庆市</a>
+            <a href="edit?id=2237">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2237">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2276" title="查看">四川省</a>
+            <a href="edit?id=2276">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2276">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2481" title="查看">贵州省</a>
+            <a href="edit?id=2481">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2481">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2579" title="查看">云南省</a>
+            <a href="edit?id=2579">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2579">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=2725" title="查看">西藏自治区</a>
+            <a href="edit?id=2725">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2725">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2807" title="查看">陕西省</a>
+            <a href="edit?id=2807">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2807">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=2925" title="查看">甘肃省</a>
+            <a href="edit?id=2925">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2925">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=3026" title="查看">青海省</a>
+            <a href="edit?id=3026">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3026">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=3078" title="查看">宁夏回族自治区</a>
+            <a href="edit?id=3078">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3078">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="list?parentId=3106" title="查看">新疆维吾尔自治区</a>
+            <a href="edit?id=3106">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3106">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=3220" title="查看">台湾省</a>
+            <a href="edit?id=3220">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3220">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=3221" title="查看">香港特别行政区</a>
+            <a href="edit?id=3221">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3221">[删除]</a>
+        </td>
+        <td>
+            <a href="list?parentId=3222" title="查看">澳门特别行政区</a>
+            <a href="edit?id=3222">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3222">[删除]</a>
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+</table>
+</body>
+</html>

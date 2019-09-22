@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.DisplaysetupMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.pojo.Displaysetup" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="language" property="language" jdbcType="INTEGER" />
+    <result column="largeProductImageWidth" property="largeproductimagewidth" jdbcType="DOUBLE" />
+    <result column="largeProductImageHeight" property="largeproductimageheight" jdbcType="DOUBLE" />
+    <result column="mediumProductImageWidth" property="mediumproductimagewidth" jdbcType="DOUBLE" />
+    <result column="mediumProductImageHeight" property="mediumproductimageheight" jdbcType="DOUBLE" />
+    <result column="thumbnailProductImageWidth" property="thumbnailproductimagewidth" jdbcType="DOUBLE" />
+    <result column="thumbnailProductImageHeight" property="thumbnailproductimageheight" jdbcType="DOUBLE" />
+    <result column="defaultLargeProductImage" property="defaultlargeproductimage" jdbcType="VARCHAR" />
+    <result column="defaultMediumProductImage" property="defaultmediumproductimage" jdbcType="VARCHAR" />
+    <result column="defaultThumbnailProductImage" property="defaultthumbnailproductimage" jdbcType="VARCHAR" />
+    <result column="defaultStoreLogo" property="defaultstorelogo" jdbcType="VARCHAR" />
+    <result column="watermarkAlpha" property="watermarkalpha" jdbcType="INTEGER" />
+    <result column="watermarkImageFile" property="watermarkimagefile" jdbcType="VARCHAR" />
+    <result column="watermarkPosition" property="watermarkposition" jdbcType="INTEGER" />
+    <result column="priceScale" property="pricescale" jdbcType="INTEGER" />
+    <result column="priceRoundType" property="priceroundtype" jdbcType="INTEGER" />
+    <result column="isShowMarketPrice" property="isshowmarketprice" jdbcType="INTEGER" />
+    <result column="defaultMarketPriceScale" property="defaultmarketpricescale" jdbcType="DOUBLE" />
+    <result column="siteName" property="sitename" jdbcType="VARCHAR" />
+    <result column="siteUrl" property="siteurl" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="hotSearch" property="hotsearch" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="zipCode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="certtext" property="certtext" jdbcType="VARCHAR" />
+    <result column="allowedRegisterTypes" property="allowedregistertypes" jdbcType="VARCHAR" />
+    <result column="registerPoint" property="registerpoint" jdbcType="INTEGER" />
+    <result column="captchaTypes" property="captchatypes" jdbcType="VARCHAR" />
+    <result column="maxFailedLoginAttempts" property="maxfailedloginattempts" jdbcType="INTEGER" />
+    <result column="passwordLockTime" property="passwordlocktime" jdbcType="INTEGER" />
+    <result column="safeKeyExpiryTime" property="safekeyexpirytime" jdbcType="INTEGER" />
+    <result column="uploadMaxSize" property="uploadmaxsize" jdbcType="INTEGER" />
+    <result column="uploadImageExtension" property="uploadimageextension" jdbcType="VARCHAR" />
+    <result column="uploadMediaExtension" property="uploadmediaextension" jdbcType="VARCHAR" />
+    <result column="uploadFileExtension" property="uploadfileextension" jdbcType="VARCHAR" />
+    <result column="imageUploadPath" property="imageuploadpath" jdbcType="VARCHAR" />
+    <result column="mediaUploadPath" property="mediauploadpath" jdbcType="VARCHAR" />
+    <result column="fileUploadPath" property="fileuploadpath" jdbcType="VARCHAR" />
+    <result column="smtpHost" property="smtphost" jdbcType="VARCHAR" />
+    <result column="smtpPort" property="smtpport" jdbcType="VARCHAR" />
+    <result column="smtpUsername" property="smtpusername" jdbcType="VARCHAR" />
+    <result column="smtpPassword" property="smtppassword" jdbcType="VARCHAR" />
+    <result column="smtpSSLEnabled" property="smtpsslenabled" jdbcType="VARCHAR" />
+    <result column="smtpFromMail" property="smtpfrommail" jdbcType="VARCHAR" />
+    <result column="toMail" property="tomail" jdbcType="VARCHAR" />
+    <result column="currencySign" property="currencysign" jdbcType="VARCHAR" />
+    <result column="currencyUnit" property="currencyunit" jdbcType="VARCHAR" />
+    <result column="stockAlertCount" property="stockalertcount" jdbcType="INTEGER" />
+    <result column="automaticReceiveTime" property="automaticreceivetime" jdbcType="INTEGER" />
+    <result column="stockAllocationTime" property="stockallocationtime" jdbcType="INTEGER" />
+    <result column="defaultPointScale" property="defaultpointscale" jdbcType="INTEGER" />
+    <result column="maxPointScale" property="maxpointscale" jdbcType="INTEGER" />
+    <result column="isDevelopmentEnabled" property="isdevelopmentenabled" jdbcType="INTEGER" />
+    <result column="isReviewEnabled" property="isreviewenabled" jdbcType="INTEGER" />
+    <result column="isReviewCheck" property="isreviewcheck" jdbcType="INTEGER" />
+    <result column="isConsultationEnabled" property="isconsultationenabled" jdbcType="INTEGER" />
+    <result column="isConsultationCheck" property="isconsultationcheck" jdbcType="INTEGER" />
+    <result column="isInvoiceEnabled" property="isinvoiceenabled" jdbcType="INTEGER" />
+    <result column="isTaxPriceEnabled" property="istaxpriceenabled" jdbcType="INTEGER" />
+    <result column="taxRate" property="taxrate" jdbcType="DOUBLE" />
+    <result column="cookiePath" property="cookiepath" jdbcType="VARCHAR" />
+    <result column="cookieDomain" property="cookiedomain" jdbcType="VARCHAR" />
+    <result column="kuaidi100Key" property="kuaidi100key" jdbcType="VARCHAR" />
+    <result column="smsSn" property="smssn" jdbcType="VARCHAR" />
+    <result column="smsKey" property="smskey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, language, largeProductImageWidth, largeProductImageHeight, mediumProductImageWidth, 
+    mediumProductImageHeight, thumbnailProductImageWidth, thumbnailProductImageHeight, 
+    defaultLargeProductImage, defaultMediumProductImage, defaultThumbnailProductImage, 
+    defaultStoreLogo, watermarkAlpha, watermarkImageFile, watermarkPosition, priceScale, 
+    priceRoundType, isShowMarketPrice, defaultMarketPriceScale, siteName, siteUrl, logo, 
+    hotSearch, address, phone, zipCode, email, certtext, allowedRegisterTypes, registerPoint, 
+    captchaTypes, maxFailedLoginAttempts, passwordLockTime, safeKeyExpiryTime, uploadMaxSize, 
+    uploadImageExtension, uploadMediaExtension, uploadFileExtension, imageUploadPath, 
+    mediaUploadPath, fileUploadPath, smtpHost, smtpPort, smtpUsername, smtpPassword, 
+    smtpSSLEnabled, smtpFromMail, toMail, currencySign, currencyUnit, stockAlertCount, 
+    automaticReceiveTime, stockAllocationTime, defaultPointScale, maxPointScale, isDevelopmentEnabled, 
+    isReviewEnabled, isReviewCheck, isConsultationEnabled, isConsultationCheck, isInvoiceEnabled, 
+    isTaxPriceEnabled, taxRate, cookiePath, cookieDomain, kuaidi100Key, smsSn, smsKey
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.pojo.DisplaysetupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from displaysetup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from displaysetup
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from displaysetup
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.pojo.DisplaysetupExample" >
+    delete from displaysetup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.pojo.Displaysetup" >
+    insert into displaysetup (id, language, largeProductImageWidth, 
+      largeProductImageHeight, mediumProductImageWidth, 
+      mediumProductImageHeight, thumbnailProductImageWidth, 
+      thumbnailProductImageHeight, defaultLargeProductImage, 
+      defaultMediumProductImage, defaultThumbnailProductImage, 
+      defaultStoreLogo, watermarkAlpha, watermarkImageFile, 
+      watermarkPosition, priceScale, priceRoundType, 
+      isShowMarketPrice, defaultMarketPriceScale, 
+      siteName, siteUrl, logo, 
+      hotSearch, address, phone, 
+      zipCode, email, certtext, 
+      allowedRegisterTypes, registerPoint, captchaTypes, 
+      maxFailedLoginAttempts, passwordLockTime, 
+      safeKeyExpiryTime, uploadMaxSize, uploadImageExtension, 
+      uploadMediaExtension, uploadFileExtension, 
+      imageUploadPath, mediaUploadPath, fileUploadPath, 
+      smtpHost, smtpPort, smtpUsername, 
+      smtpPassword, smtpSSLEnabled, smtpFromMail, 
+      toMail, currencySign, currencyUnit, 
+      stockAlertCount, automaticReceiveTime, 
+      stockAllocationTime, defaultPointScale, 
+      maxPointScale, isDevelopmentEnabled, isReviewEnabled, 
+      isReviewCheck, isConsultationEnabled, isConsultationCheck, 
+      isInvoiceEnabled, isTaxPriceEnabled, taxRate, 
+      cookiePath, cookieDomain, kuaidi100Key, 
+      smsSn, smsKey)
+    values (#{id,jdbcType=INTEGER}, #{language,jdbcType=INTEGER}, #{largeproductimagewidth,jdbcType=DOUBLE}, 
+      #{largeproductimageheight,jdbcType=DOUBLE}, #{mediumproductimagewidth,jdbcType=DOUBLE}, 
+      #{mediumproductimageheight,jdbcType=DOUBLE}, #{thumbnailproductimagewidth,jdbcType=DOUBLE}, 
+      #{thumbnailproductimageheight,jdbcType=DOUBLE}, #{defaultlargeproductimage,jdbcType=VARCHAR}, 
+      #{defaultmediumproductimage,jdbcType=VARCHAR}, #{defaultthumbnailproductimage,jdbcType=VARCHAR}, 
+      #{defaultstorelogo,jdbcType=VARCHAR}, #{watermarkalpha,jdbcType=INTEGER}, #{watermarkimagefile,jdbcType=VARCHAR}, 
+      #{watermarkposition,jdbcType=INTEGER}, #{pricescale,jdbcType=INTEGER}, #{priceroundtype,jdbcType=INTEGER}, 
+      #{isshowmarketprice,jdbcType=INTEGER}, #{defaultmarketpricescale,jdbcType=DOUBLE}, 
+      #{sitename,jdbcType=VARCHAR}, #{siteurl,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{hotsearch,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{zipcode,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{certtext,jdbcType=VARCHAR}, 
+      #{allowedregistertypes,jdbcType=VARCHAR}, #{registerpoint,jdbcType=INTEGER}, #{captchatypes,jdbcType=VARCHAR}, 
+      #{maxfailedloginattempts,jdbcType=INTEGER}, #{passwordlocktime,jdbcType=INTEGER}, 
+      #{safekeyexpirytime,jdbcType=INTEGER}, #{uploadmaxsize,jdbcType=INTEGER}, #{uploadimageextension,jdbcType=VARCHAR}, 
+      #{uploadmediaextension,jdbcType=VARCHAR}, #{uploadfileextension,jdbcType=VARCHAR}, 
+      #{imageuploadpath,jdbcType=VARCHAR}, #{mediauploadpath,jdbcType=VARCHAR}, #{fileuploadpath,jdbcType=VARCHAR}, 
+      #{smtphost,jdbcType=VARCHAR}, #{smtpport,jdbcType=VARCHAR}, #{smtpusername,jdbcType=VARCHAR}, 
+      #{smtppassword,jdbcType=VARCHAR}, #{smtpsslenabled,jdbcType=VARCHAR}, #{smtpfrommail,jdbcType=VARCHAR}, 
+      #{tomail,jdbcType=VARCHAR}, #{currencysign,jdbcType=VARCHAR}, #{currencyunit,jdbcType=VARCHAR}, 
+      #{stockalertcount,jdbcType=INTEGER}, #{automaticreceivetime,jdbcType=INTEGER}, 
+      #{stockallocationtime,jdbcType=INTEGER}, #{defaultpointscale,jdbcType=INTEGER}, 
+      #{maxpointscale,jdbcType=INTEGER}, #{isdevelopmentenabled,jdbcType=INTEGER}, #{isreviewenabled,jdbcType=INTEGER}, 
+      #{isreviewcheck,jdbcType=INTEGER}, #{isconsultationenabled,jdbcType=INTEGER}, #{isconsultationcheck,jdbcType=INTEGER}, 
+      #{isinvoiceenabled,jdbcType=INTEGER}, #{istaxpriceenabled,jdbcType=INTEGER}, #{taxrate,jdbcType=DOUBLE}, 
+      #{cookiepath,jdbcType=VARCHAR}, #{cookiedomain,jdbcType=VARCHAR}, #{kuaidi100key,jdbcType=VARCHAR}, 
+      #{smssn,jdbcType=VARCHAR}, #{smskey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.pojo.Displaysetup" >
+    insert into displaysetup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="largeproductimagewidth != null" >
+        largeProductImageWidth,
+      </if>
+      <if test="largeproductimageheight != null" >
+        largeProductImageHeight,
+      </if>
+      <if test="mediumproductimagewidth != null" >
+        mediumProductImageWidth,
+      </if>
+      <if test="mediumproductimageheight != null" >
+        mediumProductImageHeight,
+      </if>
+      <if test="thumbnailproductimagewidth != null" >
+        thumbnailProductImageWidth,
+      </if>
+      <if test="thumbnailproductimageheight != null" >
+        thumbnailProductImageHeight,
+      </if>
+      <if test="defaultlargeproductimage != null" >
+        defaultLargeProductImage,
+      </if>
+      <if test="defaultmediumproductimage != null" >
+        defaultMediumProductImage,
+      </if>
+      <if test="defaultthumbnailproductimage != null" >
+        defaultThumbnailProductImage,
+      </if>
+      <if test="defaultstorelogo != null" >
+        defaultStoreLogo,
+      </if>
+      <if test="watermarkalpha != null" >
+        watermarkAlpha,
+      </if>
+      <if test="watermarkimagefile != null" >
+        watermarkImageFile,
+      </if>
+      <if test="watermarkposition != null" >
+        watermarkPosition,
+      </if>
+      <if test="pricescale != null" >
+        priceScale,
+      </if>
+      <if test="priceroundtype != null" >
+        priceRoundType,
+      </if>
+      <if test="isshowmarketprice != null" >
+        isShowMarketPrice,
+      </if>
+      <if test="defaultmarketpricescale != null" >
+        defaultMarketPriceScale,
+      </if>
+      <if test="sitename != null" >
+        siteName,
+      </if>
+      <if test="siteurl != null" >
+        siteUrl,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="hotsearch != null" >
+        hotSearch,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="zipcode != null" >
+        zipCode,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="certtext != null" >
+        certtext,
+      </if>
+      <if test="allowedregistertypes != null" >
+        allowedRegisterTypes,
+      </if>
+      <if test="registerpoint != null" >
+        registerPoint,
+      </if>
+      <if test="captchatypes != null" >
+        captchaTypes,
+      </if>
+      <if test="maxfailedloginattempts != null" >
+        maxFailedLoginAttempts,
+      </if>
+      <if test="passwordlocktime != null" >
+        passwordLockTime,
+      </if>
+      <if test="safekeyexpirytime != null" >
+        safeKeyExpiryTime,
+      </if>
+      <if test="uploadmaxsize != null" >
+        uploadMaxSize,
+      </if>
+      <if test="uploadimageextension != null" >
+        uploadImageExtension,
+      </if>
+      <if test="uploadmediaextension != null" >
+        uploadMediaExtension,
+      </if>
+      <if test="uploadfileextension != null" >
+        uploadFileExtension,
+      </if>
+      <if test="imageuploadpath != null" >
+        imageUploadPath,
+      </if>
+      <if test="mediauploadpath != null" >
+        mediaUploadPath,
+      </if>
+      <if test="fileuploadpath != null" >
+        fileUploadPath,
+      </if>
+      <if test="smtphost != null" >
+        smtpHost,
+      </if>
+      <if test="smtpport != null" >
+        smtpPort,
+      </if>
+      <if test="smtpusername != null" >
+        smtpUsername,
+      </if>
+      <if test="smtppassword != null" >
+        smtpPassword,
+      </if>
+      <if test="smtpsslenabled != null" >
+        smtpSSLEnabled,
+      </if>
+      <if test="smtpfrommail != null" >
+        smtpFromMail,
+      </if>
+      <if test="tomail != null" >
+        toMail,
+      </if>
+      <if test="currencysign != null" >
+        currencySign,
+      </if>
+      <if test="currencyunit != null" >
+        currencyUnit,
+      </if>
+      <if test="stockalertcount != null" >
+        stockAlertCount,
+      </if>
+      <if test="automaticreceivetime != null" >
+        automaticReceiveTime,
+      </if>
+      <if test="stockallocationtime != null" >
+        stockAllocationTime,
+      </if>
+      <if test="defaultpointscale != null" >
+        defaultPointScale,
+      </if>
+      <if test="maxpointscale != null" >
+        maxPointScale,
+      </if>
+      <if test="isdevelopmentenabled != null" >
+        isDevelopmentEnabled,
+      </if>
+      <if test="isreviewenabled != null" >
+        isReviewEnabled,
+      </if>
+      <if test="isreviewcheck != null" >
+        isReviewCheck,
+      </if>
+      <if test="isconsultationenabled != null" >
+        isConsultationEnabled,
+      </if>
+      <if test="isconsultationcheck != null" >
+        isConsultationCheck,
+      </if>
+      <if test="isinvoiceenabled != null" >
+        isInvoiceEnabled,
+      </if>
+      <if test="istaxpriceenabled != null" >
+        isTaxPriceEnabled,
+      </if>
+      <if test="taxrate != null" >
+        taxRate,
+      </if>
+      <if test="cookiepath != null" >
+        cookiePath,
+      </if>
+      <if test="cookiedomain != null" >
+        cookieDomain,
+      </if>
+      <if test="kuaidi100key != null" >
+        kuaidi100Key,
+      </if>
+      <if test="smssn != null" >
+        smsSn,
+      </if>
+      <if test="smskey != null" >
+        smsKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=INTEGER},
+      </if>
+      <if test="largeproductimagewidth != null" >
+        #{largeproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="largeproductimageheight != null" >
+        #{largeproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="mediumproductimagewidth != null" >
+        #{mediumproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="mediumproductimageheight != null" >
+        #{mediumproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="thumbnailproductimagewidth != null" >
+        #{thumbnailproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="thumbnailproductimageheight != null" >
+        #{thumbnailproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="defaultlargeproductimage != null" >
+        #{defaultlargeproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultmediumproductimage != null" >
+        #{defaultmediumproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultthumbnailproductimage != null" >
+        #{defaultthumbnailproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultstorelogo != null" >
+        #{defaultstorelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="watermarkalpha != null" >
+        #{watermarkalpha,jdbcType=INTEGER},
+      </if>
+      <if test="watermarkimagefile != null" >
+        #{watermarkimagefile,jdbcType=VARCHAR},
+      </if>
+      <if test="watermarkposition != null" >
+        #{watermarkposition,jdbcType=INTEGER},
+      </if>
+      <if test="pricescale != null" >
+        #{pricescale,jdbcType=INTEGER},
+      </if>
+      <if test="priceroundtype != null" >
+        #{priceroundtype,jdbcType=INTEGER},
+      </if>
+      <if test="isshowmarketprice != null" >
+        #{isshowmarketprice,jdbcType=INTEGER},
+      </if>
+      <if test="defaultmarketpricescale != null" >
+        #{defaultmarketpricescale,jdbcType=DOUBLE},
+      </if>
+      <if test="sitename != null" >
+        #{sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="siteurl != null" >
+        #{siteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="hotsearch != null" >
+        #{hotsearch,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="certtext != null" >
+        #{certtext,jdbcType=VARCHAR},
+      </if>
+      <if test="allowedregistertypes != null" >
+        #{allowedregistertypes,jdbcType=VARCHAR},
+      </if>
+      <if test="registerpoint != null" >
+        #{registerpoint,jdbcType=INTEGER},
+      </if>
+      <if test="captchatypes != null" >
+        #{captchatypes,jdbcType=VARCHAR},
+      </if>
+      <if test="maxfailedloginattempts != null" >
+        #{maxfailedloginattempts,jdbcType=INTEGER},
+      </if>
+      <if test="passwordlocktime != null" >
+        #{passwordlocktime,jdbcType=INTEGER},
+      </if>
+      <if test="safekeyexpirytime != null" >
+        #{safekeyexpirytime,jdbcType=INTEGER},
+      </if>
+      <if test="uploadmaxsize != null" >
+        #{uploadmaxsize,jdbcType=INTEGER},
+      </if>
+      <if test="uploadimageextension != null" >
+        #{uploadimageextension,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadmediaextension != null" >
+        #{uploadmediaextension,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadfileextension != null" >
+        #{uploadfileextension,jdbcType=VARCHAR},
+      </if>
+      <if test="imageuploadpath != null" >
+        #{imageuploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="mediauploadpath != null" >
+        #{mediauploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileuploadpath != null" >
+        #{fileuploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="smtphost != null" >
+        #{smtphost,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpport != null" >
+        #{smtpport,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpusername != null" >
+        #{smtpusername,jdbcType=VARCHAR},
+      </if>
+      <if test="smtppassword != null" >
+        #{smtppassword,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpsslenabled != null" >
+        #{smtpsslenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpfrommail != null" >
+        #{smtpfrommail,jdbcType=VARCHAR},
+      </if>
+      <if test="tomail != null" >
+        #{tomail,jdbcType=VARCHAR},
+      </if>
+      <if test="currencysign != null" >
+        #{currencysign,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyunit != null" >
+        #{currencyunit,jdbcType=VARCHAR},
+      </if>
+      <if test="stockalertcount != null" >
+        #{stockalertcount,jdbcType=INTEGER},
+      </if>
+      <if test="automaticreceivetime != null" >
+        #{automaticreceivetime,jdbcType=INTEGER},
+      </if>
+      <if test="stockallocationtime != null" >
+        #{stockallocationtime,jdbcType=INTEGER},
+      </if>
+      <if test="defaultpointscale != null" >
+        #{defaultpointscale,jdbcType=INTEGER},
+      </if>
+      <if test="maxpointscale != null" >
+        #{maxpointscale,jdbcType=INTEGER},
+      </if>
+      <if test="isdevelopmentenabled != null" >
+        #{isdevelopmentenabled,jdbcType=INTEGER},
+      </if>
+      <if test="isreviewenabled != null" >
+        #{isreviewenabled,jdbcType=INTEGER},
+      </if>
+      <if test="isreviewcheck != null" >
+        #{isreviewcheck,jdbcType=INTEGER},
+      </if>
+      <if test="isconsultationenabled != null" >
+        #{isconsultationenabled,jdbcType=INTEGER},
+      </if>
+      <if test="isconsultationcheck != null" >
+        #{isconsultationcheck,jdbcType=INTEGER},
+      </if>
+      <if test="isinvoiceenabled != null" >
+        #{isinvoiceenabled,jdbcType=INTEGER},
+      </if>
+      <if test="istaxpriceenabled != null" >
+        #{istaxpriceenabled,jdbcType=INTEGER},
+      </if>
+      <if test="taxrate != null" >
+        #{taxrate,jdbcType=DOUBLE},
+      </if>
+      <if test="cookiepath != null" >
+        #{cookiepath,jdbcType=VARCHAR},
+      </if>
+      <if test="cookiedomain != null" >
+        #{cookiedomain,jdbcType=VARCHAR},
+      </if>
+      <if test="kuaidi100key != null" >
+        #{kuaidi100key,jdbcType=VARCHAR},
+      </if>
+      <if test="smssn != null" >
+        #{smssn,jdbcType=VARCHAR},
+      </if>
+      <if test="smskey != null" >
+        #{smskey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.pojo.DisplaysetupExample" resultType="java.lang.Integer" >
+    select count(*) from displaysetup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update displaysetup
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=INTEGER},
+      </if>
+      <if test="record.largeproductimagewidth != null" >
+        largeProductImageWidth = #{record.largeproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="record.largeproductimageheight != null" >
+        largeProductImageHeight = #{record.largeproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mediumproductimagewidth != null" >
+        mediumProductImageWidth = #{record.mediumproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mediumproductimageheight != null" >
+        mediumProductImageHeight = #{record.mediumproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.thumbnailproductimagewidth != null" >
+        thumbnailProductImageWidth = #{record.thumbnailproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="record.thumbnailproductimageheight != null" >
+        thumbnailProductImageHeight = #{record.thumbnailproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.defaultlargeproductimage != null" >
+        defaultLargeProductImage = #{record.defaultlargeproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultmediumproductimage != null" >
+        defaultMediumProductImage = #{record.defaultmediumproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultthumbnailproductimage != null" >
+        defaultThumbnailProductImage = #{record.defaultthumbnailproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultstorelogo != null" >
+        defaultStoreLogo = #{record.defaultstorelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.watermarkalpha != null" >
+        watermarkAlpha = #{record.watermarkalpha,jdbcType=INTEGER},
+      </if>
+      <if test="record.watermarkimagefile != null" >
+        watermarkImageFile = #{record.watermarkimagefile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.watermarkposition != null" >
+        watermarkPosition = #{record.watermarkposition,jdbcType=INTEGER},
+      </if>
+      <if test="record.pricescale != null" >
+        priceScale = #{record.pricescale,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceroundtype != null" >
+        priceRoundType = #{record.priceroundtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.isshowmarketprice != null" >
+        isShowMarketPrice = #{record.isshowmarketprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultmarketpricescale != null" >
+        defaultMarketPriceScale = #{record.defaultmarketpricescale,jdbcType=DOUBLE},
+      </if>
+      <if test="record.sitename != null" >
+        siteName = #{record.sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteurl != null" >
+        siteUrl = #{record.siteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotsearch != null" >
+        hotSearch = #{record.hotsearch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipcode != null" >
+        zipCode = #{record.zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certtext != null" >
+        certtext = #{record.certtext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allowedregistertypes != null" >
+        allowedRegisterTypes = #{record.allowedregistertypes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerpoint != null" >
+        registerPoint = #{record.registerpoint,jdbcType=INTEGER},
+      </if>
+      <if test="record.captchatypes != null" >
+        captchaTypes = #{record.captchatypes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxfailedloginattempts != null" >
+        maxFailedLoginAttempts = #{record.maxfailedloginattempts,jdbcType=INTEGER},
+      </if>
+      <if test="record.passwordlocktime != null" >
+        passwordLockTime = #{record.passwordlocktime,jdbcType=INTEGER},
+      </if>
+      <if test="record.safekeyexpirytime != null" >
+        safeKeyExpiryTime = #{record.safekeyexpirytime,jdbcType=INTEGER},
+      </if>
+      <if test="record.uploadmaxsize != null" >
+        uploadMaxSize = #{record.uploadmaxsize,jdbcType=INTEGER},
+      </if>
+      <if test="record.uploadimageextension != null" >
+        uploadImageExtension = #{record.uploadimageextension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadmediaextension != null" >
+        uploadMediaExtension = #{record.uploadmediaextension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadfileextension != null" >
+        uploadFileExtension = #{record.uploadfileextension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageuploadpath != null" >
+        imageUploadPath = #{record.imageuploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediauploadpath != null" >
+        mediaUploadPath = #{record.mediauploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileuploadpath != null" >
+        fileUploadPath = #{record.fileuploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtphost != null" >
+        smtpHost = #{record.smtphost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtpport != null" >
+        smtpPort = #{record.smtpport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtpusername != null" >
+        smtpUsername = #{record.smtpusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtppassword != null" >
+        smtpPassword = #{record.smtppassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtpsslenabled != null" >
+        smtpSSLEnabled = #{record.smtpsslenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtpfrommail != null" >
+        smtpFromMail = #{record.smtpfrommail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tomail != null" >
+        toMail = #{record.tomail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencysign != null" >
+        currencySign = #{record.currencysign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyunit != null" >
+        currencyUnit = #{record.currencyunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockalertcount != null" >
+        stockAlertCount = #{record.stockalertcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.automaticreceivetime != null" >
+        automaticReceiveTime = #{record.automaticreceivetime,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockallocationtime != null" >
+        stockAllocationTime = #{record.stockallocationtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultpointscale != null" >
+        defaultPointScale = #{record.defaultpointscale,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxpointscale != null" >
+        maxPointScale = #{record.maxpointscale,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdevelopmentenabled != null" >
+        isDevelopmentEnabled = #{record.isdevelopmentenabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.isreviewenabled != null" >
+        isReviewEnabled = #{record.isreviewenabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.isreviewcheck != null" >
+        isReviewCheck = #{record.isreviewcheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.isconsultationenabled != null" >
+        isConsultationEnabled = #{record.isconsultationenabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.isconsultationcheck != null" >
+        isConsultationCheck = #{record.isconsultationcheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.isinvoiceenabled != null" >
+        isInvoiceEnabled = #{record.isinvoiceenabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.istaxpriceenabled != null" >
+        isTaxPriceEnabled = #{record.istaxpriceenabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.taxrate != null" >
+        taxRate = #{record.taxrate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cookiepath != null" >
+        cookiePath = #{record.cookiepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cookiedomain != null" >
+        cookieDomain = #{record.cookiedomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kuaidi100key != null" >
+        kuaidi100Key = #{record.kuaidi100key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smssn != null" >
+        smsSn = #{record.smssn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smskey != null" >
+        smsKey = #{record.smskey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update displaysetup
+    set id = #{record.id,jdbcType=INTEGER},
+      language = #{record.language,jdbcType=INTEGER},
+      largeProductImageWidth = #{record.largeproductimagewidth,jdbcType=DOUBLE},
+      largeProductImageHeight = #{record.largeproductimageheight,jdbcType=DOUBLE},
+      mediumProductImageWidth = #{record.mediumproductimagewidth,jdbcType=DOUBLE},
+      mediumProductImageHeight = #{record.mediumproductimageheight,jdbcType=DOUBLE},
+      thumbnailProductImageWidth = #{record.thumbnailproductimagewidth,jdbcType=DOUBLE},
+      thumbnailProductImageHeight = #{record.thumbnailproductimageheight,jdbcType=DOUBLE},
+      defaultLargeProductImage = #{record.defaultlargeproductimage,jdbcType=VARCHAR},
+      defaultMediumProductImage = #{record.defaultmediumproductimage,jdbcType=VARCHAR},
+      defaultThumbnailProductImage = #{record.defaultthumbnailproductimage,jdbcType=VARCHAR},
+      defaultStoreLogo = #{record.defaultstorelogo,jdbcType=VARCHAR},
+      watermarkAlpha = #{record.watermarkalpha,jdbcType=INTEGER},
+      watermarkImageFile = #{record.watermarkimagefile,jdbcType=VARCHAR},
+      watermarkPosition = #{record.watermarkposition,jdbcType=INTEGER},
+      priceScale = #{record.pricescale,jdbcType=INTEGER},
+      priceRoundType = #{record.priceroundtype,jdbcType=INTEGER},
+      isShowMarketPrice = #{record.isshowmarketprice,jdbcType=INTEGER},
+      defaultMarketPriceScale = #{record.defaultmarketpricescale,jdbcType=DOUBLE},
+      siteName = #{record.sitename,jdbcType=VARCHAR},
+      siteUrl = #{record.siteurl,jdbcType=VARCHAR},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      hotSearch = #{record.hotsearch,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      zipCode = #{record.zipcode,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      certtext = #{record.certtext,jdbcType=VARCHAR},
+      allowedRegisterTypes = #{record.allowedregistertypes,jdbcType=VARCHAR},
+      registerPoint = #{record.registerpoint,jdbcType=INTEGER},
+      captchaTypes = #{record.captchatypes,jdbcType=VARCHAR},
+      maxFailedLoginAttempts = #{record.maxfailedloginattempts,jdbcType=INTEGER},
+      passwordLockTime = #{record.passwordlocktime,jdbcType=INTEGER},
+      safeKeyExpiryTime = #{record.safekeyexpirytime,jdbcType=INTEGER},
+      uploadMaxSize = #{record.uploadmaxsize,jdbcType=INTEGER},
+      uploadImageExtension = #{record.uploadimageextension,jdbcType=VARCHAR},
+      uploadMediaExtension = #{record.uploadmediaextension,jdbcType=VARCHAR},
+      uploadFileExtension = #{record.uploadfileextension,jdbcType=VARCHAR},
+      imageUploadPath = #{record.imageuploadpath,jdbcType=VARCHAR},
+      mediaUploadPath = #{record.mediauploadpath,jdbcType=VARCHAR},
+      fileUploadPath = #{record.fileuploadpath,jdbcType=VARCHAR},
+      smtpHost = #{record.smtphost,jdbcType=VARCHAR},
+      smtpPort = #{record.smtpport,jdbcType=VARCHAR},
+      smtpUsername = #{record.smtpusername,jdbcType=VARCHAR},
+      smtpPassword = #{record.smtppassword,jdbcType=VARCHAR},
+      smtpSSLEnabled = #{record.smtpsslenabled,jdbcType=VARCHAR},
+      smtpFromMail = #{record.smtpfrommail,jdbcType=VARCHAR},
+      toMail = #{record.tomail,jdbcType=VARCHAR},
+      currencySign = #{record.currencysign,jdbcType=VARCHAR},
+      currencyUnit = #{record.currencyunit,jdbcType=VARCHAR},
+      stockAlertCount = #{record.stockalertcount,jdbcType=INTEGER},
+      automaticReceiveTime = #{record.automaticreceivetime,jdbcType=INTEGER},
+      stockAllocationTime = #{record.stockallocationtime,jdbcType=INTEGER},
+      defaultPointScale = #{record.defaultpointscale,jdbcType=INTEGER},
+      maxPointScale = #{record.maxpointscale,jdbcType=INTEGER},
+      isDevelopmentEnabled = #{record.isdevelopmentenabled,jdbcType=INTEGER},
+      isReviewEnabled = #{record.isreviewenabled,jdbcType=INTEGER},
+      isReviewCheck = #{record.isreviewcheck,jdbcType=INTEGER},
+      isConsultationEnabled = #{record.isconsultationenabled,jdbcType=INTEGER},
+      isConsultationCheck = #{record.isconsultationcheck,jdbcType=INTEGER},
+      isInvoiceEnabled = #{record.isinvoiceenabled,jdbcType=INTEGER},
+      isTaxPriceEnabled = #{record.istaxpriceenabled,jdbcType=INTEGER},
+      taxRate = #{record.taxrate,jdbcType=DOUBLE},
+      cookiePath = #{record.cookiepath,jdbcType=VARCHAR},
+      cookieDomain = #{record.cookiedomain,jdbcType=VARCHAR},
+      kuaidi100Key = #{record.kuaidi100key,jdbcType=VARCHAR},
+      smsSn = #{record.smssn,jdbcType=VARCHAR},
+      smsKey = #{record.smskey,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.pojo.Displaysetup" >
+    update displaysetup
+    <set >
+      <if test="language != null" >
+        language = #{language,jdbcType=INTEGER},
+      </if>
+      <if test="largeproductimagewidth != null" >
+        largeProductImageWidth = #{largeproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="largeproductimageheight != null" >
+        largeProductImageHeight = #{largeproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="mediumproductimagewidth != null" >
+        mediumProductImageWidth = #{mediumproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="mediumproductimageheight != null" >
+        mediumProductImageHeight = #{mediumproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="thumbnailproductimagewidth != null" >
+        thumbnailProductImageWidth = #{thumbnailproductimagewidth,jdbcType=DOUBLE},
+      </if>
+      <if test="thumbnailproductimageheight != null" >
+        thumbnailProductImageHeight = #{thumbnailproductimageheight,jdbcType=DOUBLE},
+      </if>
+      <if test="defaultlargeproductimage != null" >
+        defaultLargeProductImage = #{defaultlargeproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultmediumproductimage != null" >
+        defaultMediumProductImage = #{defaultmediumproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultthumbnailproductimage != null" >
+        defaultThumbnailProductImage = #{defaultthumbnailproductimage,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultstorelogo != null" >
+        defaultStoreLogo = #{defaultstorelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="watermarkalpha != null" >
+        watermarkAlpha = #{watermarkalpha,jdbcType=INTEGER},
+      </if>
+      <if test="watermarkimagefile != null" >
+        watermarkImageFile = #{watermarkimagefile,jdbcType=VARCHAR},
+      </if>
+      <if test="watermarkposition != null" >
+        watermarkPosition = #{watermarkposition,jdbcType=INTEGER},
+      </if>
+      <if test="pricescale != null" >
+        priceScale = #{pricescale,jdbcType=INTEGER},
+      </if>
+      <if test="priceroundtype != null" >
+        priceRoundType = #{priceroundtype,jdbcType=INTEGER},
+      </if>
+      <if test="isshowmarketprice != null" >
+        isShowMarketPrice = #{isshowmarketprice,jdbcType=INTEGER},
+      </if>
+      <if test="defaultmarketpricescale != null" >
+        defaultMarketPriceScale = #{defaultmarketpricescale,jdbcType=DOUBLE},
+      </if>
+      <if test="sitename != null" >
+        siteName = #{sitename,jdbcType=VARCHAR},
+      </if>
+      <if test="siteurl != null" >
+        siteUrl = #{siteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="hotsearch != null" >
+        hotSearch = #{hotsearch,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipCode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="certtext != null" >
+        certtext = #{certtext,jdbcType=VARCHAR},
+      </if>
+      <if test="allowedregistertypes != null" >
+        allowedRegisterTypes = #{allowedregistertypes,jdbcType=VARCHAR},
+      </if>
+      <if test="registerpoint != null" >
+        registerPoint = #{registerpoint,jdbcType=INTEGER},
+      </if>
+      <if test="captchatypes != null" >
+        captchaTypes = #{captchatypes,jdbcType=VARCHAR},
+      </if>
+      <if test="maxfailedloginattempts != null" >
+        maxFailedLoginAttempts = #{maxfailedloginattempts,jdbcType=INTEGER},
+      </if>
+      <if test="passwordlocktime != null" >
+        passwordLockTime = #{passwordlocktime,jdbcType=INTEGER},
+      </if>
+      <if test="safekeyexpirytime != null" >
+        safeKeyExpiryTime = #{safekeyexpirytime,jdbcType=INTEGER},
+      </if>
+      <if test="uploadmaxsize != null" >
+        uploadMaxSize = #{uploadmaxsize,jdbcType=INTEGER},
+      </if>
+      <if test="uploadimageextension != null" >
+        uploadImageExtension = #{uploadimageextension,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadmediaextension != null" >
+        uploadMediaExtension = #{uploadmediaextension,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadfileextension != null" >
+        uploadFileExtension = #{uploadfileextension,jdbcType=VARCHAR},
+      </if>
+      <if test="imageuploadpath != null" >
+        imageUploadPath = #{imageuploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="mediauploadpath != null" >
+        mediaUploadPath = #{mediauploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileuploadpath != null" >
+        fileUploadPath = #{fileuploadpath,jdbcType=VARCHAR},
+      </if>
+      <if test="smtphost != null" >
+        smtpHost = #{smtphost,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpport != null" >
+        smtpPort = #{smtpport,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpusername != null" >
+        smtpUsername = #{smtpusername,jdbcType=VARCHAR},
+      </if>
+      <if test="smtppassword != null" >
+        smtpPassword = #{smtppassword,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpsslenabled != null" >
+        smtpSSLEnabled = #{smtpsslenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="smtpfrommail != null" >
+        smtpFromMail = #{smtpfrommail,jdbcType=VARCHAR},
+      </if>
+      <if test="tomail != null" >
+        toMail = #{tomail,jdbcType=VARCHAR},
+      </if>
+      <if test="currencysign != null" >
+        currencySign = #{currencysign,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyunit != null" >
+        currencyUnit = #{currencyunit,jdbcType=VARCHAR},
+      </if>
+      <if test="stockalertcount != null" >
+        stockAlertCount = #{stockalertcount,jdbcType=INTEGER},
+      </if>
+      <if test="automaticreceivetime != null" >
+        automaticReceiveTime = #{automaticreceivetime,jdbcType=INTEGER},
+      </if>
+      <if test="stockallocationtime != null" >
+        stockAllocationTime = #{stockallocationtime,jdbcType=INTEGER},
+      </if>
+      <if test="defaultpointscale != null" >
+        defaultPointScale = #{defaultpointscale,jdbcType=INTEGER},
+      </if>
+      <if test="maxpointscale != null" >
+        maxPointScale = #{maxpointscale,jdbcType=INTEGER},
+      </if>
+      <if test="isdevelopmentenabled != null" >
+        isDevelopmentEnabled = #{isdevelopmentenabled,jdbcType=INTEGER},
+      </if>
+      <if test="isreviewenabled != null" >
+        isReviewEnabled = #{isreviewenabled,jdbcType=INTEGER},
+      </if>
+      <if test="isreviewcheck != null" >
+        isReviewCheck = #{isreviewcheck,jdbcType=INTEGER},
+      </if>
+      <if test="isconsultationenabled != null" >
+        isConsultationEnabled = #{isconsultationenabled,jdbcType=INTEGER},
+      </if>
+      <if test="isconsultationcheck != null" >
+        isConsultationCheck = #{isconsultationcheck,jdbcType=INTEGER},
+      </if>
+      <if test="isinvoiceenabled != null" >
+        isInvoiceEnabled = #{isinvoiceenabled,jdbcType=INTEGER},
+      </if>
+      <if test="istaxpriceenabled != null" >
+        isTaxPriceEnabled = #{istaxpriceenabled,jdbcType=INTEGER},
+      </if>
+      <if test="taxrate != null" >
+        taxRate = #{taxrate,jdbcType=DOUBLE},
+      </if>
+      <if test="cookiepath != null" >
+        cookiePath = #{cookiepath,jdbcType=VARCHAR},
+      </if>
+      <if test="cookiedomain != null" >
+        cookieDomain = #{cookiedomain,jdbcType=VARCHAR},
+      </if>
+      <if test="kuaidi100key != null" >
+        kuaidi100Key = #{kuaidi100key,jdbcType=VARCHAR},
+      </if>
+      <if test="smssn != null" >
+        smsSn = #{smssn,jdbcType=VARCHAR},
+      </if>
+      <if test="smskey != null" >
+        smsKey = #{smskey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.pojo.Displaysetup" >
+    update displaysetup
+    set language = #{language,jdbcType=INTEGER},
+      largeProductImageWidth = #{largeproductimagewidth,jdbcType=DOUBLE},
+      largeProductImageHeight = #{largeproductimageheight,jdbcType=DOUBLE},
+      mediumProductImageWidth = #{mediumproductimagewidth,jdbcType=DOUBLE},
+      mediumProductImageHeight = #{mediumproductimageheight,jdbcType=DOUBLE},
+      thumbnailProductImageWidth = #{thumbnailproductimagewidth,jdbcType=DOUBLE},
+      thumbnailProductImageHeight = #{thumbnailproductimageheight,jdbcType=DOUBLE},
+      defaultLargeProductImage = #{defaultlargeproductimage,jdbcType=VARCHAR},
+      defaultMediumProductImage = #{defaultmediumproductimage,jdbcType=VARCHAR},
+      defaultThumbnailProductImage = #{defaultthumbnailproductimage,jdbcType=VARCHAR},
+      defaultStoreLogo = #{defaultstorelogo,jdbcType=VARCHAR},
+      watermarkAlpha = #{watermarkalpha,jdbcType=INTEGER},
+      watermarkImageFile = #{watermarkimagefile,jdbcType=VARCHAR},
+      watermarkPosition = #{watermarkposition,jdbcType=INTEGER},
+      priceScale = #{pricescale,jdbcType=INTEGER},
+      priceRoundType = #{priceroundtype,jdbcType=INTEGER},
+      isShowMarketPrice = #{isshowmarketprice,jdbcType=INTEGER},
+      defaultMarketPriceScale = #{defaultmarketpricescale,jdbcType=DOUBLE},
+      siteName = #{sitename,jdbcType=VARCHAR},
+      siteUrl = #{siteurl,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      hotSearch = #{hotsearch,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      zipCode = #{zipcode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      certtext = #{certtext,jdbcType=VARCHAR},
+      allowedRegisterTypes = #{allowedregistertypes,jdbcType=VARCHAR},
+      registerPoint = #{registerpoint,jdbcType=INTEGER},
+      captchaTypes = #{captchatypes,jdbcType=VARCHAR},
+      maxFailedLoginAttempts = #{maxfailedloginattempts,jdbcType=INTEGER},
+      passwordLockTime = #{passwordlocktime,jdbcType=INTEGER},
+      safeKeyExpiryTime = #{safekeyexpirytime,jdbcType=INTEGER},
+      uploadMaxSize = #{uploadmaxsize,jdbcType=INTEGER},
+      uploadImageExtension = #{uploadimageextension,jdbcType=VARCHAR},
+      uploadMediaExtension = #{uploadmediaextension,jdbcType=VARCHAR},
+      uploadFileExtension = #{uploadfileextension,jdbcType=VARCHAR},
+      imageUploadPath = #{imageuploadpath,jdbcType=VARCHAR},
+      mediaUploadPath = #{mediauploadpath,jdbcType=VARCHAR},
+      fileUploadPath = #{fileuploadpath,jdbcType=VARCHAR},
+      smtpHost = #{smtphost,jdbcType=VARCHAR},
+      smtpPort = #{smtpport,jdbcType=VARCHAR},
+      smtpUsername = #{smtpusername,jdbcType=VARCHAR},
+      smtpPassword = #{smtppassword,jdbcType=VARCHAR},
+      smtpSSLEnabled = #{smtpsslenabled,jdbcType=VARCHAR},
+      smtpFromMail = #{smtpfrommail,jdbcType=VARCHAR},
+      toMail = #{tomail,jdbcType=VARCHAR},
+      currencySign = #{currencysign,jdbcType=VARCHAR},
+      currencyUnit = #{currencyunit,jdbcType=VARCHAR},
+      stockAlertCount = #{stockalertcount,jdbcType=INTEGER},
+      automaticReceiveTime = #{automaticreceivetime,jdbcType=INTEGER},
+      stockAllocationTime = #{stockallocationtime,jdbcType=INTEGER},
+      defaultPointScale = #{defaultpointscale,jdbcType=INTEGER},
+      maxPointScale = #{maxpointscale,jdbcType=INTEGER},
+      isDevelopmentEnabled = #{isdevelopmentenabled,jdbcType=INTEGER},
+      isReviewEnabled = #{isreviewenabled,jdbcType=INTEGER},
+      isReviewCheck = #{isreviewcheck,jdbcType=INTEGER},
+      isConsultationEnabled = #{isconsultationenabled,jdbcType=INTEGER},
+      isConsultationCheck = #{isconsultationcheck,jdbcType=INTEGER},
+      isInvoiceEnabled = #{isinvoiceenabled,jdbcType=INTEGER},
+      isTaxPriceEnabled = #{istaxpriceenabled,jdbcType=INTEGER},
+      taxRate = #{taxrate,jdbcType=DOUBLE},
+      cookiePath = #{cookiepath,jdbcType=VARCHAR},
+      cookieDomain = #{cookiedomain,jdbcType=VARCHAR},
+      kuaidi100Key = #{kuaidi100key,jdbcType=VARCHAR},
+      smsSn = #{smssn,jdbcType=VARCHAR},
+      smsKey = #{smskey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

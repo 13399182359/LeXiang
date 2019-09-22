@@ -1,0 +1,602 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>库存记录 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 库存记录 <span>(共63条记录)</span>
+</div>
+<form id="listForm" action="log" method="get">
+    <div class="bar">
+        <div class="buttonGroup">
+            <a href="javascript:;" id="refreshButton" class="iconButton">
+                <span class="refreshIcon">&nbsp;</span>刷新
+            </a>
+            <div id="pageSizeMenu" class="dropdownMenu">
+                <a href="javascript:;" class="button">
+                    每页显示<span class="arrow">&nbsp;</span>
+                </a>
+                <ul>
+                    <li val="10">10</li>
+                    <li class="current" val="20">20</li>
+                    <li val="50">50</li>
+                    <li val="100">100</li>
+                </ul>
+            </div>
+        </div>
+        <div id="searchPropertyMenu" class="dropdownMenu">
+            <div class="search">
+                <span class="arrow">&nbsp;</span>
+                <input type="text" id="searchValue" name="searchValue" value="" maxlength="200" />
+                <button type="submit">&nbsp;</button>
+            </div>
+            <ul>
+                <li val="sku.sn">编号</li>
+            </ul>
+        </div>
+    </div>
+    <table id="listTable" class="list">
+        <tr>
+            <th>
+                <a href="javascript:;" class="sort" name="sku">编号</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="sku">商品</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="type">类型</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="inQuantity">入库数量</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="outQuantity">出库数量</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="stock">当前库存</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="memo">备注</a>
+            </th>
+            <th>
+                <a href="javascript:;" class="sort" name="createdDate">创建日期</a>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                20160101147
+            </td>
+            <td>
+                <span title="苹果 iPhone 5s Case 保护套">苹果 iPhone 5s Case 保护套</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:31">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101146
+            </td>
+            <td>
+                <span title="飞利浦 DLP10800 移动电源">飞利浦 DLP10800 移动电源</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:30">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101145
+            </td>
+            <td>
+                <span title="美的 KFR-32GWDY-IF">美的 KFR-32GWDY-IF</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:29">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101144
+            </td>
+            <td>
+                <span title="美的 KFR-35GWBP3DN1Y">美的 KFR-35GWBP3DN1Y</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:28">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101143
+            </td>
+            <td>
+                <span title="格力 KFR-26GW FNBa-A3">格力 KFR-26GW FNBa-A3</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:27">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101142
+            </td>
+            <td>
+                <span title="格力 KF-23GW Ga-3">格力 KF-23GW Ga-3</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:26">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101141
+            </td>
+            <td>
+                <span title="格力 KFR-26GW FNDe-A3">格力 KFR-26GW FNDe-A3</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:25">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101140
+            </td>
+            <td>
+                <span title="索尼 KDL-50W700B">索尼 KDL-50W700B</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:24">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101139
+            </td>
+            <td>
+                <span title="索尼 KDL-60WM15B">索尼 KDL-60WM15B</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:23">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101138
+            </td>
+            <td>
+                <span title="东芝 55L3305CS">东芝 55L3305CS</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:22">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101137
+            </td>
+            <td>
+                <span title="东芝 42L1353C">东芝 42L1353C</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:21">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101136
+            </td>
+            <td>
+                <span title="飞利浦 55PFL3045">飞利浦 55PFL3045</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:20">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101135
+            </td>
+            <td>
+                <span title="三星 Galaxy Tab3 T311">三星 Galaxy Tab3 T311</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:19">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101134
+            </td>
+            <td>
+                <span title="苹果 iPad mini3 MGY92CH">苹果 iPad mini3 MGY92CH</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:18">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101133
+            </td>
+            <td>
+                <span title="苹果 iPad Air2 MH0W2CH">苹果 iPad Air2 MH0W2CH</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:17">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101132
+            </td>
+            <td>
+                <span title="苹果 iPad mini ME279CH">苹果 iPad mini ME279CH</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:16">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101131
+            </td>
+            <td>
+                <span title="苹果 iPad Air MD785CH">苹果 iPad Air MD785CH</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:15">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101130
+            </td>
+            <td>
+                <span title="三星 NP455R4J">三星 NP455R4J</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:14">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101129
+            </td>
+            <td>
+                <span title="三星 NP930X5J">三星 NP930X5J</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:13">2019-09-06</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                20160101128
+            </td>
+            <td>
+                <span title="华硕 TP500LN">华硕 TP500LN</span>
+            </td>
+            <td>
+                入库
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                100
+            </td>
+            <td>
+            </td>
+            <td>
+                <span title="2019-09-06 00:06:12">2019-09-06</span>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="searchProperty" name="searchProperty" value="" />
+    <input type="hidden" id="orderProperty" name="orderProperty" value="" />
+    <input type="hidden" id="orderDirection" name="orderDirection" value="" />
+    <div class="pagination">
+        <span class="firstPage">&nbsp;</span>
+        <span class="previousPage">&nbsp;</span>
+        <span class="currentPage">1</span>
+        <a href="javascript: $.pageSkip(2);">2</a>
+        <a href="javascript: $.pageSkip(3);">3</a>
+        <a href="javascript: $.pageSkip(2);" class="nextPage">&nbsp;</a>
+        <a href="javascript: $.pageSkip(4);" class="lastPage">&nbsp;</a>
+        <span class="pageSkip">
+			共4页
+			<input id="pageNumber" name="pageNumber" value="1" maxlength="9" onpaste="return false;" />
+			<button type="submit">&nbsp;</button>
+		</span>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="SHOP++ Team">
+    <meta name="copyright" content="SHOP++">
+    <title>商家登录 - Powered By SHOP++</title>
+
+    <link href="../business/css/bootstrap.css" rel="stylesheet">
+    <link href="../business/css/font-awesome.css" rel="stylesheet">
+    <link href="../business/css/adminLTE.css" rel="stylesheet">
+    <link href="../business/css/common.css" rel="stylesheet">
+    <link href="../business/css/login.css" rel="stylesheet">
+
+    <script src="../business/js/jquery-2.2.3.min.js"></script>
+
+
+
+    <script src="../business/js/bootstrap.js"></script>
+    <script src="../business/js/jquery.validate.js"></script>
+    <script src="../business/js/icheck.js"></script>
+    <script src="../business/js/adminLTE.js"></script>
+<!--
+    <script src="../resources/business/js/common.js"></script>
+-->
+
+</head>
+<body class="login">
+<header>
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">您好，欢迎来到SHOP++商城</div>
+                <div class="col-xs-8 text-right">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="login.html">商家登录</a>|
+                        </li>
+                        <li>
+                            <a href="register.html">商家注册</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-main navbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <a class="logo" href="../">
+                        <img src="../image/logo.png" alt="SHOP++商城">
+                    </a>
+                </div>
+                <div class="col-xs-8">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">会员中心</a>
+                        </li>
+                        <li>
+                            <a href="login.html">商家中心</a>
+                        </li>
+                        <li>
+                            <a href="../article/list/3.html">帮助中心</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>	<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-5 col-xs-offset-7">
+                <div class="box">
+                    <div class="box-body">
+                        <form id="loginForm"  method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+										<span class="input-group-addon">
+											<i class="glyphicon glyphicon-user gray-lighter"></i>
+										</span>
+                                    <input name="username" class="form-control" type="text" maxlength="200" placeholder="用户名/E-mail/手机">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+										<span class="input-group-addon">
+											<i class="glyphicon glyphicon-lock gray-lighter"></i>
+										</span>
+                                    <input name="encodedpassword" class="form-control" type="password" maxlength="200" placeholder="密 码" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-picture gray-lighter"></span>
+                                    </div>
+                                    <input id="captcha" name="checkImg" class="captcha form-control" type="text" maxlength="4" placeholder="验证码" autocomplete="off">
+
+                                    <div class="input-group-btn">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-picture gray-lighter"></span>
+                                    </div>
+                                    <img id="checkImg"  onclick="change()" title="点击更换验证码">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <input id="isRememberUsername" name="isRememberUsername" class="icheck" type="checkbox" value="true">
+                                <label for="isRememberUsername">记住用户名</label>
+                                <a class="pull-right" href="../password/forgot?type=business">忘记密码</a>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block bg-orange" onclick="login()" type="button">登 录</button>
+                            </div>
+                            <div class="form-group">还没有注册账号？立即注册即可体验在线购物！</div>
+                            <div class="form-group">
+                                <a class="text-orange" href="register.html">立即注册</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="service">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-1 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #5ec4f7">
+                                    <span class="fa fa-heart"></span>
+                                </div>
+                                <span class="pull-left">新手指南</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #fbb040">
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                </div>
+                                <span class="pull-left">特色服务</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #f2d549">
+                                    <span class="fa fa-rmb"></span>
+                                </div>
+                                <span class="pull-left">支付方式</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <dl>
+                        <dt>
+                            <a href="#">
+                                <div class="img-circle" style="background-color: #72ce52">
+                                    <span class="fa fa-truck"></span>
+                                </div>
+                                <span class="pull-left">配送方式</span>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a href="#">购物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="#">会员注册</a>
+                        </dd>
+                        <dd>
+                            <a href="#">购买宝贝</a>
+                        </dd>
+                        <dd>
+                            <a href="#">支付货款</a>
+                        </dd>
+                        <dd>
+                            <a href="#">用户协议</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-xs-2 text-center">
+                    <img src="../business/images/qr_code.jpg" alt="官方微信">
+                    <p>官方微信</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="info text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="#">关于我们</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">联系我们</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">诚聘英才</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">隐私政策</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">法律声明</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="#">客户服务</a>
+                        |
+                    </li>
+                    <li>
+                        <a href="../friend_link">友情链接</a>
+
+                    </li>
+                </ul>
+                <p class="text-center">湘ICP备10000000号</p>
+                <p class="text-center">Copyright © 2005-2017 SHOP++商城 版权所有</p>
+                <ul class="list-inline">
+                    <li>
+                        <a href="http://www.shopxx.net" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/1c675feb-e488-4fd5-a186-b28bb6de445a.gif" alt="SHOP++">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.alipay.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ae13eddc-25ac-427a-875d-d1799d751076.gif" alt="支付宝">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.tenpay.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/adaa9ac5-9994-4aa3-a336-b65613c85d50.gif" alt="财付通">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.95516.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/41c18c8d-f69a-49fe-ace3-f16c2eb07983.gif" alt="中国银联">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.kuaidi100.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/ea46ca0a-e8f0-4e2c-938a-5cb19a07cb9a.gif" alt="快递100">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.cnzz.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/e12f226b-07f9-4895-bcc2-78dbe551964b.gif" alt="站长统计">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://down.admin5.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/fd9d6268-e4e2-41f6-856d-4cb8a49eadd1.gif" alt="A5下载">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.ccb.com" target="_blank">
+                            <img src="http://image.demo.shopxx.net/b2b2c/5.0/201601/6c57f398-0498-4044-80d8-20f6c40d5cef.gif" alt="中国建设银行">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</footer>
+<script type="text/javascript">
+    function login() {
+        $.ajax({
+            url:"../businessuser/login.do",
+            data:$("#loginForm").serialize(),
+            type:"post",
+            success:function (data) {
+                if(data.code==-1){
+                    change();
+                }
+                if(data.code==1){
+                    alert(data.msg)
+                } if(data.code==2){
+                    alert(data.msg)
+                }
+                if(data.code==3){
+                    alert(data.msg)
+                }  if(data.code==0){
+                    alert(data.msg);
+                    location.href="../business/index.html"
+                }
+
+            }
+        })
+    }
+    function change(){
+        $("#checkImg").attr('src','../../verificationCode1?'+new Date().getTime());
+
+    }
+    login();
+
+</script>
+
+
+</body>
+</html>

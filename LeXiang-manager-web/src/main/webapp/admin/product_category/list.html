@@ -1,0 +1,5141 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>商品分类列表 - Powered By SHOP++</title>
+    <meta name="author" content="SHOP++ Team" />
+    <meta name="copyright" content="SHOP++" />
+    <link href="../../resources/admin/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../resources/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/common.js"></script>
+    <script type="text/javascript" src="../../resources/admin/js/list.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+
+            var $delete = $("#listTable a.delete");
+
+
+            // 删除
+            $delete.click(function() {
+                var $this = $(this);
+                $.dialog({
+                    type: "warn",
+                    content: "您确定要删除吗？",
+                    onOk: function() {
+                        $.ajax({
+                            url: "delete",
+                            type: "POST",
+                            data: {id: $this.attr("val")},
+                            dataType: "json",
+                            cache: false,
+                            success: function(message) {
+                                $.message(message);
+                                if (message.type == "success") {
+                                    $this.closest("tr").remove();
+                                }
+                            }
+                        });
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="breadcrumb">
+    <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/admin/common/index">首页</a> &raquo; 商品分类列表
+</div>
+<div class="bar">
+    <a href="add" class="iconButton">
+        <span class="addIcon">&nbsp;</span>添加
+    </a>
+    <a href="javascript:;" id="refreshButton" class="iconButton">
+        <span class="refreshIcon">&nbsp;</span>刷新
+    </a>
+</div>
+<table id="listTable" class="list">
+    <tr>
+        <th>
+            <span>名称</span>
+        </th>
+        <th>
+            <span>排序</span>
+        </th>
+        <th>
+            <span>普通店铺分佣比例</span>
+        </th>
+        <th>
+            <span>自营店铺分佣比例</span>
+        </th>
+        <th>
+            <span>操作</span>
+        </th>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						手机数码
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/1" target="_blank">[查看]</a>
+            <a href="edit?id=1">[编辑]</a>
+            <a href="javascript:;" class="delete" val="1">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						手机通讯
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/7" target="_blank">[查看]</a>
+            <a href="edit?id=7">[编辑]</a>
+            <a href="javascript:;" class="delete" val="7">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手机
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/41" target="_blank">[查看]</a>
+            <a href="edit?id=41">[编辑]</a>
+            <a href="javascript:;" class="delete" val="41">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						对讲机
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/42" target="_blank">[查看]</a>
+            <a href="edit?id=42">[编辑]</a>
+            <a href="javascript:;" class="delete" val="42">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						手机配件
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/8" target="_blank">[查看]</a>
+            <a href="edit?id=8">[编辑]</a>
+            <a href="javascript:;" class="delete" val="8">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手机电池
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/43" target="_blank">[查看]</a>
+            <a href="edit?id=43">[编辑]</a>
+            <a href="javascript:;" class="delete" val="43">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						移动电源
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/44" target="_blank">[查看]</a>
+            <a href="edit?id=44">[编辑]</a>
+            <a href="javascript:;" class="delete" val="44">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						充电器
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/45" target="_blank">[查看]</a>
+            <a href="edit?id=45">[编辑]</a>
+            <a href="javascript:;" class="delete" val="45">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手机耳机
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/46" target="_blank">[查看]</a>
+            <a href="edit?id=46">[编辑]</a>
+            <a href="javascript:;" class="delete" val="46">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手机贴膜
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/47" target="_blank">[查看]</a>
+            <a href="edit?id=47">[编辑]</a>
+            <a href="javascript:;" class="delete" val="47">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手机保护套
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/48" target="_blank">[查看]</a>
+            <a href="edit?id=48">[编辑]</a>
+            <a href="javascript:;" class="delete" val="48">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						摄影摄像
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/9" target="_blank">[查看]</a>
+            <a href="edit?id=9">[编辑]</a>
+            <a href="javascript:;" class="delete" val="9">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						数码相机
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/49" target="_blank">[查看]</a>
+            <a href="edit?id=49">[编辑]</a>
+            <a href="javascript:;" class="delete" val="49">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						单反相机
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/50" target="_blank">[查看]</a>
+            <a href="edit?id=50">[编辑]</a>
+            <a href="javascript:;" class="delete" val="50">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						数码摄像机
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/51" target="_blank">[查看]</a>
+            <a href="edit?id=51">[编辑]</a>
+            <a href="javascript:;" class="delete" val="51">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						拍立得
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/52" target="_blank">[查看]</a>
+            <a href="edit?id=52">[编辑]</a>
+            <a href="javascript:;" class="delete" val="52">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						镜头
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/53" target="_blank">[查看]</a>
+            <a href="edit?id=53">[编辑]</a>
+            <a href="javascript:;" class="delete" val="53">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						户外器材
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/54" target="_blank">[查看]</a>
+            <a href="edit?id=54">[编辑]</a>
+            <a href="javascript:;" class="delete" val="54">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						数码配件
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/10" target="_blank">[查看]</a>
+            <a href="edit?id=10">[编辑]</a>
+            <a href="javascript:;" class="delete" val="10">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						存储卡
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/55" target="_blank">[查看]</a>
+            <a href="edit?id=55">[编辑]</a>
+            <a href="javascript:;" class="delete" val="55">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						读卡器
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/56" target="_blank">[查看]</a>
+            <a href="edit?id=56">[编辑]</a>
+            <a href="javascript:;" class="delete" val="56">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						数码贴膜
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/57" target="_blank">[查看]</a>
+            <a href="edit?id=57">[编辑]</a>
+            <a href="javascript:;" class="delete" val="57">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						充电器
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/58" target="_blank">[查看]</a>
+            <a href="edit?id=58">[编辑]</a>
+            <a href="javascript:;" class="delete" val="58">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						相机包
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/59" target="_blank">[查看]</a>
+            <a href="edit?id=59">[编辑]</a>
+            <a href="javascript:;" class="delete" val="59">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						滤镜
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/60" target="_blank">[查看]</a>
+            <a href="edit?id=60">[编辑]</a>
+            <a href="javascript:;" class="delete" val="60">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						智能设备
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/11" target="_blank">[查看]</a>
+            <a href="edit?id=11">[编辑]</a>
+            <a href="javascript:;" class="delete" val="11">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						智能手环
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/61" target="_blank">[查看]</a>
+            <a href="edit?id=61">[编辑]</a>
+            <a href="javascript:;" class="delete" val="61">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						智能手表
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/62" target="_blank">[查看]</a>
+            <a href="edit?id=62">[编辑]</a>
+            <a href="javascript:;" class="delete" val="62">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						智能眼镜
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/63" target="_blank">[查看]</a>
+            <a href="edit?id=63">[编辑]</a>
+            <a href="javascript:;" class="delete" val="63">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						智能配饰
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/64" target="_blank">[查看]</a>
+            <a href="edit?id=64">[编辑]</a>
+            <a href="javascript:;" class="delete" val="64">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						智能家居
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/65" target="_blank">[查看]</a>
+            <a href="edit?id=65">[编辑]</a>
+            <a href="javascript:;" class="delete" val="65">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						健康监测
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/66" target="_blank">[查看]</a>
+            <a href="edit?id=66">[编辑]</a>
+            <a href="javascript:;" class="delete" val="66">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						时尚影音
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/12" target="_blank">[查看]</a>
+            <a href="edit?id=12">[编辑]</a>
+            <a href="javascript:;" class="delete" val="12">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						MP3/MP4
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/67" target="_blank">[查看]</a>
+            <a href="edit?id=67">[编辑]</a>
+            <a href="javascript:;" class="delete" val="67">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						收录音机
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/68" target="_blank">[查看]</a>
+            <a href="edit?id=68">[编辑]</a>
+            <a href="javascript:;" class="delete" val="68">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						数码相框
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/69" target="_blank">[查看]</a>
+            <a href="edit?id=69">[编辑]</a>
+            <a href="javascript:;" class="delete" val="69">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						耳机耳麦
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/70" target="_blank">[查看]</a>
+            <a href="edit?id=70">[编辑]</a>
+            <a href="javascript:;" class="delete" val="70">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						录音笔
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/71" target="_blank">[查看]</a>
+            <a href="edit?id=71">[编辑]</a>
+            <a href="javascript:;" class="delete" val="71">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						音箱
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/72" target="_blank">[查看]</a>
+            <a href="edit?id=72">[编辑]</a>
+            <a href="javascript:;" class="delete" val="72">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						电子教育
+					</span>
+        </td>
+        <td>
+            7
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/13" target="_blank">[查看]</a>
+            <a href="edit?id=13">[编辑]</a>
+            <a href="javascript:;" class="delete" val="13">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电子词典
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/73" target="_blank">[查看]</a>
+            <a href="edit?id=73">[编辑]</a>
+            <a href="javascript:;" class="delete" val="73">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						学生平板
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/74" target="_blank">[查看]</a>
+            <a href="edit?id=74">[编辑]</a>
+            <a href="javascript:;" class="delete" val="74">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						复读机
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/75" target="_blank">[查看]</a>
+            <a href="edit?id=75">[编辑]</a>
+            <a href="javascript:;" class="delete" val="75">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						点读机
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/76" target="_blank">[查看]</a>
+            <a href="edit?id=76">[编辑]</a>
+            <a href="javascript:;" class="delete" val="76">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						早教机
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/77" target="_blank">[查看]</a>
+            <a href="edit?id=77">[编辑]</a>
+            <a href="javascript:;" class="delete" val="77">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						学习机
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/78" target="_blank">[查看]</a>
+            <a href="edit?id=78">[编辑]</a>
+            <a href="javascript:;" class="delete" val="78">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						电脑办公
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/2" target="_blank">[查看]</a>
+            <a href="edit?id=2">[编辑]</a>
+            <a href="javascript:;" class="delete" val="2">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						电脑整机
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/14" target="_blank">[查看]</a>
+            <a href="edit?id=14">[编辑]</a>
+            <a href="javascript:;" class="delete" val="14">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						笔记本
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/79" target="_blank">[查看]</a>
+            <a href="edit?id=79">[编辑]</a>
+            <a href="javascript:;" class="delete" val="79">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						超极本
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/80" target="_blank">[查看]</a>
+            <a href="edit?id=80">[编辑]</a>
+            <a href="javascript:;" class="delete" val="80">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						游戏本
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/81" target="_blank">[查看]</a>
+            <a href="edit?id=81">[编辑]</a>
+            <a href="javascript:;" class="delete" val="81">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						平板电脑
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/82" target="_blank">[查看]</a>
+            <a href="edit?id=82">[编辑]</a>
+            <a href="javascript:;" class="delete" val="82">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						台式机
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/83" target="_blank">[查看]</a>
+            <a href="edit?id=83">[编辑]</a>
+            <a href="javascript:;" class="delete" val="83">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						服务器
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/84" target="_blank">[查看]</a>
+            <a href="edit?id=84">[编辑]</a>
+            <a href="javascript:;" class="delete" val="84">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						电脑配件
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/15" target="_blank">[查看]</a>
+            <a href="edit?id=15">[编辑]</a>
+            <a href="javascript:;" class="delete" val="15">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						CPU
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/85" target="_blank">[查看]</a>
+            <a href="edit?id=85">[编辑]</a>
+            <a href="javascript:;" class="delete" val="85">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						主板
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/86" target="_blank">[查看]</a>
+            <a href="edit?id=86">[编辑]</a>
+            <a href="javascript:;" class="delete" val="86">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						硬盘
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/87" target="_blank">[查看]</a>
+            <a href="edit?id=87">[编辑]</a>
+            <a href="javascript:;" class="delete" val="87">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						内存
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/88" target="_blank">[查看]</a>
+            <a href="edit?id=88">[编辑]</a>
+            <a href="javascript:;" class="delete" val="88">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						机箱
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/89" target="_blank">[查看]</a>
+            <a href="edit?id=89">[编辑]</a>
+            <a href="javascript:;" class="delete" val="89">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						显示器
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/90" target="_blank">[查看]</a>
+            <a href="edit?id=90">[编辑]</a>
+            <a href="javascript:;" class="delete" val="90">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						电脑外设
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/16" target="_blank">[查看]</a>
+            <a href="edit?id=16">[编辑]</a>
+            <a href="javascript:;" class="delete" val="16">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						移动硬盘
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/91" target="_blank">[查看]</a>
+            <a href="edit?id=91">[编辑]</a>
+            <a href="javascript:;" class="delete" val="91">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						U盘
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/92" target="_blank">[查看]</a>
+            <a href="edit?id=92">[编辑]</a>
+            <a href="javascript:;" class="delete" val="92">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						鼠标
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/93" target="_blank">[查看]</a>
+            <a href="edit?id=93">[编辑]</a>
+            <a href="javascript:;" class="delete" val="93">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						键盘
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/94" target="_blank">[查看]</a>
+            <a href="edit?id=94">[编辑]</a>
+            <a href="javascript:;" class="delete" val="94">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						摄像头
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/95" target="_blank">[查看]</a>
+            <a href="edit?id=95">[编辑]</a>
+            <a href="javascript:;" class="delete" val="95">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手写板
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/96" target="_blank">[查看]</a>
+            <a href="edit?id=96">[编辑]</a>
+            <a href="javascript:;" class="delete" val="96">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						网络设备
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/17" target="_blank">[查看]</a>
+            <a href="edit?id=17">[编辑]</a>
+            <a href="javascript:;" class="delete" val="17">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						路由器
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/97" target="_blank">[查看]</a>
+            <a href="edit?id=97">[编辑]</a>
+            <a href="javascript:;" class="delete" val="97">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						交换机
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/98" target="_blank">[查看]</a>
+            <a href="edit?id=98">[编辑]</a>
+            <a href="javascript:;" class="delete" val="98">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						网卡
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/99" target="_blank">[查看]</a>
+            <a href="edit?id=99">[编辑]</a>
+            <a href="javascript:;" class="delete" val="99">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						网络存储
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/100" target="_blank">[查看]</a>
+            <a href="edit?id=100">[编辑]</a>
+            <a href="javascript:;" class="delete" val="100">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						3G/4G上网
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/101" target="_blank">[查看]</a>
+            <a href="edit?id=101">[编辑]</a>
+            <a href="javascript:;" class="delete" val="101">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						网络盒子
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/102" target="_blank">[查看]</a>
+            <a href="edit?id=102">[编辑]</a>
+            <a href="javascript:;" class="delete" val="102">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						办公打印
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/18" target="_blank">[查看]</a>
+            <a href="edit?id=18">[编辑]</a>
+            <a href="javascript:;" class="delete" val="18">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						打印机
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/103" target="_blank">[查看]</a>
+            <a href="edit?id=103">[编辑]</a>
+            <a href="javascript:;" class="delete" val="103">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						扫描仪
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/104" target="_blank">[查看]</a>
+            <a href="edit?id=104">[编辑]</a>
+            <a href="javascript:;" class="delete" val="104">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						传真机
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/105" target="_blank">[查看]</a>
+            <a href="edit?id=105">[编辑]</a>
+            <a href="javascript:;" class="delete" val="105">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						一体机
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/106" target="_blank">[查看]</a>
+            <a href="edit?id=106">[编辑]</a>
+            <a href="javascript:;" class="delete" val="106">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						投影机
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/107" target="_blank">[查看]</a>
+            <a href="edit?id=107">[编辑]</a>
+            <a href="javascript:;" class="delete" val="107">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						考勤机
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/108" target="_blank">[查看]</a>
+            <a href="edit?id=108">[编辑]</a>
+            <a href="javascript:;" class="delete" val="108">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						办公文仪
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/19" target="_blank">[查看]</a>
+            <a href="edit?id=19">[编辑]</a>
+            <a href="javascript:;" class="delete" val="19">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						办公文具
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/109" target="_blank">[查看]</a>
+            <a href="edit?id=109">[编辑]</a>
+            <a href="javascript:;" class="delete" val="109">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						办公用纸
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/110" target="_blank">[查看]</a>
+            <a href="edit?id=110">[编辑]</a>
+            <a href="javascript:;" class="delete" val="110">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						财务用品
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/111" target="_blank">[查看]</a>
+            <a href="edit?id=111">[编辑]</a>
+            <a href="javascript:;" class="delete" val="111">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						学生文具
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/112" target="_blank">[查看]</a>
+            <a href="edit?id=112">[编辑]</a>
+            <a href="javascript:;" class="delete" val="112">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						文件管理
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/113" target="_blank">[查看]</a>
+            <a href="edit?id=113">[编辑]</a>
+            <a href="javascript:;" class="delete" val="113">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						计算器
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/114" target="_blank">[查看]</a>
+            <a href="edit?id=114">[编辑]</a>
+            <a href="javascript:;" class="delete" val="114">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						办公耗材
+					</span>
+        </td>
+        <td>
+            7
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/20" target="_blank">[查看]</a>
+            <a href="edit?id=20">[编辑]</a>
+            <a href="javascript:;" class="delete" val="20">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						硒鼓
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/115" target="_blank">[查看]</a>
+            <a href="edit?id=115">[编辑]</a>
+            <a href="javascript:;" class="delete" val="115">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						墨粉
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/116" target="_blank">[查看]</a>
+            <a href="edit?id=116">[编辑]</a>
+            <a href="javascript:;" class="delete" val="116">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						墨盒
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/117" target="_blank">[查看]</a>
+            <a href="edit?id=117">[编辑]</a>
+            <a href="javascript:;" class="delete" val="117">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						色带
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/118" target="_blank">[查看]</a>
+            <a href="edit?id=118">[编辑]</a>
+            <a href="javascript:;" class="delete" val="118">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						纸类
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/119" target="_blank">[查看]</a>
+            <a href="edit?id=119">[编辑]</a>
+            <a href="javascript:;" class="delete" val="119">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						刻录光盘
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/120" target="_blank">[查看]</a>
+            <a href="edit?id=120">[编辑]</a>
+            <a href="javascript:;" class="delete" val="120">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						家用电器
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/3" target="_blank">[查看]</a>
+            <a href="edit?id=3">[编辑]</a>
+            <a href="javascript:;" class="delete" val="3">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						生活电器
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/21" target="_blank">[查看]</a>
+            <a href="edit?id=21">[编辑]</a>
+            <a href="javascript:;" class="delete" val="21">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电风扇
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/121" target="_blank">[查看]</a>
+            <a href="edit?id=121">[编辑]</a>
+            <a href="javascript:;" class="delete" val="121">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						吸尘器
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/122" target="_blank">[查看]</a>
+            <a href="edit?id=122">[编辑]</a>
+            <a href="javascript:;" class="delete" val="122">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						饮水机
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/123" target="_blank">[查看]</a>
+            <a href="edit?id=123">[编辑]</a>
+            <a href="javascript:;" class="delete" val="123">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						加湿器
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/124" target="_blank">[查看]</a>
+            <a href="edit?id=124">[编辑]</a>
+            <a href="javascript:;" class="delete" val="124">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						干衣机
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/125" target="_blank">[查看]</a>
+            <a href="edit?id=125">[编辑]</a>
+            <a href="javascript:;" class="delete" val="125">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电话机
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/126" target="_blank">[查看]</a>
+            <a href="edit?id=126">[编辑]</a>
+            <a href="javascript:;" class="delete" val="126">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						厨卫电器
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/22" target="_blank">[查看]</a>
+            <a href="edit?id=22">[编辑]</a>
+            <a href="javascript:;" class="delete" val="22">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电饭煲
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/127" target="_blank">[查看]</a>
+            <a href="edit?id=127">[编辑]</a>
+            <a href="javascript:;" class="delete" val="127">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						微波炉
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/128" target="_blank">[查看]</a>
+            <a href="edit?id=128">[编辑]</a>
+            <a href="javascript:;" class="delete" val="128">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电磁炉
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/129" target="_blank">[查看]</a>
+            <a href="edit?id=129">[编辑]</a>
+            <a href="javascript:;" class="delete" val="129">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						豆浆机
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/130" target="_blank">[查看]</a>
+            <a href="edit?id=130">[编辑]</a>
+            <a href="javascript:;" class="delete" val="130">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						榨汁机
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/131" target="_blank">[查看]</a>
+            <a href="edit?id=131">[编辑]</a>
+            <a href="javascript:;" class="delete" val="131">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						面包机
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/132" target="_blank">[查看]</a>
+            <a href="edit?id=132">[编辑]</a>
+            <a href="javascript:;" class="delete" val="132">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						个护健康
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/23" target="_blank">[查看]</a>
+            <a href="edit?id=23">[编辑]</a>
+            <a href="javascript:;" class="delete" val="23">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						剃须刀
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/133" target="_blank">[查看]</a>
+            <a href="edit?id=133">[编辑]</a>
+            <a href="javascript:;" class="delete" val="133">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电吹风
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/134" target="_blank">[查看]</a>
+            <a href="edit?id=134">[编辑]</a>
+            <a href="javascript:;" class="delete" val="134">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						理发器
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/135" target="_blank">[查看]</a>
+            <a href="edit?id=135">[编辑]</a>
+            <a href="javascript:;" class="delete" val="135">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						体温计
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/136" target="_blank">[查看]</a>
+            <a href="edit?id=136">[编辑]</a>
+            <a href="javascript:;" class="delete" val="136">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						血压计
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/137" target="_blank">[查看]</a>
+            <a href="edit?id=137">[编辑]</a>
+            <a href="javascript:;" class="delete" val="137">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						血糖仪
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/138" target="_blank">[查看]</a>
+            <a href="edit?id=138">[编辑]</a>
+            <a href="javascript:;" class="delete" val="138">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						五金家装
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/24" target="_blank">[查看]</a>
+            <a href="edit?id=24">[编辑]</a>
+            <a href="javascript:;" class="delete" val="24">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电动工具
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/139" target="_blank">[查看]</a>
+            <a href="edit?id=139">[编辑]</a>
+            <a href="javascript:;" class="delete" val="139">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手动工具
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/140" target="_blank">[查看]</a>
+            <a href="edit?id=140">[编辑]</a>
+            <a href="javascript:;" class="delete" val="140">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						仪器仪表
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/141" target="_blank">[查看]</a>
+            <a href="edit?id=141">[编辑]</a>
+            <a href="javascript:;" class="delete" val="141">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						淋浴花洒
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/142" target="_blank">[查看]</a>
+            <a href="edit?id=142">[编辑]</a>
+            <a href="javascript:;" class="delete" val="142">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						厨卫五金
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/143" target="_blank">[查看]</a>
+            <a href="edit?id=143">[编辑]</a>
+            <a href="javascript:;" class="delete" val="143">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						家具五金
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/144" target="_blank">[查看]</a>
+            <a href="edit?id=144">[编辑]</a>
+            <a href="javascript:;" class="delete" val="144">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						大家电
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/25" target="_blank">[查看]</a>
+            <a href="edit?id=25">[编辑]</a>
+            <a href="javascript:;" class="delete" val="25">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						平板电视
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/145" target="_blank">[查看]</a>
+            <a href="edit?id=145">[编辑]</a>
+            <a href="javascript:;" class="delete" val="145">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						家庭影院
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/146" target="_blank">[查看]</a>
+            <a href="edit?id=146">[编辑]</a>
+            <a href="javascript:;" class="delete" val="146">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						洗衣机
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/147" target="_blank">[查看]</a>
+            <a href="edit?id=147">[编辑]</a>
+            <a href="javascript:;" class="delete" val="147">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						热水器
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/148" target="_blank">[查看]</a>
+            <a href="edit?id=148">[编辑]</a>
+            <a href="javascript:;" class="delete" val="148">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						冰箱
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/149" target="_blank">[查看]</a>
+            <a href="edit?id=149">[编辑]</a>
+            <a href="javascript:;" class="delete" val="149">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						空调
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/150" target="_blank">[查看]</a>
+            <a href="edit?id=150">[编辑]</a>
+            <a href="javascript:;" class="delete" val="150">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						服装鞋靴
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/4" target="_blank">[查看]</a>
+            <a href="edit?id=4">[编辑]</a>
+            <a href="javascript:;" class="delete" val="4">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						品质男装
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/26" target="_blank">[查看]</a>
+            <a href="edit?id=26">[编辑]</a>
+            <a href="javascript:;" class="delete" val="26">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						衬衫
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/151" target="_blank">[查看]</a>
+            <a href="edit?id=151">[编辑]</a>
+            <a href="javascript:;" class="delete" val="151">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						T恤
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/152" target="_blank">[查看]</a>
+            <a href="edit?id=152">[编辑]</a>
+            <a href="javascript:;" class="delete" val="152">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						夹克
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/153" target="_blank">[查看]</a>
+            <a href="edit?id=153">[编辑]</a>
+            <a href="javascript:;" class="delete" val="153">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						针织衫
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/154" target="_blank">[查看]</a>
+            <a href="edit?id=154">[编辑]</a>
+            <a href="javascript:;" class="delete" val="154">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						羊绒衫
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/155" target="_blank">[查看]</a>
+            <a href="edit?id=155">[编辑]</a>
+            <a href="javascript:;" class="delete" val="155">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						羽绒服
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/156" target="_blank">[查看]</a>
+            <a href="edit?id=156">[编辑]</a>
+            <a href="javascript:;" class="delete" val="156">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						时尚女装
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/27" target="_blank">[查看]</a>
+            <a href="edit?id=27">[编辑]</a>
+            <a href="javascript:;" class="delete" val="27">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						衬衫
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/157" target="_blank">[查看]</a>
+            <a href="edit?id=157">[编辑]</a>
+            <a href="javascript:;" class="delete" val="157">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						T恤
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/158" target="_blank">[查看]</a>
+            <a href="edit?id=158">[编辑]</a>
+            <a href="javascript:;" class="delete" val="158">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						风衣
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/159" target="_blank">[查看]</a>
+            <a href="edit?id=159">[编辑]</a>
+            <a href="javascript:;" class="delete" val="159">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						连衣裙
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/160" target="_blank">[查看]</a>
+            <a href="edit?id=160">[编辑]</a>
+            <a href="javascript:;" class="delete" val="160">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						牛仔裤
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/161" target="_blank">[查看]</a>
+            <a href="edit?id=161">[编辑]</a>
+            <a href="javascript:;" class="delete" val="161">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						休闲裤
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/162" target="_blank">[查看]</a>
+            <a href="edit?id=162">[编辑]</a>
+            <a href="javascript:;" class="delete" val="162">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						精品内衣
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/28" target="_blank">[查看]</a>
+            <a href="edit?id=28">[编辑]</a>
+            <a href="javascript:;" class="delete" val="28">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						文胸
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/163" target="_blank">[查看]</a>
+            <a href="edit?id=163">[编辑]</a>
+            <a href="javascript:;" class="delete" val="163">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						女式内裤
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/164" target="_blank">[查看]</a>
+            <a href="edit?id=164">[编辑]</a>
+            <a href="javascript:;" class="delete" val="164">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						男式内裤
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/165" target="_blank">[查看]</a>
+            <a href="edit?id=165">[编辑]</a>
+            <a href="javascript:;" class="delete" val="165">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						保暖内衣
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/166" target="_blank">[查看]</a>
+            <a href="edit?id=166">[编辑]</a>
+            <a href="javascript:;" class="delete" val="166">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						秋衣秋裤
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/167" target="_blank">[查看]</a>
+            <a href="edit?id=167">[编辑]</a>
+            <a href="javascript:;" class="delete" val="167">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						塑身美体
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/168" target="_blank">[查看]</a>
+            <a href="edit?id=168">[编辑]</a>
+            <a href="javascript:;" class="delete" val="168">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						精品男鞋
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/29" target="_blank">[查看]</a>
+            <a href="edit?id=29">[编辑]</a>
+            <a href="javascript:;" class="delete" val="29">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						正装鞋
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/169" target="_blank">[查看]</a>
+            <a href="edit?id=169">[编辑]</a>
+            <a href="javascript:;" class="delete" val="169">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						休闲鞋
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/170" target="_blank">[查看]</a>
+            <a href="edit?id=170">[编辑]</a>
+            <a href="javascript:;" class="delete" val="170">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						运动鞋
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/171" target="_blank">[查看]</a>
+            <a href="edit?id=171">[编辑]</a>
+            <a href="javascript:;" class="delete" val="171">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						凉鞋
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/172" target="_blank">[查看]</a>
+            <a href="edit?id=172">[编辑]</a>
+            <a href="javascript:;" class="delete" val="172">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						拖鞋
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/173" target="_blank">[查看]</a>
+            <a href="edit?id=173">[编辑]</a>
+            <a href="javascript:;" class="delete" val="173">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						男靴
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/174" target="_blank">[查看]</a>
+            <a href="edit?id=174">[编辑]</a>
+            <a href="javascript:;" class="delete" val="174">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						潮流女鞋
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/30" target="_blank">[查看]</a>
+            <a href="edit?id=30">[编辑]</a>
+            <a href="javascript:;" class="delete" val="30">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						高跟鞋
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/175" target="_blank">[查看]</a>
+            <a href="edit?id=175">[编辑]</a>
+            <a href="javascript:;" class="delete" val="175">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						休闲鞋
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/176" target="_blank">[查看]</a>
+            <a href="edit?id=176">[编辑]</a>
+            <a href="javascript:;" class="delete" val="176">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						运动鞋
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/177" target="_blank">[查看]</a>
+            <a href="edit?id=177">[编辑]</a>
+            <a href="javascript:;" class="delete" val="177">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						凉鞋
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/178" target="_blank">[查看]</a>
+            <a href="edit?id=178">[编辑]</a>
+            <a href="javascript:;" class="delete" val="178">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						拖鞋
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/179" target="_blank">[查看]</a>
+            <a href="edit?id=179">[编辑]</a>
+            <a href="javascript:;" class="delete" val="179">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						女靴
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/180" target="_blank">[查看]</a>
+            <a href="edit?id=180">[编辑]</a>
+            <a href="javascript:;" class="delete" val="180">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						化妆护理
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/5" target="_blank">[查看]</a>
+            <a href="edit?id=5">[编辑]</a>
+            <a href="javascript:;" class="delete" val="5">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						面部护肤
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/31" target="_blank">[查看]</a>
+            <a href="edit?id=31">[编辑]</a>
+            <a href="javascript:;" class="delete" val="31">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						清洁
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/181" target="_blank">[查看]</a>
+            <a href="edit?id=181">[编辑]</a>
+            <a href="javascript:;" class="delete" val="181">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						护肤
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/182" target="_blank">[查看]</a>
+            <a href="edit?id=182">[编辑]</a>
+            <a href="javascript:;" class="delete" val="182">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						面膜
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/183" target="_blank">[查看]</a>
+            <a href="edit?id=183">[编辑]</a>
+            <a href="javascript:;" class="delete" val="183">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						剃须
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/184" target="_blank">[查看]</a>
+            <a href="edit?id=184">[编辑]</a>
+            <a href="javascript:;" class="delete" val="184">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						化妆水
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/185" target="_blank">[查看]</a>
+            <a href="edit?id=185">[编辑]</a>
+            <a href="javascript:;" class="delete" val="185">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						套装
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/186" target="_blank">[查看]</a>
+            <a href="edit?id=186">[编辑]</a>
+            <a href="javascript:;" class="delete" val="186">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						身体护肤
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/32" target="_blank">[查看]</a>
+            <a href="edit?id=32">[编辑]</a>
+            <a href="javascript:;" class="delete" val="32">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						沐浴
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/187" target="_blank">[查看]</a>
+            <a href="edit?id=187">[编辑]</a>
+            <a href="javascript:;" class="delete" val="187">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						润肤
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/188" target="_blank">[查看]</a>
+            <a href="edit?id=188">[编辑]</a>
+            <a href="javascript:;" class="delete" val="188">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						颈部
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/189" target="_blank">[查看]</a>
+            <a href="edit?id=189">[编辑]</a>
+            <a href="javascript:;" class="delete" val="189">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						手足
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/190" target="_blank">[查看]</a>
+            <a href="edit?id=190">[编辑]</a>
+            <a href="javascript:;" class="delete" val="190">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						塑形
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/191" target="_blank">[查看]</a>
+            <a href="edit?id=191">[编辑]</a>
+            <a href="javascript:;" class="delete" val="191">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						美胸
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/192" target="_blank">[查看]</a>
+            <a href="edit?id=192">[编辑]</a>
+            <a href="javascript:;" class="delete" val="192">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						口腔护理
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/33" target="_blank">[查看]</a>
+            <a href="edit?id=33">[编辑]</a>
+            <a href="javascript:;" class="delete" val="33">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						牙膏
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/193" target="_blank">[查看]</a>
+            <a href="edit?id=193">[编辑]</a>
+            <a href="javascript:;" class="delete" val="193">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						牙粉
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/194" target="_blank">[查看]</a>
+            <a href="edit?id=194">[编辑]</a>
+            <a href="javascript:;" class="delete" val="194">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						牙刷
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/195" target="_blank">[查看]</a>
+            <a href="edit?id=195">[编辑]</a>
+            <a href="javascript:;" class="delete" val="195">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						牙线
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/196" target="_blank">[查看]</a>
+            <a href="edit?id=196">[编辑]</a>
+            <a href="javascript:;" class="delete" val="196">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						漱口水
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/197" target="_blank">[查看]</a>
+            <a href="edit?id=197">[编辑]</a>
+            <a href="javascript:;" class="delete" val="197">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						套装
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/198" target="_blank">[查看]</a>
+            <a href="edit?id=198">[编辑]</a>
+            <a href="javascript:;" class="delete" val="198">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						洗发护发
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/34" target="_blank">[查看]</a>
+            <a href="edit?id=34">[编辑]</a>
+            <a href="javascript:;" class="delete" val="34">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						洗发
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/199" target="_blank">[查看]</a>
+            <a href="edit?id=199">[编辑]</a>
+            <a href="javascript:;" class="delete" val="199">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						护发
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/200" target="_blank">[查看]</a>
+            <a href="edit?id=200">[编辑]</a>
+            <a href="javascript:;" class="delete" val="200">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						染发
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/201" target="_blank">[查看]</a>
+            <a href="edit?id=201">[编辑]</a>
+            <a href="javascript:;" class="delete" val="201">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						造型
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/202" target="_blank">[查看]</a>
+            <a href="edit?id=202">[编辑]</a>
+            <a href="javascript:;" class="delete" val="202">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						假发
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/203" target="_blank">[查看]</a>
+            <a href="edit?id=203">[编辑]</a>
+            <a href="javascript:;" class="delete" val="203">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						套装
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/204" target="_blank">[查看]</a>
+            <a href="edit?id=204">[编辑]</a>
+            <a href="javascript:;" class="delete" val="204">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						香水彩妆
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/35" target="_blank">[查看]</a>
+            <a href="edit?id=35">[编辑]</a>
+            <a href="javascript:;" class="delete" val="35">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						香水
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/205" target="_blank">[查看]</a>
+            <a href="edit?id=205">[编辑]</a>
+            <a href="javascript:;" class="delete" val="205">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						底妆
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/206" target="_blank">[查看]</a>
+            <a href="edit?id=206">[编辑]</a>
+            <a href="javascript:;" class="delete" val="206">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						腮红
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/207" target="_blank">[查看]</a>
+            <a href="edit?id=207">[编辑]</a>
+            <a href="javascript:;" class="delete" val="207">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						眼部
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/208" target="_blank">[查看]</a>
+            <a href="edit?id=208">[编辑]</a>
+            <a href="javascript:;" class="delete" val="208">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						唇部
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/209" target="_blank">[查看]</a>
+            <a href="edit?id=209">[编辑]</a>
+            <a href="javascript:;" class="delete" val="209">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						美甲
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/210" target="_blank">[查看]</a>
+            <a href="edit?id=210">[编辑]</a>
+            <a href="javascript:;" class="delete" val="210">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						家居家装
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/6" target="_blank">[查看]</a>
+            <a href="edit?id=6">[编辑]</a>
+            <a href="javascript:;" class="delete" val="6">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						家纺布艺
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/36" target="_blank">[查看]</a>
+            <a href="edit?id=36">[编辑]</a>
+            <a href="javascript:;" class="delete" val="36">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						被子
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/211" target="_blank">[查看]</a>
+            <a href="edit?id=211">[编辑]</a>
+            <a href="javascript:;" class="delete" val="211">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						毯子
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/212" target="_blank">[查看]</a>
+            <a href="edit?id=212">[编辑]</a>
+            <a href="javascript:;" class="delete" val="212">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						凉席
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/213" target="_blank">[查看]</a>
+            <a href="edit?id=213">[编辑]</a>
+            <a href="javascript:;" class="delete" val="213">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						蚊帐
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/214" target="_blank">[查看]</a>
+            <a href="edit?id=214">[编辑]</a>
+            <a href="javascript:;" class="delete" val="214">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						床垫
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/215" target="_blank">[查看]</a>
+            <a href="edit?id=215">[编辑]</a>
+            <a href="javascript:;" class="delete" val="215">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						布艺
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/216" target="_blank">[查看]</a>
+            <a href="edit?id=216">[编辑]</a>
+            <a href="javascript:;" class="delete" val="216">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						家居照明
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/37" target="_blank">[查看]</a>
+            <a href="edit?id=37">[编辑]</a>
+            <a href="javascript:;" class="delete" val="37">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						台灯
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/217" target="_blank">[查看]</a>
+            <a href="edit?id=217">[编辑]</a>
+            <a href="javascript:;" class="delete" val="217">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						吊灯
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/218" target="_blank">[查看]</a>
+            <a href="edit?id=218">[编辑]</a>
+            <a href="javascript:;" class="delete" val="218">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						壁灯
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/219" target="_blank">[查看]</a>
+            <a href="edit?id=219">[编辑]</a>
+            <a href="javascript:;" class="delete" val="219">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						射灯
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/220" target="_blank">[查看]</a>
+            <a href="edit?id=220">[编辑]</a>
+            <a href="javascript:;" class="delete" val="220">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						吸顶灯
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/221" target="_blank">[查看]</a>
+            <a href="edit?id=221">[编辑]</a>
+            <a href="javascript:;" class="delete" val="221">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						落地灯
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/222" target="_blank">[查看]</a>
+            <a href="edit?id=222">[编辑]</a>
+            <a href="javascript:;" class="delete" val="222">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						家装建材
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/38" target="_blank">[查看]</a>
+            <a href="edit?id=38">[编辑]</a>
+            <a href="javascript:;" class="delete" val="38">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						开关
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/223" target="_blank">[查看]</a>
+            <a href="edit?id=223">[编辑]</a>
+            <a href="javascript:;" class="delete" val="223">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						插座
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/224" target="_blank">[查看]</a>
+            <a href="edit?id=224">[编辑]</a>
+            <a href="javascript:;" class="delete" val="224">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电线
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/225" target="_blank">[查看]</a>
+            <a href="edit?id=225">[编辑]</a>
+            <a href="javascript:;" class="delete" val="225">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						转换插头
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/226" target="_blank">[查看]</a>
+            <a href="edit?id=226">[编辑]</a>
+            <a href="javascript:;" class="delete" val="226">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						电工电料
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/227" target="_blank">[查看]</a>
+            <a href="edit?id=227">[编辑]</a>
+            <a href="javascript:;" class="delete" val="227">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						监控安防
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/228" target="_blank">[查看]</a>
+            <a href="edit?id=228">[编辑]</a>
+            <a href="javascript:;" class="delete" val="228">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						生活日用
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/39" target="_blank">[查看]</a>
+            <a href="edit?id=39">[编辑]</a>
+            <a href="javascript:;" class="delete" val="39">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						收纳用品
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/229" target="_blank">[查看]</a>
+            <a href="edit?id=229">[编辑]</a>
+            <a href="javascript:;" class="delete" val="229">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						晴雨用具
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/230" target="_blank">[查看]</a>
+            <a href="edit?id=230">[编辑]</a>
+            <a href="javascript:;" class="delete" val="230">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						浴室用品
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/231" target="_blank">[查看]</a>
+            <a href="edit?id=231">[编辑]</a>
+            <a href="javascript:;" class="delete" val="231">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						针织用品
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/232" target="_blank">[查看]</a>
+            <a href="edit?id=232">[编辑]</a>
+            <a href="javascript:;" class="delete" val="232">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						净化除味
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/233" target="_blank">[查看]</a>
+            <a href="edit?id=233">[编辑]</a>
+            <a href="javascript:;" class="delete" val="233">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						驱蚊驱虫
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/234" target="_blank">[查看]</a>
+            <a href="edit?id=234">[编辑]</a>
+            <a href="javascript:;" class="delete" val="234">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 20px;">
+						清洁用品
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/40" target="_blank">[查看]</a>
+            <a href="edit?id=40">[编辑]</a>
+            <a href="javascript:;" class="delete" val="40">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						纸品湿巾
+					</span>
+        </td>
+        <td>
+            1
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/235" target="_blank">[查看]</a>
+            <a href="edit?id=235">[编辑]</a>
+            <a href="javascript:;" class="delete" val="235">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						衣物洗护
+					</span>
+        </td>
+        <td>
+            2
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/236" target="_blank">[查看]</a>
+            <a href="edit?id=236">[编辑]</a>
+            <a href="javascript:;" class="delete" val="236">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						皮具护理
+					</span>
+        </td>
+        <td>
+            3
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/237" target="_blank">[查看]</a>
+            <a href="edit?id=237">[编辑]</a>
+            <a href="javascript:;" class="delete" val="237">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						居家清洁
+					</span>
+        </td>
+        <td>
+            4
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/238" target="_blank">[查看]</a>
+            <a href="edit?id=238">[编辑]</a>
+            <a href="javascript:;" class="delete" val="238">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						清洁工具
+					</span>
+        </td>
+        <td>
+            5
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/239" target="_blank">[查看]</a>
+            <a href="edit?id=239">[编辑]</a>
+            <a href="javascript:;" class="delete" val="239">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 40px;">
+						驱虫用品
+					</span>
+        </td>
+        <td>
+            6
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/240" target="_blank">[查看]</a>
+            <a href="edit?id=240">[编辑]</a>
+            <a href="javascript:;" class="delete" val="240">[删除]</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+					<span style="margin-left: 0px; color: #000000;">
+						积分商城
+					</span>
+        </td>
+        <td>
+            7
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            0
+        </td>
+        <td>
+            <a href="/shopxxb2b2c-5.0.2-SNAPSHOT/product/list/241" target="_blank">[查看]</a>
+            <a href="edit?id=241">[编辑]</a>
+            <a href="javascript:;" class="delete" val="241">[删除]</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
